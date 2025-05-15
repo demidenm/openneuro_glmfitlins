@@ -1,0 +1,68 @@
+{
+    "Contrasts": [
+        {
+            "Name": "negattendvsuppress",
+            "ConditionList": [
+                "trial_type.att_neg",
+                "trial_type.suppr_neg"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "attendneutvneg",
+            "ConditionList": [
+                "trial_type.att_neut",
+                "trial_type.att_neg"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "suppressneg",
+            "ConditionList": [
+                "trial_type.suppr_neg"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "attendneg",
+            "ConditionList": [
+                "trial_type.att_neut"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rating",
+            "ConditionList": [
+                "trial_type.rating_par"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "trial_type.rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

@@ -170,6 +170,6 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
                 if os.path.exists(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_contrast-{con_name}_map.png")):
                     readme_content += f"![{con_name} Map]({map_path})\n"
                 else:
-                    readme_content += f"*No statistical maps available for contrast {con_name} and session {session}*\n"
+                    readme_content += f"*No statistical maps available for contrast {con_name}*\n"
     
     return readme_content

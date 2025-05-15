@@ -1,0 +1,58 @@
+{
+    "Contrasts": [
+        {
+            "Name": "choice",
+            "ConditionList": [
+                "trial_type.hard_par",
+                "trial_type.easy_par"
+            ],
+            "Weights": [
+                0.5,
+                0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "choicehardveasy",
+            "ConditionList": [
+                "trial_type.hard_par",
+                "trial_type.easy_par"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "paradelay",
+            "ConditionList": [
+                "demeaned_timedelay"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pararelativelargelater",
+            "ConditionList": [
+                "demeaned_rlglater"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "parasmallsonner",
+            "ConditionList": [
+                "demeaned_smsooner"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

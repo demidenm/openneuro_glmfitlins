@@ -1,0 +1,14 @@
+{
+    "Contrasts": [
+        {
+          "Name": "checkerboard",
+          "ConditionList": [
+            "trial_type.flashing_checkerboard"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+}

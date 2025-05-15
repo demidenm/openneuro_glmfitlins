@@ -1,5 +1,10 @@
 {
     "exclusions": [
-        "*filenametoexclude*"
+        ".reproman",
+        "*func.gii",
+        "*_space-fsaverage5_bold*",
+        "*_den-91k_bold.dtseries.*",
+        "*desc-smoothAROMAnonaggr_bold.nii.gz"
+
     ]
 }

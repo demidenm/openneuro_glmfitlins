@@ -1,0 +1,245 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "16",
+        "17",
+        "18",
+        "20",
+        "21",
+        "23",
+        "24",
+        "25",
+        "26",
+        "28",
+        "29"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "balloonanalogrisktask": {
+            "plot_coords": [
+                4,
+                52,
+                -4
+            ],
+            "bold_volumes": 245,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "reaction_time",
+                "trial_number",
+                "trial_type",
+                "button_pressed",
+                "action",
+                "explode_trial",
+                "trial_value",
+                "trial_cumulative_value",
+                "payoff_level",
+                "onset_orig",
+                "duration_orig",
+                "trial_type_orig"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "int64",
+                "reaction_time": "float64",
+                "trial_number": "int64",
+                "trial_type": "object",
+                "button_pressed": "object",
+                "action": "object",
+                "explode_trial": "int64",
+                "trial_value": "float64",
+                "trial_cumulative_value": "float64",
+                "payoff_level": "float64",
+                "onset_orig": "float64",
+                "duration_orig": "float64",
+                "trial_type_orig": "object"
+            },
+            "trial_type_values": [
+                "BALOON"
+            ]
+        },
+        "discounting": {
+            "plot_coords": [
+                12,
+                10,
+                -12
+            ],
+            "bold_volumes": 293,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "reaction_time",
+                "percent_off_trial",
+                "trial_type",
+                "immediate_amount",
+                "delayed_amount",
+                "delay_time_words",
+                "delay_time_days",
+                "k_this_trial",
+                "response_button",
+                "response_binarized",
+                "onset.plus.rt",
+                "onset.plus.stimdur",
+                "absolute_time",
+                "trialnum",
+                "onset_orig",
+                "duration_orig",
+                "trial_type_orig",
+                "easy_par_orig",
+                "hard_par_orig"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "reaction_time": "float64",
+                "percent_off_trial": "float64",
+                "trial_type": "object",
+                "immediate_amount": "int64",
+                "delayed_amount": "float64",
+                "delay_time_words": "object",
+                "delay_time_days": "int64",
+                "k_this_trial": "float64",
+                "response_button": "object",
+                "response_binarized": "int64",
+                "onset.plus.rt": "float64",
+                "onset.plus.stimdur": "float64",
+                "absolute_time": "float64",
+                "trialnum": "int64",
+                "onset_orig": "float64",
+                "duration_orig": "float64",
+                "trial_type_orig": "object",
+                "easy_par_orig": "float64",
+                "hard_par_orig": "float64"
+            },
+            "trial_type_values": [
+                "easy_par",
+                "hard_par"
+            ]
+        },
+        "emotionalregulation": {
+            "plot_coords": [
+                -42,
+                -6,
+                -22
+            ],
+            "bold_volumes": 200,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "image_type",
+                "image_num",
+                "response",
+                "reaction_time",
+                "trial_num",
+                "onset_orig",
+                "duration_orig",
+                "trial_type_orig",
+                "rating_par_orig"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "int64",
+                "trial_type": "object",
+                "image_type": "object",
+                "image_num": "float64",
+                "response": "float64",
+                "reaction_time": "float64",
+                "trial_num": "int64",
+                "onset_orig": "float64",
+                "duration_orig": "float64",
+                "trial_type_orig": "object",
+                "rating_par_orig": "float64"
+            },
+            "trial_type_values": [
+                "attend",
+                "rate",
+                "suppress"
+            ]
+        },
+        "stopsignal": {
+            "plot_coords": [
+                2,
+                8,
+                54
+            ],
+            "bold_volumes": 184,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "PresentedStimulusArrowDirection",
+                "ReactionTime",
+                "SubjectResponseButton",
+                "SubjectResponseButtonCode",
+                "SubjectResponseCorrectness",
+                "TrialOutcome",
+                "StopSignalDelay",
+                "LadderNumber",
+                "LadderTime",
+                "LadderMovement",
+                "TimeCourse",
+                "onset_orig",
+                "duration_orig",
+                "trial_type_orig"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "PresentedStimulusArrowDirection": "object",
+                "ReactionTime": "float64",
+                "SubjectResponseButton": "object",
+                "SubjectResponseButtonCode": "int64",
+                "SubjectResponseCorrectness": "object",
+                "TrialOutcome": "object",
+                "StopSignalDelay": "float64",
+                "LadderNumber": "int64",
+                "LadderTime": "int64",
+                "LadderMovement": "int64",
+                "TimeCourse": "float64",
+                "onset_orig": "float64",
+                "duration_orig": "float64",
+                "trial_type_orig": "object"
+            },
+            "trial_type_values": [
+                "STOP",
+                "GO"
+            ]
+        }
+    }
+}

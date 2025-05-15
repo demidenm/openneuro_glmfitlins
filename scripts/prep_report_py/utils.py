@@ -157,7 +157,7 @@ def generate_tablecontents(notebook_name):
     display(Markdown("\n".join(toc)))
 
 
-def get_bidstats_events(bids_inp, spec_cont, scan_length=125, ignored=None, return_events_num=0):
+def get_bidstats_events(bids_path, spec_cont, scan_length=125, ignored=None, return_events_num=0):
     """
     Initializes a BIDS layout, processes a BIDSStatsModelsGraph, 
     and returns a DataFrame of the first collection's entities.
@@ -174,7 +174,12 @@ def get_bidstats_events(bids_inp, spec_cont, scan_length=125, ignored=None, retu
     """
     try:
         indexer = BIDSLayoutIndexer(ignore=ignored) if ignored else BIDSLayoutIndexer()
-        bids_layout = BIDSLayout(root=bids_inp, reset_database=True, indexer=indexer)
+    except Exception as e:
+        print(f"Error initializing BIDSLayoutIndexer: {e}")
+        return None
+
+    try:
+        bids_layout = BIDSLayout(root=bids_path, reset_database=True, indexer=indexer)
     except Exception as e:
         print(f"Error initializing BIDSLayout: {e}")
         return None
@@ -503,8 +508,8 @@ def eval_missing_events(dir_layout, taskname):
     A dictionary containing analysis results for each session if sess_info provided,
     otherwise returns results for the entire dataset
     """
-    all_subjects = dir_layout.get_subjects()
-    sess_info = dir_layout.get_sessions()
+    all_subjects = dir_layout.get_subjects(task=taskname)
+    sess_info = dir_layout.get_sessions(task=taskname)
     all_results = {}
     alerts = []
     

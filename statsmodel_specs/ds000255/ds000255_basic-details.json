@@ -1,0 +1,94 @@
+{
+    "Subjects": [
+        "01",
+        "02"
+    ],
+    "Sessions": [
+        "01",
+        "02"    
+    ],
+    "Tasks": {
+        "viewFigure": {
+            "plot_coords": [
+                10,
+                -92,
+                2
+            ],
+            "bold_volumes": 134,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                3,
+                6,
+                9,
+                12,
+                15
+            ],
+            "task_sessions": [
+                "01",
+                "02"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stimulus_pattern"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stimulus_pattern": "object"
+            },
+            "trial_type_values": [
+                "rest",
+                "stimulus_shape",
+                "stimulus_alphabet",
+                "stimulus_alphabet_long",
+                "stimulus_alphabet_thin"
+            ]
+        },
+        "viewRandom": {
+            "plot_coords": [
+                10,
+                -92,
+                2
+            ],
+            "bold_volumes": 149,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                4,
+                5,
+                7,
+                8,
+                10,
+                11,
+                13,
+                14
+            ],
+            "task_sessions": [
+                "01",
+                "02"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stimulus_pattern"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stimulus_pattern": "object"
+            },
+            "trial_type_values": [
+                "rest",
+                "stimulus_random"
+            ]
+        }
+    }
+}

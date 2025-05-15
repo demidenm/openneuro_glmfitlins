@@ -1,0 +1,171 @@
+{
+  "Name": "ds000009",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "16",
+      "17",
+      "18",
+      "20",
+      "21",
+      "23",
+      "24",
+      "25",
+      "26",
+      "28",
+      "29"
+    ],
+    "task": [
+      "discounting"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Copy",
+            "Input": ["trial_type"],
+            "Output": ["rt_reg"]
+          },
+          {
+            "Name": "Replace",
+            "Input": ["rt_reg"],
+            "Replace": {
+              "hard_par": "rt", 
+              "easy_par": "rt"
+              },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type",
+              "rt_reg"
+            ]
+          },
+          {
+            "Name": "Assign",
+            "Input": ["response_time"],
+            "Target": ["rt_reg.rt"],
+            "TargetAttr": "duration"
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*",
+              "rt_reg.rt"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "rt_reg.rt",
+          "demeaned_rlglater",
+          "demeaned_smsooner",
+          "demeaned_timedelay",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "choice",
+          "ConditionList": [
+            "trial_type.hard_par",
+            "trial_type.easy_par"
+          ],
+          "Weights": [
+            0.5,
+            0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "choicehardveasy",
+          "ConditionList": [
+            "trial_type.hard_par",
+            "trial_type.easy_par"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "paradelay",
+          "ConditionList": [
+            "demeaned_timedelay"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "pararelativelargelater",
+          "ConditionList": [
+            "demeaned_rlglater"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "parasmallsonner",
+          "ConditionList": [
+            "demeaned_smsooner"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

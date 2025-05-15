@@ -1,0 +1,70 @@
+{
+    "Contrasts": [
+        {
+          "Name": "successstop",
+          "ConditionList": [
+            "trial_type.successfulstop"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "go",
+          "ConditionList": [
+            "trial_type.successfulgo"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "successstopvgo",
+          "ConditionList": [
+            "trial_type.successfulstop",
+            "trial_type.successfulgo"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "failstopvgo",
+          "ConditionList": [
+            "trial_type.unsuccessfulstop",
+            "trial_type.successfulgo"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "successstopvfailstop",
+          "ConditionList": [
+            "trial_type.successfulstop",
+            "trial_type.unsuccessfulstop"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "rt",
+          "ConditionList": [
+            "rt_reg.rt"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+    ]
+}

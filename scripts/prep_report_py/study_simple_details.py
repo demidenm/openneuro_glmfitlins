@@ -14,6 +14,8 @@ parser.add_argument("--openneuro_study", type=str, help="OpenNeuro study ID", re
 parser.add_argument("--bids_dir", type=str, help="Base BIDS Directory", required=True)
 parser.add_argument("--fmriprep_dir", type=str, help="Base fMRIPrep derivatives directory if different from bids_dir", required=False)
 parser.add_argument("--spec_dir", type=str, help="Directory where model specs are", required=True)
+parser.add_argument("--minimal_fp", type=str, help="Are outputs minimal yes/no", required=True)
+
 
 args = parser.parse_args()
 
@@ -22,10 +24,15 @@ study_id = args.openneuro_study
 bids_path = args.bids_dir
 fmriprep_path = args.fmriprep_dir
 spec_path = args.spec_dir
+minimal_deriv = args.minimal_fp
+
 
 # get layouts
 bids_layout = BIDSLayout(bids_path)
-preproc_layout = BIDSLayout(fmriprep_path, derivatives=False)
+if minimal_deriv == "yes":
+    preproc_layout = BIDSLayout(fmriprep_path, derivatives=False)
+else:
+    preproc_layout = BIDSLayout(fmriprep_path, derivatives=True)
 
 # BIDS input basics
 bids_sub_n = bids_layout.get_subjects()
@@ -106,6 +113,11 @@ for task_name in Tasks:
 
     # Get number of volumes for the first bold file
     num_volumes = get_numvolumes(task_bold_files[0].path) if task_bold_files else None
+
+    # if BIDS Input is cloned, no BOLD information. Try fMRIPrep'd BOLD to obtain volumes.
+    if num_volumes is None:
+        deriv_bold_files = preproc_layout.get(task=task_name, suffix="bold", extension=".nii.gz")
+        num_volumes = get_numvolumes(deriv_bold_files[0].path) if deriv_bold_files else None
 
     if not task_event_files:
         print()

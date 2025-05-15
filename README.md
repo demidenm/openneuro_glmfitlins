@@ -7,15 +7,15 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-05-12`*
+*This repository is in active development. `Last updated: 2025-05-14`*
 
 
 
-N OpenNeuro Studies: 24
+N OpenNeuro Studies: 29
 
-N OpenNeuro Task fMRI Group Summaries: 40
+N OpenNeuro Task fMRI Group Summaries: 46
 
-Completed fMRI Task Names: ParallelAdaptation, wm, em, regulate, prelearning, training, learning, mixedgamblestask, MGT, illusion, Emotionregulation, stopsignal, conditionalstopsignal, figure2backwith1backlures, reversalweatherprediction, weatherprediction, overtwordrepetition, overtverbgeneration, linebisection, covertverbgeneration, fingerfootlips, theoryofmindwithmanualresponse, task, mixedeventrelatedprobe, probabilisticclassification, deterministicclassification, ChangeDetection, task, balloonanalogrisktask, UntrainedHandUntrainedSequence, UntrainedHandTrainedSequence, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, faceidentityoddball, objectviewing, dts, retrieval, encoding, flavor, flanker
+Completed fMRI Task Names: ParallelAdaptation, wm, em, regulate, prelearning, training, learning, mixedgamblestask, MGT, illusion, viewFigure, viewRandom, Emotionregulation, stopsignal, conditionalstopsignal, figure2backwith1backlures, stopsignal, emotionalregulation, balloonanalogrisktask, discounting, reversalweatherprediction, weatherprediction, overtwordrepetition, overtverbgeneration, linebisection, covertverbgeneration, fingerfootlips, theoryofmindwithmanualresponse, task, mixedeventrelatedprobe, probabilisticclassification, deterministicclassification, ChangeDetection, task, balloonanalogrisktask, UntrainedHandUntrainedSequence, UntrainedHandTrainedSequence, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, faceidentityoddball, objectviewing, dts, retrieval, encoding, flavor, flanker
 
 ## Overview
 

@@ -1,0 +1,14 @@
+{
+    "Contrasts": [
+        {
+            "Name": "random",
+            "ConditionList": [
+                "trial_type.stimulus_random"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

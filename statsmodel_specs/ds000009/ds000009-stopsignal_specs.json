@@ -1,0 +1,205 @@
+{
+  "Name": "ds000009",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "16",
+      "17",
+      "18",
+      "20",
+      "21",
+      "23",
+      "24",
+      "25",
+      "26",
+      "28",
+      "29"
+    ],
+    "task": [
+      "stopsignal"
+    ],
+    "run": [
+      1,
+      2
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Copy",
+            "Input": ["trial_type"],
+            "Output": ["rt_reg"]
+          },
+          {
+            "Name": "Replace",
+            "Input": ["rt_reg"],
+            "Replace": {
+                "unuccessfulgo": "rt",
+                "successfulgo": "rt",
+                "successfulstop": "rt",
+                "unsuccessfulstop": "rt",
+                "junk": "rt"
+
+                },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type",
+              "rt_reg"
+            ]
+          },
+          {
+            "Name": "Assign",
+            "Input": ["response_time"],
+            "Target": ["rt_reg.rt"],
+            "TargetAttr": "duration"
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*",
+              "rt_reg.rt"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "rt_reg.rt",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+          {
+            "Name": "successstop",
+            "ConditionList": [
+              "trial_type.successfulstop"
+            ],
+            "Weights": [
+              1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "go",
+            "ConditionList": [
+              "trial_type.successfulgo"
+            ],
+            "Weights": [
+              1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "successstopvgo",
+            "ConditionList": [
+              "trial_type.successfulstop",
+              "trial_type.successfulgo"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "failstopvgo",
+            "ConditionList": [
+              "trial_type.unsuccessfulstop",
+              "trial_type.successfulgo"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "successstopvfailstop",
+            "ConditionList": [
+              "trial_type.successfulstop",
+              "trial_type.unsuccessfulstop"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "rt",
+            "ConditionList": [
+              "rt_reg.rt"
+            ],
+            "Weights": [
+              1
+            ],
+            "Test": "t"
+          }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

@@ -61,7 +61,7 @@ echo "   - Files: ${n_files}"
 echo "   - Destination: ${data}/fmriprep/${openneuro_id}/derivatives"
 if [[ "$minimal_derivatives" == "yes" ]]; then
         echo "   - fMRIPrep Derivatives on s3: Minimal, will ⚠️  require running recreate_fmriprep.sh script. "
-    else
+else
         echo "   - fMRIPrep Derivatives on s3: Full, will not require running recreate_fmriprep.sh script."
 fi
 echo -e "   - Note: If minimal, fmriprep derivatives size can be reduced by adding filters to './scripts/prep_report_py/file_exclusions.json'"
@@ -75,11 +75,11 @@ if [[ "$user_input" == "yes" ]]; then
     
     if [[ "$minimal_derivatives" == "yes" ]]; then
         echo "   Downloading complete BIDS dataset and minimal fMRIPrep data..."
-        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" "True"
+        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" ${minimal_derivatives}
         echo -e "\n   \033[1;31mIMPORTANT: Run recreate_fmriprep.sh script next\033[0m"
     else
         echo "   Downloading minimal BIDS dataset and complete fMRIPrep derivatives..."
-        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" "False"
+        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" ${minimal_derivatives}
     fi
     
     echo -e "\nDownload completed successfully."
@@ -121,7 +121,8 @@ uv run python "${scripts_dir}/prep_report_py/study_simple_details.py" \
     --openneuro_study "${openneuro_id}" \
     --bids_dir "${data}/input/${openneuro_id}" \
     --fmriprep_dir "${data}/fmriprep/${openneuro_id}" \
-    --spec_dir "${spec_dir}"
+    --spec_dir "${spec_dir}" \
+    --minimal_fp "${minimal_derivatives}"
 
 echo -e "\nProcess completed for ${openneuro_id}"
 

@@ -1,0 +1,14 @@
+{
+    "Contrasts": [
+        {
+          "Name": "shape",
+          "ConditionList": [
+            "trial_type.stimulus_shape"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+}

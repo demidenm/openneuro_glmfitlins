@@ -1,0 +1,104 @@
+{
+    "Contrasts": [
+        {
+            "Name": "explodevcash",
+            "ConditionList": [
+                "trial_type.explode",
+                "trial_type.cashout"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pumpsvcash",
+            "ConditionList": [
+                "trial_type.pumps",
+                "trial_type.cashout"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pumpsvexplode",
+            "ConditionList": [
+                "trial_type.pumps",
+                "trial_type.explode"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allpumps",
+            "ConditionList": [
+                "trial_type.pumps",
+                "trial_type.cashout",
+                "trial_type.explode"
+            ],
+            "Weights": [
+                0.33,
+                0.33,
+                0.33
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pumps",
+            "ConditionList": [
+                "trial_type.pumps"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pumpspara",
+            "ConditionList": [
+                "demeaned_pumps"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cashpara",
+            "ConditionList": [
+                "demeaned_cashout"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "explodepara",
+            "ConditionList": [
+                "demeaned_explode"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

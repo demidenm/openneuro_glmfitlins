@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=on_minfmriprep
-#SBATCH --array=1-17%25 #1-18%25 #ds0023825 #1-41%30 # ds004006
+#SBATCH --array=0-20%25 #1-18%25 #ds0023825 #1-41%30 # ds004006
 #SBATCH --time=02:30:00
 #SBATCH --cpus-per-task=6
 #SBATCH --mem-per-cpu=10GB

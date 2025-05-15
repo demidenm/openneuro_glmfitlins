@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description="Setup OpenNeuro study variables")
 parser.add_argument("openneuro_study", type=str, help="OpenNeuro study ID")
 parser.add_argument("data_dir", type=str, help="Base directory for dataset storage")
 parser.add_argument("spec_dir", type=str, help="Directory for specification files for study")
-parser.add_argument("is_minimal", type=bool, help="Are fMRIPrep'd derivatives minimal output (True/False)?")
+parser.add_argument("is_minimal", help="Are fMRIPrep'd derivatives minimal output (yes/no)?")
 args = parser.parse_args()
 
 # Assign arguments to variables
@@ -41,9 +41,10 @@ bids_input_dir = os.path.join(bids_data, openneuro_study)
 if os.path.exists(bids_input_dir):
     print(f"        {openneuro_study} already exists. Skipping BIDS data download.")
 else:
-    if minimal_fp is True:
+    if minimal_fp == "yes":
         try:
             # Clone dataset
+            print(f"Starting downloading for full BIDS and minimal fMRIprep derivatives minimal_fp == {minimal_fp}\n")
             subprocess.run(['datalad', 'install', '-s', git_repo_url, bids_input_dir], check=True)
             
             # del derivatives if it exists
@@ -72,9 +73,10 @@ else:
             print(f"    {openneuro_study}. Dataset files downloaded successfully.")
         except subprocess.CalledProcessError as e:
             print(f"        An error occurred while getting the files: {e}")
-    else:
+    elif minimal_fp == "no":
         try:
-            # Clone & download entire dataset; delete derivatives directory if present
+            # Clone dataset
+            print(f"Starting downloading for cloned BIDS and full fMRIprep derivatives given minimal_fp == {minimal_fp} \n")
             subprocess.run(['datalad', 'clone', git_repo_url, bids_input_dir], check=True)
 
             try:
@@ -93,10 +95,7 @@ else:
 
 
 # Build the AWS CLI command for FMRIPREP & MRIQC
-if minimal_fp is True:
-    fmriprep_out_dir = os.path.join(fmriprep_dir, openneuro_study)
-else:
-    fmriprep_out_dir = os.path.join(fmriprep_dir, openneuro_study, "derivatives")
+fmriprep_out_dir = os.path.join(fmriprep_dir, openneuro_study)
     
 download_fmriprep = [
     "aws", "s3", "sync", "--no-sign-request",

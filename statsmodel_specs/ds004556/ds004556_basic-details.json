@@ -1,0 +1,94 @@
+{
+    "Subjects": [
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "36",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "feedback": {
+            "plot_coords": [
+                48,
+                -60,
+                2
+            ],
+            "bold_volumes": 521,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "rating"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "rating": "float64"
+            },
+            "trial_type_values": [
+                "fixation_cross",
+                "instruction",
+                "watch_static_bars",
+                "control_moving_bars",
+                "rating",
+                "watch_moving_bars"
+            ]
+        }
+    }
+}

@@ -1,0 +1,199 @@
+{
+    "Subjects": [
+        "21",
+        "22"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "1Norm": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 340,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Hand",
+                "Face"
+            ]
+        },
+        "2Swallow": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 340,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Hand",
+                "Swallow",
+                "Face"
+            ]
+        },
+        "3HandA": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 336,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Hand",
+                "TouchingShoulder",
+                "ChangeHandPosition",
+                "Face"
+            ]
+        },
+        "4HandB": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 336,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Hand",
+                "Face",
+                "TouchingShoulder",
+                "ChangeHandPosition"
+            ]
+        },
+        "5Eyes": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 336,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "EyesCenter",
+                "Hand",
+                "Face",
+                "EyesLeft",
+                "EyeMovement",
+                "EyesRight"
+            ]
+        },
+        "6DeepBreathing": {
+            "plot_coords": [
+                -36,
+                -72,
+                52
+            ],
+            "bold_volumes": 336,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Hand",
+                "Face"
+            ]
+        }
+    }
+}

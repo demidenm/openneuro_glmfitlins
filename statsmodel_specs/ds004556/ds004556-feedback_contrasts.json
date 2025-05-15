@@ -1,0 +1,104 @@
+{
+    "Contrasts": [
+        {
+            "Name": "barstaticvmoving",
+            "ConditionList": [
+                "trial_type.watch_static_bars",
+                "trial_type.watch_moving_bars"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "barcontrolvmoving",
+            "ConditionList": [
+                "trial_type.control_moving_bars",
+                "trial_type.watch_moving_bars"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "barcontrolvstatic",
+            "ConditionList": [
+                "trial_type.control_moving_bars",
+                "trial_type.watch_static_bars"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "barcontrolvstaticmoving",
+            "ConditionList": [
+                "trial_type.control_moving_bars",
+                "trial_type.watch_static_bars",
+                "trial_type.watch_moving_bars"
+            ],
+            "Weights": [
+                1,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allbarsvfixation",
+            "ConditionList": [
+                "trial_type.control_moving_bars",
+                "trial_type.watch_static_bars",
+                "trial_type.watch_moving_bars",
+                "trial_type.fixation_cross"
+            ],
+            "Weights": [
+                0.333,
+                0.333,
+                0.333,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "ratingvfixation",
+            "ConditionList": [
+               "trial_type.rating",
+               "trial_type.fixation_cross"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "instructionvfixation",
+            "ConditionList": [
+               "trial_type.instruction",
+               "trial_type.fixation_cross"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rate",
+            "ConditionList": [
+                "rating"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

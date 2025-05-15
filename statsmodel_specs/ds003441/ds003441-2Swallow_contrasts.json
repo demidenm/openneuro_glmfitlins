@@ -1,0 +1,70 @@
+{
+    "Contrasts": [
+        {
+            "Name": "handvface",
+            "ConditionList": [
+                "trial_type.Hand",
+                "trial_type.Face"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "handvswallow",
+            "ConditionList": [
+                "trial_type.Hand",
+                "trial_type.Swallow"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "facevswallow",
+            "ConditionList": [
+                "trial_type.Face",
+                "trial_type.Swallow"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "hand",
+            "ConditionList": [
+                "trial_type.Hand"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "face",
+            "ConditionList": [
+                "trial_type.Face"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "swallow",
+            "ConditionList": [
+                "trial_type.Swallow"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

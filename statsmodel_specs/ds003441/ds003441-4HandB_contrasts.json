@@ -1,0 +1,52 @@
+{
+    "Contrasts": [
+        {
+            "Name": "handvface",
+            "ConditionList": [
+                "trial_type.Hand",
+                "trial_type.Face"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "handvtouchingshoulder",
+            "ConditionList": [
+                "trial_type.Hand",
+                "trial_type.TouchingShoulder"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "handvchangehandposition",
+            "ConditionList": [
+                "trial_type.Hand",
+                "trial_type.ChangeHandPosition"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "facevtouchingshoulder",
+            "ConditionList": [
+                "trial_type.Face",
+                "trial_type.TouchingShoulder"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

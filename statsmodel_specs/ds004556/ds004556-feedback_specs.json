@@ -1,0 +1,221 @@
+{
+  "Name": "ds004556",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "36",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57"
+    ],
+    "task": [
+      "feedback"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "rating",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "barstaticvmoving",
+          "ConditionList": [
+            "trial_type.watch_static_bars",
+            "trial_type.watch_moving_bars"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "barcontrolvmoving",
+          "ConditionList": [
+            "trial_type.control_moving_bars",
+            "trial_type.watch_moving_bars"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "barcontrolvstatic",
+          "ConditionList": [
+            "trial_type.control_moving_bars",
+            "trial_type.watch_static_bars"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "barcontrolvstaticmoving",
+          "ConditionList": [
+            "trial_type.control_moving_bars",
+            "trial_type.watch_static_bars",
+            "trial_type.watch_moving_bars"
+          ],
+          "Weights": [
+            1,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "allbarsvfixation",
+          "ConditionList": [
+            "trial_type.control_moving_bars",
+            "trial_type.watch_static_bars",
+            "trial_type.watch_moving_bars",
+            "trial_type.fixation_cross"
+          ],
+          "Weights": [
+            0.333,
+            0.333,
+            0.333,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ratingvfixation",
+          "ConditionList": [
+            "trial_type.rating",
+            "trial_type.fixation_cross"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "instructionvfixation",
+          "ConditionList": [
+            "trial_type.instruction",
+            "trial_type.fixation_cross"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "rate",
+          "ConditionList": [
+            "rating"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

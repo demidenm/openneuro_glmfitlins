@@ -10,9 +10,9 @@
     "Tasks": {
         "viewFigure": {
             "plot_coords": [
-                10,
-                -92,
-                2
+                38,
+                -88,
+                0
             ],
             "bold_volumes": 134,
             "dummy_volumes": null,
@@ -50,9 +50,9 @@
         },
         "viewRandom": {
             "plot_coords": [
-                10,
-                -92,
-                2
+                38,
+                -88,
+                0
             ],
             "bold_volumes": 149,
             "dummy_volumes": null,

@@ -1,0 +1,314 @@
+{
+  "Name": "ds003441",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "21",
+      "22"
+    ],
+    "task": [
+      "5Eyes"
+    ],
+    "session": [
+      "01"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "handvface",
+          "ConditionList": [
+            "trial_type.Hand",
+            "trial_type.Face"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "handveyescenter",
+          "ConditionList": [
+            "trial_type.Hand",
+            "trial_type.EyesCenter"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "handveyesleft",
+          "ConditionList": [
+            "trial_type.Hand",
+            "trial_type.EyesLeft"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "handveyesright",
+          "ConditionList": [
+            "trial_type.Hand",
+            "trial_type.EyesRight"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "handveyemovement",
+          "ConditionList": [
+            "trial_type.Hand",
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "faceveyescenter",
+          "ConditionList": [
+            "trial_type.Face",
+            "trial_type.EyesCenter"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "faceveyesleft",
+          "ConditionList": [
+            "trial_type.Face",
+            "trial_type.EyesLeft"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "faceveyesright",
+          "ConditionList": [
+            "trial_type.Face",
+            "trial_type.EyesRight"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "faceveyemovement",
+          "ConditionList": [
+            "trial_type.Face",
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyescenterveyesleft",
+          "ConditionList": [
+            "trial_type.EyesCenter",
+            "trial_type.EyesLeft"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyescenterveyesright",
+          "ConditionList": [
+            "trial_type.EyesCenter",
+            "trial_type.EyesRight"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyescenterveyemovement",
+          "ConditionList": [
+            "trial_type.EyesCenter",
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyesleftveyesright",
+          "ConditionList": [
+            "trial_type.EyesLeft",
+            "trial_type.EyesRight"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyesleftveyemovement",
+          "ConditionList": [
+            "trial_type.EyesLeft",
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyesrightveyemovement",
+          "ConditionList": [
+            "trial_type.EyesRight",
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyescenter",
+          "ConditionList": [
+            "trial_type.EyesCenter"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "hand",
+          "ConditionList": [
+            "trial_type.Hand"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "face",
+          "ConditionList": [
+            "trial_type.Face"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyesleft",
+          "ConditionList": [
+            "trial_type.EyesLeft"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyemovement",
+          "ConditionList": [
+            "trial_type.EyeMovement"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "eyesright",
+          "ConditionList": [
+            "trial_type.EyesRight"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

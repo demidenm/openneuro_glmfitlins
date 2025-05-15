@@ -13,9 +13,9 @@
 
 N OpenNeuro Studies: 29
 
-N OpenNeuro Task fMRI Group Summaries: 46
+N OpenNeuro Task fMRI Group Summaries: 47
 
-Completed fMRI Task Names: ParallelAdaptation, wm, em, regulate, prelearning, training, learning, mixedgamblestask, MGT, illusion, viewFigure, viewRandom, Emotionregulation, stopsignal, conditionalstopsignal, figure2backwith1backlures, stopsignal, emotionalregulation, balloonanalogrisktask, discounting, reversalweatherprediction, weatherprediction, overtwordrepetition, overtverbgeneration, linebisection, covertverbgeneration, fingerfootlips, theoryofmindwithmanualresponse, task, mixedeventrelatedprobe, probabilisticclassification, deterministicclassification, ChangeDetection, task, balloonanalogrisktask, UntrainedHandUntrainedSequence, UntrainedHandTrainedSequence, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, faceidentityoddball, objectviewing, dts, retrieval, encoding, flavor, flanker
+Completed fMRI Task Names: balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, figure2backwith1backlures, fingerfootlips, flanker, flavor, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
 
 ## Overview
 

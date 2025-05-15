@@ -1,0 +1,256 @@
+{
+  "Name": "ds000117",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "task": [
+      "facerecognition"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "session": [
+      "mri"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Copy",
+            "Input": ["trial_type"],
+            "Output": ["rt_reg"]
+          },
+          {
+            "Name": "Replace",
+            "Input": ["rt_reg"],
+            "Replace": {
+                "famous_initial": "rt",
+                "famous_immediate": "rt",
+                "famous_delayed": "rt",
+                "unfamiliar_initial": "rt",
+                "unfamiliar_immediate": "rt",
+                "unfamiliar_delayed": "rt",
+                "scrambled_initial": "rt",
+                "scrambled_immediate": "rt",
+                "scrambled_delayed": "rt"
+                },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type", "rt_reg"
+            ]
+          },
+          {
+            "Name": "Assign",
+            "Input": ["response_time"],
+            "Target": ["rt_reg.rt"],
+            "TargetAttr": "duration"
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*",
+              "rt_reg.rt"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "rt_reg.rt",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "allfacesvscrambled",
+          "ConditionList": [
+            "trial_type.famous_initial",
+            "trial_type.famous_immediate",
+            "trial_type.famous_delayed",
+            "trial_type.unfamiliar_initial",
+            "trial_type.unfamiliar_immediate",
+            "trial_type.unfamiliar_delayed",
+            "trial_type.scrambled_initial",
+            "trial_type.scrambled_immediate",
+            "trial_type.scrambled_delayed"
+          ],
+          "Weights": [
+            0.166667,
+            0.166667,
+            0.166667,
+            0.166667,
+            0.166667,
+            0.166667,
+            -0.333333,
+            -0.333333,
+            -0.333333
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "famousvunfamiliar",
+          "ConditionList": [
+            "trial_type.famous_initial",
+            "trial_type.famous_immediate",
+            "trial_type.famous_delayed",
+            "trial_type.unfamiliar_initial",
+            "trial_type.unfamiliar_immediate",
+            "trial_type.unfamiliar_delayed"
+          ],
+          "Weights": [
+            0.333333,
+            0.333333,
+            0.333333,
+            -0.333333,
+            -0.333333,
+            -0.333333
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "initialvrepeat",
+          "ConditionList": [
+            "trial_type.famous_initial",
+            "trial_type.unfamiliar_initial",
+            "trial_type.scrambled_initial",
+            "trial_type.famous_immediate",
+            "trial_type.famous_delayed",
+            "trial_type.unfamiliar_immediate",
+            "trial_type.unfamiliar_delayed",
+            "trial_type.scrambled_immediate",
+            "trial_type.scrambled_delayed"
+          ],
+          "Weights": [
+            0.333333,
+            0.333333,
+            0.333333,
+            -0.166667,
+            -0.166667,
+            -0.166667,
+            -0.166667,
+            -0.166667,
+            -0.166667
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "famousinitialvrepeats",
+          "ConditionList": [
+            "trial_type.famous_initial",
+            "trial_type.famous_immediate",
+            "trial_type.famous_delayed"
+          ],
+          "Weights": [
+            1.0,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "unfamiliarinitialvrepeats",
+          "ConditionList": [
+            "trial_type.unfamiliar_initial",
+            "trial_type.unfamiliar_immediate",
+            "trial_type.unfamiliar_delayed"
+          ],
+          "Weights": [
+            1.0,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

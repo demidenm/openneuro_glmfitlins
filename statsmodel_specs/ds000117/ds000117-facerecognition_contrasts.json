@@ -1,0 +1,115 @@
+{
+    "Contrasts": [
+        {
+            "Name": "allfacesvscrambled",
+            "ConditionList": [
+                "trial_type.famous_initial",
+                "trial_type.famous_immediate",
+                "trial_type.famous_delayed",
+                "trial_type.unfamiliar_initial",
+                "trial_type.unfamiliar_immediate",
+                "trial_type.unfamiliar_delayed",
+                "trial_type.scrambled_initial",
+                "trial_type.scrambled_immediate",
+                "trial_type.scrambled_delayed"
+            ],
+            "Weights": [
+                0.166667,
+                0.166667,
+                0.166667,
+                0.166667,
+                0.166667,
+                0.166667,
+                -0.333333,
+                -0.333333,
+                -0.333333
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "famousvunfamiliar",
+            "ConditionList": [
+                "trial_type.famous_initial",
+                "trial_type.famous_immediate",
+                "trial_type.famous_delayed",
+                "trial_type.unfamiliar_initial",
+                "trial_type.unfamiliar_immediate",
+                "trial_type.unfamiliar_delayed"
+            ],
+            "Weights": [
+                0.333333,
+                0.333333,
+                0.333333,
+                -0.333333,
+                -0.333333,
+                -0.333333
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "initialvrepeat",
+            "ConditionList": [
+                "trial_type.famous_initial",
+                "trial_type.unfamiliar_initial",
+                "trial_type.scrambled_initial",
+                "trial_type.famous_immediate",
+                "trial_type.famous_delayed",
+                "trial_type.unfamiliar_immediate",
+                "trial_type.unfamiliar_delayed",
+                "trial_type.scrambled_immediate",
+                "trial_type.scrambled_delayed"
+            ],
+            "Weights": [
+                0.333333,
+                0.333333,
+                0.333333,
+                -0.166667,
+                -0.166667,
+                -0.166667,
+                -0.166667,
+                -0.166667,
+                -0.166667
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "famousinitialvrepeats",
+            "ConditionList": [
+                "trial_type.famous_initial",
+                "trial_type.famous_immediate",
+                "trial_type.famous_delayed"
+            ],
+            "Weights": [
+                1,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "unfamiliarinitialvrepeats",
+            "ConditionList": [
+                "trial_type.unfamiliar_initial",
+                "trial_type.unfamiliar_immediate",
+                "trial_type.unfamiliar_delayed"
+            ],
+            "Weights": [
+                1,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "trial_type.reg_rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+
+    ]
+}

@@ -854,3 +854,33 @@ def ds000117(eventspath: str, task: str):
         else:
             print("No old trial_types found. Skipping modification.")
             return None
+
+
+def ds004556(eventspath: str, task: str):
+    """
+    Process event data for ds000117 by modifying trial types to make them easier to interpret
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset (regulate, learning, training, prelearning)
+    
+    Returns:
+    modified events files
+    """
+    
+
+    if task in ["feedback"]:
+        eventsdat = pd.read_csv(eventspath, sep='\t')
+        eventsdat['old_rating'] = eventsdat['rating']
+
+        #  if rating contains na
+        if eventsdat['rating'].isna().any():
+            print("replacing n/a in rating with '0' to make modulation compatible w/ fitlins")            
+
+            eventsdat['rating'] = eventsdat["rating"].fillna(0)
+
+            print("Unique values in rating:",  eventsdat['rating'].unique())
+            return eventsdat
+
+        else:
+            print("No n/a in rating col. Skipping modification.")
+            return None

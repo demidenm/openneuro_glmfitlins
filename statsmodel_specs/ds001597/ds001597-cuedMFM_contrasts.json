@@ -1,0 +1,60 @@
+{
+    "Contrasts": [
+      {
+        "Name": "movevcue",
+        "ConditionList": [
+          "trial_type.MS1",
+          "trial_type.MS2",
+          "trial_type.MS3",
+          "trial_type.MS4",
+          "trial_type.CS1",
+          "trial_type.CS2",
+          "trial_type.CS3",
+          "trial_type.CS4"
+        ],
+        "Weights": [
+            0.25, 
+            0.25, 
+            0.25,
+            0.25,
+            -0.25, 
+            -0.25,
+            -0.25,
+            -0.25
+          ],
+        "Test": "t"
+      },
+      {
+        "Name": "movement",
+        "ConditionList": [
+          "trial_type.MS1",
+          "trial_type.MS2",
+          "trial_type.MS3",
+          "trial_type.MS4"
+        ],
+        "Weights": [
+            0.25, 
+            0.25, 
+            0.25, 
+            0.25
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "cue",
+        "ConditionList": [
+          "trial_type.CS1",
+          "trial_type.CS2",
+          "trial_type.CS3",
+          "trial_type.CS4"
+        ],
+        "Weights": [
+            0.25, 
+            0.25, 
+            0.25, 
+            0.25
+        ],
+        "Test": "t"
+      }
+    ]
+  }

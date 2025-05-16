@@ -99,13 +99,20 @@ if not os.path.exists(spec_out_file):
     if len(tasksess_lst) > 0:
         model_data["Input"]["session"] = tasksess_lst
 
-    # Update the contrasts in the model (for the "Run" level node)
+    # update the contrasts in the model (for the "Run" level node)
     for node in model_data["Nodes"]:
         if node["Level"] == "Run":
             node["Contrasts"] = contrast_data["Contrasts"]
             break  # Exit loop after updating
 
-    # Append session to GroupBy array instead of replacing it
+    # drop Subject node if runs is less than 2, nothing to average
+    # note, since the nodes here are structured in the same way using our sample, to simplify using pop to remove 2nd 'subject' node
+    if len(taskrun_lst) < 2:
+        print("Subject node is removed as the number of runs is less than 2 (no runs to average). Confirm spec to ensure this behavior is correct")
+        model_data['Nodes'].pop(1)
+
+
+    # append session to GroupBy array instead of replacing it
     if len(tasksess_lst) > 0:
         for node in model_data["Nodes"]:
             if "GroupBy" in node:

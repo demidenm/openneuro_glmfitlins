@@ -1,0 +1,76 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+    ],
+    "Sessions": [
+        "post",
+        "pre"
+    ],
+    "Tasks": {
+        "cuedMFM": {
+            "plot_coords": [
+                -4,
+                -28,
+                60
+            ],
+            "bold_volumes": 241,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+            ],
+            "task_sessions": [
+                "post",
+                "pre"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "correct"
+            ],
+            "column_data_types": {
+                "onset": "object",
+                "duration": "float64",
+                "trial_type": "object",
+                "correct": "object"
+            },
+            "trial_type_values": [
+                "MS3",
+                "MS4",
+                "CS3",
+                "CS1",
+                "CS2",
+                "MS2",
+                "CS4",
+                "MS1"
+            ]
+        }
+    }
+}

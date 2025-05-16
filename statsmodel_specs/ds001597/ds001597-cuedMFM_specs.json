@@ -1,0 +1,219 @@
+{
+  "Name": "ds001597",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20"
+    ],
+    "task": [
+      "cuedMFM"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "session": [
+      "post",
+      "pre"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*"
+
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "correct",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "movevcue",
+          "ConditionList": [
+            "trial_type.MS1",
+            "trial_type.MS2",
+            "trial_type.MS3",
+            "trial_type.MS4",
+            "trial_type.CS1",
+            "trial_type.CS2",
+            "trial_type.CS3",
+            "trial_type.CS4"
+          ],
+          "Weights": [
+              0.25, 
+              0.25, 
+              0.25,
+              0.25,
+              -0.25, 
+              -0.25,
+              -0.25,
+              -0.25
+            ],
+          "Test": "t"
+        },
+        {
+          "Name": "movement",
+          "ConditionList": [
+            "trial_type.MS1",
+            "trial_type.MS2",
+            "trial_type.MS3",
+            "trial_type.MS4"
+          ],
+          "Weights": [
+              0.25, 
+              0.25, 
+              0.25, 
+              0.25
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ms1",
+          "ConditionList": [
+            "trial_type.MS1"
+          ],
+          "Weights": [
+              1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ms2",
+          "ConditionList": [
+            "trial_type.MS2"
+          ],
+          "Weights": [
+              1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ms3",
+          "ConditionList": [
+            "trial_type.MS3"
+          ],
+          "Weights": [
+              1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ms4",
+          "ConditionList": [
+            "trial_type.MS4"
+          ],
+          "Weights": [
+              1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cue",
+          "ConditionList": [
+            "trial_type.CS1",
+            "trial_type.CS2",
+            "trial_type.CS3",
+            "trial_type.CS4"
+          ],
+          "Weights": [
+              0.25, 
+              0.25, 
+              0.25, 
+              0.25
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

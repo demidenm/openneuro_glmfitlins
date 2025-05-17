@@ -1,0 +1,220 @@
+{
+  "Name": "ds000171",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "control01",
+      "control02",
+      "control03",
+      "control04",
+      "control05",
+      "control06",
+      "control07",
+      "control08",
+      "control09",
+      "control10",
+      "control11",
+      "control12",
+      "control13",
+      "control14",
+      "control15",
+      "control16",
+      "control17",
+      "control18",
+      "control19",
+      "control20",
+      "mdd01",
+      "mdd02",
+      "mdd03",
+      "mdd04",
+      "mdd05",
+      "mdd06",
+      "mdd07",
+      "mdd08",
+      "mdd09",
+      "mdd10",
+      "mdd11",
+      "mdd12",
+      "mdd13",
+      "mdd14",
+      "mdd15",
+      "mdd16",
+      "mdd17",
+      "mdd18",
+      "mdd19"
+    ],
+    "task": [
+      "music"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "musicvsounds",
+          "ConditionList": [
+            "trial_type.positive_music",
+            "trial_type.negative_music",
+            "trial_type.tones"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "posmusicvnegmusic",
+          "ConditionList": [
+            "trial_type.positive_music",
+            "trial_type.negative_music"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "negmusicvsounds",
+          "ConditionList": [
+            "trial_type.negative_music",
+            "trial_type.tones"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "posmusicvsounds",
+          "ConditionList": [
+            "trial_type.positive_music",
+            "trial_type.tones"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "posmusic",
+          "ConditionList": [
+            "trial_type.positive_music"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "negmusic",
+          "ConditionList": [
+            "trial_type.negative_music"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "tones",
+          "ConditionList": [
+            "trial_type.tones"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "response",
+          "ConditionList": [
+            "trial_type.response"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

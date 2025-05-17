@@ -1,0 +1,94 @@
+{
+    "Contrasts": [
+        {
+            "Name": "nonmusicvsounds",
+            "ConditionList": [
+                "trial_type.positive_nonmusic",
+                "trial_type.negative_nonmusic",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posnonmusicvnegnonmusic",
+            "ConditionList": [
+                "trial_type.positive_nonmusic",
+                "trial_type.negative_nonmusic"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "negnonmusicvsounds",
+            "ConditionList": [
+                "trial_type.negative_nonmusic",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posnonmusicvsounds",
+            "ConditionList": [
+                "trial_type.positive_nonmusic",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posnonmusic",
+            "ConditionList": [
+                "trial_type.positive_nonmusic"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "negnonmusic",
+            "ConditionList": [
+                "trial_type.negative_nonmusic"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "tones",
+            "ConditionList": [
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "response",
+            "ConditionList": [
+                "trial_type.response"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

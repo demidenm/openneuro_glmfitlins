@@ -1,0 +1,94 @@
+{
+    "Contrasts": [
+        {
+            "Name": "musicvsounds",
+            "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.negative_music",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posmusicvnegmusic",
+            "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.negative_music"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "negmusicvsounds",
+            "ConditionList": [
+                "trial_type.negative_music",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posmusicvsounds",
+            "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "posmusic",
+            "ConditionList": [
+                "trial_type.positive_music"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "negmusic",
+            "ConditionList": [
+                "trial_type.negative_music"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "tones",
+            "ConditionList": [
+                "trial_type.tones"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "response",
+            "ConditionList": [
+                "trial_type.response"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

@@ -1,0 +1,113 @@
+{
+    "Subjects": [
+        "control01",
+        "control02",
+        "control03",
+        "control04",
+        "control05",
+        "control06",
+        "control07",
+        "control08",
+        "control09",
+        "control10",
+        "control11",
+        "control12",
+        "control13",
+        "control14",
+        "control15",
+        "control16",
+        "control17",
+        "control18",
+        "control19",
+        "control20",
+        "mdd01",
+        "mdd02",
+        "mdd03",
+        "mdd04",
+        "mdd05",
+        "mdd06",
+        "mdd07",
+        "mdd08",
+        "mdd09",
+        "mdd10",
+        "mdd11",
+        "mdd12",
+        "mdd13",
+        "mdd14",
+        "mdd15",
+        "mdd16",
+        "mdd17",
+        "mdd18",
+        "mdd19"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "music": {
+            "plot_coords": [
+                -1,
+                -4,
+                -5
+            ],
+            "bold_volumes": 105,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "tones",
+                "response",
+                "negative_music",
+                "positive_music"
+            ]
+        },
+        "nonmusic": {
+            "plot_coords": [
+                -1,
+                -4,
+                -5
+            ],
+            "bold_volumes": 105,
+            "dummy_volumes": null,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                4,
+                5
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "tones",
+                "response",
+                "positive_nonmusic",
+                "negative_nonmusic"
+            ]
+        }
+    }
+}

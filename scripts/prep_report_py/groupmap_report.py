@@ -301,17 +301,28 @@ if r2_success:
     plt.close()
 
 # GROUP MAP PLOTS
-# Plot group maps if they exist
-grp_map_path = f"{analysis_dir}/node-dataLevel"
-sessionlabs = None
-if os.path.exists(grp_map_path):
+# Plot group maps if they exist; sometimes fitlins create dataLevel and other times datasetLevel
+if os.path.exists(f"{analysis_dir}/node-dataLevel"):
+    grp_map_path = f"{analysis_dir}/node-dataLevel"
+    print("Setting group map path to:", grp_map_path)
 
+elif os.path.exists(f"{analysis_dir}/node-datasetLevel"):
+    grp_map_path = f"{analysis_dir}/node-datasetLevel"
+    print("Setting group map path to:", grp_map_path)
+
+else:
+    grp_map_path = None 
+    
+sessionlabs = None
+
+if os.path.exists(grp_map_path):
     # Create group maps and save them for each contrast
     for con_name in contrast_dict.keys():
         # First, try to find maps directly in the node-dataLevel folder
         direct_zstat_paths = list(Path(grp_map_path).glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
         
         if direct_zstat_paths:
+            print(f"No session folders, grabbing {con_name} group map from node-dataLevel directly.\n")
             # Handle maps found directly in node-dataLevel
             output_img_path = f"{spec_imgs_dir}/{study_id}_task-{task}_contrast-{con_name}_map.png"
             plot_stat_map(
@@ -324,12 +335,14 @@ if os.path.exists(grp_map_path):
                 title=f"{con_name}: z-stat map"
             )
         else:
+
             # Look for session folders (ses-*)
             session_folders = [f for f in os.listdir(grp_map_path) if f.startswith('ses-') and os.path.isdir(os.path.join(grp_map_path, f))]
             sessionlabs = [session for session in session_folders]
 
             # For each session folder, find and plot maps
             for session in session_folders:
+                print(f"Session folders existing, grabbing {con_name} group map from node-dataLevel {session} sub-directory.\n")
                 
                 session_path = os.path.join(grp_map_path, session)
                 # Search for contrast maps in each session folder

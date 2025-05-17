@@ -1,11 +1,11 @@
 # ds000114: linebisection Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000114 linebisection is 1.7G with 1178 files.
+The size of the Fitlins Derivatives for ds000114 linebisection is 687M with 518 files.
 
 ## Statistical Analysis Boilerplate
 
 ### First-level Analysis
-FitLins was employed to estimate task-related BOLD activity in the linebisection task for 10 subjects. In this instance, FitLins used the Nilearn estimator in its statistical modeling of the BOLD data. For each participant, 5 regressors of interest (out of total 6 regressors; see list below) were convolved with a spm hemodynamic response function in Nilearn. The design matrix incorporated both regressors of interest and 32 additional components, including a drift cosine basis set and nuisance regressors to account for sources of noise in the BOLD signal. Following Nilearn's *FirstLevelModel* default procedure, each voxel's timeseries was mean-scaled by each voxel's mean of the timeseries. Data were smoothed at each run using a 5mm full-width at half maximum smoothing kernal (default: isotropic additive smoothing). From the resulting model, 1 distinct contrast estimates were computed (see list below).
+FitLins was employed to estimate task-related BOLD activity in the linebisection task for 10 subjects. In this instance, FitLins used the Nilearn estimator in its statistical modeling of the BOLD data. For each participant, 5 regressors of interest (out of total 6 regressors; see list below) were convolved with a spm hemodynamic response function in Nilearn. The design matrix incorporated both regressors of interest and 32 additional components, including a drift cosine basis set and nuisance regressors to account for sources of noise in the BOLD signal. Following Nilearn's *FirstLevelModel* default procedure, each voxel's timeseries was mean-scaled by each voxel's mean of the timeseries. Data were smoothed at each run using a 5mm full-width at half maximum smoothing kernal (default: isotropic additive smoothing). From the resulting model, 3 distinct contrast estimates were computed (see list below).
 
 ### Model Outputs
 For each participant's run, outputs include but are not limited to:
@@ -30,7 +30,9 @@ trans_x, trans_x_derivative1, trans_x_derivative1_power2, trans_x_power2, trans_
 - Subject-level models: No
 
 ## Contrasts of Interest
-- **Unnamed Contrast**: 
+- **corrtask**: 0.5*`trial_type.Correct_Task` + 0.5*`trial_type.Incorrect_Task` - 1*`trial_type.Response_Control`
+- **taskcorrvincorr**: 1*`trial_type.Correct_Task` - 1*`trial_type.Incorrect_Task`
+- **respvnoResp**: 0.333*`trial_type.Correct_Task` + 0.333*`trial_type.Incorrect_Task` + 0.333*`trial_type.Response_Control` - 0.5*`trial_type.No_Response_Task` - 0.5*`trial_type.No_Response_Control`
 
 ## Figures
 
@@ -74,3 +76,27 @@ The distribution for subjects and runs in linebisection are below.
 ![Voxels Out](./files/ds000114_task-linebisection_hist-voxoutmask.png)
 
 ### Statistical Maps
+
+#### corrtask
+
+##### ses-test
+![corrtask ses-test Map](./files/ds000114_task-linebisection_ses-test_contrast-corrtask_map.png)
+
+##### ses-retest
+![corrtask ses-retest Map](./files/ds000114_task-linebisection_ses-retest_contrast-corrtask_map.png)
+
+#### taskcorrvincorr
+
+##### ses-test
+![taskcorrvincorr ses-test Map](./files/ds000114_task-linebisection_ses-test_contrast-taskcorrvincorr_map.png)
+
+##### ses-retest
+![taskcorrvincorr ses-retest Map](./files/ds000114_task-linebisection_ses-retest_contrast-taskcorrvincorr_map.png)
+
+#### respvnoResp
+
+##### ses-test
+![respvnoResp ses-test Map](./files/ds000114_task-linebisection_ses-test_contrast-respvnoResp_map.png)
+
+##### ses-retest
+![respvnoResp ses-retest Map](./files/ds000114_task-linebisection_ses-retest_contrast-respvnoResp_map.png)

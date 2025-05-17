@@ -32,6 +32,7 @@ scratch_data_dir="${scratch_out}/fitlins/task-${task_label}"
 
 echo "INFO: Running group map report script for:"
 echo "      Dataset: ${openneuro_id}, Task: ${task_label}"
+echo "      Analysis Directory: ${analysis_dir}"
 
 uv --project ${repo_dir} \
     run ${scripts_dir}/prep_report_py/groupmap_report.py \

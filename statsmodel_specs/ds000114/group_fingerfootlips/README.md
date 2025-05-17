@@ -1,6 +1,6 @@
 # ds000114: fingerfootlips Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000114 fingerfootlips is 1.3G with 914 files.
+The size of the Fitlins Derivatives for ds000114 fingerfootlips is 1.7G with 1178 files.
 
 ## Statistical Analysis Boilerplate
 
@@ -131,7 +131,17 @@ The distribution for subjects and runs in fingerfootlips are below.
 ![footvlips ses-retest Map](./files/ds000114_task-fingerfootlips_ses-retest_contrast-footvlips_map.png)
 
 #### footlipsvfinger
-*No statistical maps available for contrast footlipsvfinger and session ses-retest*
+
+##### ses-test
+![footlipsvfinger ses-test Map](./files/ds000114_task-fingerfootlips_ses-test_contrast-footlipsvfinger_map.png)
+
+##### ses-retest
+![footlipsvfinger ses-retest Map](./files/ds000114_task-fingerfootlips_ses-retest_contrast-footlipsvfinger_map.png)
 
 #### fingerlipsvfoot
-*No statistical maps available for contrast fingerlipsvfoot and session ses-retest*
+
+##### ses-test
+![fingerlipsvfoot ses-test Map](./files/ds000114_task-fingerfootlips_ses-test_contrast-fingerlipsvfoot_map.png)
+
+##### ses-retest
+![fingerlipsvfoot ses-retest Map](./files/ds000114_task-fingerfootlips_ses-retest_contrast-fingerlipsvfoot_map.png)

@@ -9,6 +9,9 @@
     ],
     "Tasks": {
         "viewFigure": {
+            "cite_links": [
+                "https://www.cell.com/fulltext/S0896-6273%2808%2900958-6"
+            ],
             "plot_coords": [
                 38,
                 -88,
@@ -49,6 +52,9 @@
             ]
         },
         "viewRandom": {
+            "cite_links": [
+                "https://www.cell.com/fulltext/S0896-6273%2808%2900958-6"
+            ],
             "plot_coords": [
                 38,
                 -88,

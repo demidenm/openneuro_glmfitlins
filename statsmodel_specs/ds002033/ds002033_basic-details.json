@@ -47,6 +47,9 @@
     "Sessions": [],
     "Tasks": {
         "ChangeDetection": {
+            "cite_links": [
+                "https://royalsocietypublishing.org/doi/10.1098/rsos.182067"
+            ],
             "plot_coords": [
                 0,
                 0,

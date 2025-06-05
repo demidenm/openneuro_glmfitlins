@@ -37,46 +37,61 @@ print(f"    fMRIPrep Directory: {fmriprep_dir}")
 print(f"    Git Repo URL: {git_repo_url}")
 print()
 
+
+#  Build the AWS CLI command for OpenNeuro, FMRIPREP & MRIQC
 bids_input_dir = os.path.join(bids_data, openneuro_study)
+fmriprep_out_dir = os.path.join(fmriprep_dir, openneuro_study)
+
+download_openneuro = [
+    "aws", "s3", "sync", "--no-sign-request", 
+    f"s3://openneuro.org/{openneuro_study}",
+    bids_input_dir
+]
+
+download_fmriprep = [
+    "aws", "s3", "sync", "--no-sign-request",
+    f"s3://openneuro-derivatives/fmriprep/{openneuro_study}-fmriprep",
+    fmriprep_out_dir
+]
+
+getfiles_mriqcgroup = [
+    "aws", "s3", "ls", "--no-sign-request", 
+    f"s3://openneuro-derivatives/mriqc/{openneuro_study}-mriqc", "--recursive"
+] 
+
+# Load and Add Exclusions to file
+# openneuro
+with open(file_exclude_list, "r") as file:
+    data = json.load(file)
+    on_exclusions = data.get("openneuro_exclusions", [])
+for pattern in on_exclusions:
+    download_openneuro.extend(["--exclude", pattern])
+
+# fmriprep
+with open(file_exclude_list, "r") as file:
+    data = json.load(file)
+    fp_exclusions = data.get("fmriprepderiv_exclusions", [])
+for pattern in fp_exclusions:
+    download_fmriprep.extend(["--exclude", pattern])
+    
 if os.path.exists(bids_input_dir):
     print(f"        {openneuro_study} already exists. Skipping BIDS data download.")
 else:
     if minimal_fp == "yes":
         try:
-            # Clone dataset
-            print(f"Starting downloading for full BIDS and minimal fMRIprep derivatives minimal_fp == {minimal_fp}\n")
-            subprocess.run(['datalad', 'install', '-s', git_repo_url, bids_input_dir], check=True)
-            
-            # del derivatives if it exists
-            derivatives_dir = os.path.join(bids_input_dir, 'derivatives')
-            sourcedat_dir = os.path.join(bids_input_dir, 'sourcedata')
-            if os.path.exists(derivatives_dir):
-                print(f"        ** Removing derivatives directory from {openneuro_study} to save space & improve download speed")
-                subprocess.run(['rm', '-rf', derivatives_dir], check=True)
-            if os.path.exists(sourcedat_dir):
-                print(f"        **Removing sourcedata directory from {openneuro_study} to save space & improve download speed")
-                subprocess.run(['rm', '-rf', sourcedat_dir], check=True)
-
-            try:
-                subprocess.run(['datalad', 'siblings', '-d', bids_input_dir, 'enable', '-s', 's3-PRIVATE'], check=True)
-            except subprocess.CalledProcessError:
-                print("        Warning: 's3-PRIVATE' sibling not found or could not be enabled. Trying s3-PUBLIC...")
-
-                try:
-                    subprocess.run(['datalad', 'siblings', '-d', bids_input_dir, 'enable', '-s', 's3-PUBLIC'], check=True)
-                except subprocess.CalledProcessError:
-                    print("        Error: Could not enable s3-PUBLIC either. No remote to get data from.")
-
-            os.chdir(bids_input_dir)
-            subprocess.run(['datalad', 'get', '-J', '4', '.'], check=True)
-
-            print(f"    {openneuro_study}. Dataset files downloaded successfully.")
+            print("Downloading openneuro data while excluding files/folders specified in file_exclusions.json under openneuro_exclusions")
+            subprocess.run(download_openneuro, check=True)
+            print("     S3 sync completed successfully.")
         except subprocess.CalledProcessError as e:
-            print(f"        An error occurred while getting the files: {e}")
+            print(f"Download failed, retrying... {e}")
+            time.sleep(5)  # wait before retrying
+            subprocess.run(download_openneuro, check=True)
+            print("     S3 re-sync completed successfully.")
+
     elif minimal_fp == "no":
         try:
             # Clone dataset
-            print(f"Starting downloading for cloned BIDS and full fMRIprep derivatives given minimal_fp == {minimal_fp} \n")
+            print(f"Cloning BIDS and downloading full fMRIprep derivatives given minimal_fp == {minimal_fp} \n")
             subprocess.run(['datalad', 'clone', git_repo_url, bids_input_dir], check=True)
 
             try:
@@ -94,18 +109,19 @@ else:
 
 
 
-# Build the AWS CLI command for FMRIPREP & MRIQC
-fmriprep_out_dir = os.path.join(fmriprep_dir, openneuro_study)
-    
-download_fmriprep = [
-    "aws", "s3", "sync", "--no-sign-request",
-    f"s3://openneuro-derivatives/fmriprep/{openneuro_study}-fmriprep",
-    fmriprep_out_dir
-]
-getfiles_mriqcgroup = [
-    "aws", "s3", "ls", "--no-sign-request", 
-    f"s3://openneuro-derivatives/mriqc/{openneuro_study}-mriqc", "--recursive"
-]
+# Check if the fMRIprep directory exists, if not, download data
+if os.path.exists(fmriprep_out_dir):
+    print(f"        fMRIprep Directory already exists. Skipping fMRIprep data download for {openneuro_study}")
+else:    
+    try:
+        subprocess.run(download_fmriprep, check=True)
+        print("     S3 sync completed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Download failed, retrying... {e}")
+        time.sleep(5)  # wait before retrying
+        subprocess.run(download_fmriprep, check=True)
+        print("     S3 re-sync completed successfully.")
+
 
 # Get list of MRIQC files in repo, then only download the group files
 mriqc_summ = os.path.join(spec_dir, "mriqc_summary")
@@ -133,25 +149,3 @@ else:
             
             subprocess.run(download_mriqc_grpfile, capture_output=True, text=True)
             print(f"    Downloaded: {s3_file_path} to {file_path}")
-
-
-# Check if the fMRIprep directory exists, if not, download data
-if os.path.exists(fmriprep_out_dir):
-    print(f"        fMRIprep Directory already exists. Skipping fMRIprep data download for {openneuro_study}")
-else:
-    # Load and Add Exclusions to file
-    with open(file_exclude_list, "r") as file:
-        data = json.load(file)
-        exclusions = data.get("exclusions", [])
-    for pattern in exclusions:
-        download_fmriprep.extend(["--exclude", pattern])
-    
-    try:
-        subprocess.run(download_fmriprep, check=True)
-        print("     S3 sync completed successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Download failed, retrying... {e}")
-        time.sleep(5)  # wait before retrying
-        subprocess.run(download_fmriprep, check=True)
-        print("     S3 re-sync completed successfully.")
-

@@ -17,6 +17,7 @@
     ],
     "Tasks": {
         "covertverbgeneration": {
+            "cite_links": ["https://doi.org/10.1186/2047-217X-2-6"],
             "plot_coords": [
                 -45,
                 30,
@@ -42,6 +43,7 @@
             ]
         },
         "fingerfootlips": {
+            "cite_links": ["https://doi.org/10.1186/2047-217X-2-6"],
             "plot_coords": [
                 -4,
                 -28,
@@ -69,6 +71,7 @@
             ]
         },
         "linebisection": {
+            "cite_links": ["https://doi.org/10.1186/2047-217X-2-6"],
             "plot_coords": [
                 -45,
                 30,
@@ -98,6 +101,7 @@
             ]
         },
         "overtverbgeneration": {
+            "cite_links": ["https://doi.org/10.1186/2047-217X-2-6"],
             "plot_coords": [
                 -45,
                 30,
@@ -123,6 +127,7 @@
             ]
         },
         "overtwordrepetition": {
+            "cite_links": ["https://doi.org/10.1186/2047-217X-2-6"],
             "plot_coords": [
                 -45,
                 30,

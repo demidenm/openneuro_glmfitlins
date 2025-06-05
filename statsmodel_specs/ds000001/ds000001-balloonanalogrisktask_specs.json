@@ -42,6 +42,17 @@
           },
           {
             "Name": "Replace",
+            "Input": ["trial_type"],
+            "Replace": {
+                "cash_demean": "cash",
+                "control_pumps_demean": "control",
+                "explode_demean": "explode",
+                "pumps_demean": "pumps"
+                },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Replace",
             "Input": ["rt_reg"],
             "Replace": {
                 "cash_demean": "rt",
@@ -93,11 +104,11 @@
         "Type": "glm"
       },
       "Contrasts": [
-          {
-              "Name": "pumpsvcontrolpumps",
+        {
+              "Name": "pumpsvcontrol",
               "ConditionList": [
-                  "trial_type.pumps_demean",
-                  "trial_type.control_pumps_demean"
+                  "trial_type.pumps",
+                  "trial_type.control"
               ],
               "Weights": [
                   1,
@@ -108,8 +119,8 @@
           {
               "Name": "explodevcash",
               "ConditionList": [
-                  "trial_type.explode_demean",
-                  "trial_type.cash_demean"
+                  "trial_type.explode",
+                  "trial_type.cash"
               ],
               "Weights": [
                   1,
@@ -120,8 +131,8 @@
           {
               "Name": "explodevcontrol",
               "ConditionList": [
-                  "trial_type.explode_demean",
-                  "trial_type.control_pumps_demean"
+                  "trial_type.explode",
+                  "trial_type.control"
               ],
               "Weights": [
                   1,
@@ -132,9 +143,9 @@
           {
               "Name": "pumpscashvcontrol",
               "ConditionList": [
-                  "trial_type.pumps_demean",
-                  "trial_type.cash_demean",
-                  "trial_type.control_pumps_demean"
+                  "trial_type.pumps",
+                  "trial_type.cash",
+                  "trial_type.control"
               ],
               "Weights": [
                   0.5,
@@ -146,9 +157,9 @@
           {
               "Name": "pumpsexplodevcontrol",
               "ConditionList": [
-                  "trial_type.pumps_demean",
-                  "trial_type.explode_demean",
-                  "trial_type.control_pumps_demean"
+                  "trial_type.pumps",
+                  "trial_type.explode",
+                  "trial_type.control"
               ],
               "Weights": [
                   0.5,
@@ -160,9 +171,9 @@
           {
               "Name": "allpumps",
               "ConditionList": [
-                  "trial_type.pumps_demean",
-                  "trial_type.cash_demean",
-                  "trial_type.explode_demean"
+                  "trial_type.pumps",
+                  "trial_type.cash",
+                  "trial_type.explode"
               ],
               "Weights": [
                   0.33,
@@ -174,7 +185,7 @@
           {
               "Name": "pumps",
               "ConditionList": [
-                  "trial_type.pumps_demean"
+                  "trial_type.pumps"
               ],
               "Weights": [
                   1

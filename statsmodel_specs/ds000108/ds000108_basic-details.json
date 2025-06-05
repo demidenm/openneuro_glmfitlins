@@ -38,6 +38,7 @@
     "Sessions": [],
     "Tasks": {
         "Emotionregulation": {
+            "cite_links": ["https://doi.org/10.1016/j.neuron.2008.09.006"],
             "plot_coords": [
                 0,
                 0,

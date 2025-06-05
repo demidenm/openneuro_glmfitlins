@@ -75,6 +75,9 @@
             "Model": "spm",
             "Input": [
               "trial_type.*",
+              "demeaned_pumps",
+              "demeaned_explode",
+              "demeaned_cashout",
               "rt_reg.rt"
             ]
           }

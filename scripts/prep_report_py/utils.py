@@ -235,7 +235,8 @@ def extract_model_info(model_spec):
             "convolve_model": "spm",  # Default value spm
             "convolve_inputs": [],            # Obtain regressors that were convolved
             "if_derivative_hrf": False,    # Track if HRF derivative is used
-            "if_dispersion_hrf": False    # Track if HRF dispersion is used
+            "if_dispersion_hrf": False,    # Track if HRF dispersion is used
+            "target_var": [] # Track values receiving an assignment duration (e.g. not parametric)
         }
 
         # Extract HRF convolution model type and derivative status
@@ -247,6 +248,12 @@ def extract_model_info(model_spec):
                 node_info["if_dispersion_hrf"] = instruction.get("Dispersion", False) == True
                 node_info["convolve_inputs"] = instruction.get("Input", [])
                 break  # Stop searching after finding first Convolve transformation
+            
+            if instruction.get("Name") == "Assign" and instruction.get("TargetAttr") == "duration":
+                targets = instruction.get("Target", [])
+                if isinstance(targets, str):
+                    targets = [targets]
+                node_info["target_var"].extend(targets)
 
         extracted_info["nodes"].append(node_info)
     

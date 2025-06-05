@@ -1,130 +1,141 @@
 {
     "Contrasts": [
         {
-            "Name": "pumpsvcontrolpumps",
+              "Name": "pumpsvcontrol",
+              "ConditionList": [
+                  "trial_type.pumps",
+                  "trial_type.control"
+              ],
+              "Weights": [
+                  1,
+                  -1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "explodevcash",
+              "ConditionList": [
+                  "trial_type.explode",
+                  "trial_type.cash"
+              ],
+              "Weights": [
+                  1,
+                  -1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "explodevcontrol",
+              "ConditionList": [
+                  "trial_type.explode",
+                  "trial_type.control"
+              ],
+              "Weights": [
+                  1,
+                  -1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "pumpscashvcontrol",
+              "ConditionList": [
+                  "trial_type.pumps",
+                  "trial_type.cash",
+                  "trial_type.control"
+              ],
+              "Weights": [
+                  0.5,
+                  0.5,
+                  -1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "pumpsexplodevcontrol",
+              "ConditionList": [
+                  "trial_type.pumps",
+                  "trial_type.explode",
+                  "trial_type.control"
+              ],
+              "Weights": [
+                  0.5,
+                  0.5,
+                  -1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "allpumps",
+              "ConditionList": [
+                  "trial_type.pumps",
+                  "trial_type.cash",
+                  "trial_type.explode"
+              ],
+              "Weights": [
+                  0.33,
+                  0.33,
+                  0.33
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "pumps",
+              "ConditionList": [
+                  "trial_type.pumps"
+              ],
+              "Weights": [
+                  1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "pumpspara",
+              "ConditionList": [
+                  "pumps_demean"
+              ],
+              "Weights": [
+                  1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "cashpara",
+              "ConditionList": [
+                  "cash_demean"
+              ],
+              "Weights": [
+                  1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "explodepara",
+              "ConditionList": [
+                  "explode_demean"
+              ],
+              "Weights": [
+                  1
+              ],
+              "Test": "t"
+          },
+          {
+              "Name": "controlpara",
+              "ConditionList": [
+                  "control_pumps_demean"
+              ],
+              "Weights": [
+                  1
+              ],
+              "Test": "t"
+          },
+          {
+            "Name": "parapumpsvcontrol",
             "ConditionList": [
-                "trial_type.pumps_demean",
-                "trial_type.control_pumps_demean"
-            ],
-            "Weights": [
-                1,
-                -1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "explodevcash",
-            "ConditionList": [
-                "trial_type.explode_demean",
-                "trial_type.cash_demean"
-            ],
-            "Weights": [
-                1,
-                -1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "explodevcontrol",
-            "ConditionList": [
-                "trial_type.explode_demean",
-                "trial_type.control_pumps_demean"
-            ],
-            "Weights": [
-                1,
-                -1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "pumpscashvcontrol",
-            "ConditionList": [
-                "trial_type.pumps_demean",
-                "trial_type.cash_demean",
-                "trial_type.control_pumps_demean"
-            ],
-            "Weights": [
-                0.5,
-                0.5,
-                -1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "pumpsexplodevcontrol",
-            "ConditionList": [
-                "trial_type.pumps_demean",
-                "trial_type.explode_demean",
-                "trial_type.control_pumps_demean"
-            ],
-            "Weights": [
-                0.5,
-                0.5,
-                -1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "allpumps",
-            "ConditionList": [
-                "trial_type.pumps_demean",
-                "trial_type.cash_demean",
-                "trial_type.explode_demean"
-            ],
-            "Weights": [
-                0.33,
-                0.33,
-                0.33
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "pumps",
-            "ConditionList": [
-                "trial_type.pumps_demean"
-            ],
-            "Weights": [
-                1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "pumpspara",
-            "ConditionList": [
-                "pumps_demean"
-            ],
-            "Weights": [
-                1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "cashpara",
-            "ConditionList": [
-                "cash_demean"
-            ],
-            "Weights": [
-                1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "explodepara",
-            "ConditionList": [
-                "explode_demean"
-            ],
-            "Weights": [
-                1
-            ],
-            "Test": "t"
-        },
-        {
-            "Name": "controlpara",
-            "ConditionList": [
+                "pumps_demean",
                 "control_pumps_demean"
             ],
             "Weights": [
-                1
+                1, -1
             ],
             "Test": "t"
         },
@@ -138,5 +149,5 @@
             ],
             "Test": "t"
         }
-    ]
+      ]
 }

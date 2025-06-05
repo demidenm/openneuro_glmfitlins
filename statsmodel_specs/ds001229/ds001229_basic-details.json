@@ -31,6 +31,9 @@
     "Sessions": [],
     "Tasks": {
         "em": {
+            "cite_links": [
+                "https://www.sciencedirect.com/science/article/pii/S0028393216304055"
+            ],
             "plot_coords": [
                 -28,
                 -16,
@@ -94,6 +97,9 @@
             "trial_type_values": []
         },
         "wm": {
+            "cite_links": [
+                "https://www.sciencedirect.com/science/article/pii/S0028393216304055"
+            ],
             "plot_coords": [
                 -28,
                 -16,

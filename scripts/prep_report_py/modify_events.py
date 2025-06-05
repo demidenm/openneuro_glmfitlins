@@ -28,7 +28,7 @@ def add_reactiontime_regressor(eventsdf, trial_type_col='trial_type', resp_trial
     -------
     DataFrame with reaction time regressor rows added.
     """
-    # Set name for new trialtype column
+    # Set name for new s column
     new_trial_name = new_trialtype if new_trialtype else trial_type_col
 
     if isinstance(resp_trialtype, str):
@@ -467,7 +467,7 @@ def ds000001(eventspath: str, task: str):
         if eventsdat[check_col_nans].isna().any().any():
             print("Modify events to replace NaN with zero for Fitlins Models")
             eventsdat[check_col_nans] = eventsdat[check_col_nans].fillna(0)
-
+            
             return eventsdat
 
         else:

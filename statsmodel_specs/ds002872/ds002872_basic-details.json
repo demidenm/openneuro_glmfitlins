@@ -43,6 +43,9 @@
     "Sessions": [],
     "Tasks": {
         "illusion": {
+            "cite_links": [
+                "https://www.sciencedirect.com/science/article/pii/S1053811920305425"
+            ],
             "plot_coords": [
                 -28,
                 10,

@@ -46,6 +46,9 @@ noise_reg = [
     "rot_", "trans_", "cosine", "drift_"
 ]
 
+# maps z threshold
+zstat_thresh = 2.3
+
 # Create output directory for images
 spec_imgs_dir = Path(f"{spec_path}/{study_id}/group_{task}/files")
 spec_imgs_dir.mkdir(parents=True, exist_ok=True)
@@ -55,6 +58,7 @@ study_details = f"{spec_path}/{study_id}/{study_id}_basic-details.json"
 with open(study_details, 'r') as file:
     study_info = json.load(file)
     plt_coords = tuple(study_info.get("Tasks", {}).get(task, {}).get("plot_coords"))
+    cite_list = tuple(study_info.get("Tasks", {}).get(task, {}).get("cite_links"))
 
 # Load model specifications & study details
 try:
@@ -83,6 +87,7 @@ hrf_model_type = spec_results['nodes'][0]['convolve_model']
 derivative_added = spec_results['nodes'][0]['if_derivative_hrf']
 dispersion_added = spec_results['nodes'][0]['if_dispersion_hrf']
 convolved_inputs = spec_results['nodes'][0]['convolve_inputs']
+target_vars = spec_results['nodes'][0]['target_var']
 
 # HRF model description based on convolution, derivative and dispersion terms
 hrf_components = []
@@ -157,12 +162,20 @@ for design_mat_path in design_matrices:
     except Exception as e:
         print(f"Error processing {design_mat_path.name}: {e}")
 
-# subset signal_regressors with those used in convolve as inputs
+# subset signal_regressors with those used in convolve as inputs & if not convolved/intercept, parametric modulators
+parametricmodulator_names = []
 convolved_names = []
 
 for pattern in convolved_inputs:
     matches = fnmatch.filter(signal_regressors, pattern)
     convolved_names.extend(matches)
+
+parametricmodulator_names = [
+    name for name in signal_regressors 
+    if name not in ("intercept", "constant") 
+    and "trial_type" not in str(name).lower()
+    and name not in target_vars
+]
 
 # Create VIF visualization if data is available
 if all_vif_dfs:
@@ -330,7 +343,7 @@ if os.path.exists(grp_map_path):
                 cut_coords=plt_coords, 
                 display_mode='ortho', 
                 colorbar=True, 
-                threshold=1.5, 
+                threshold=zstat_thresh, 
                 output_file=output_img_path,
                 title=f"{con_name}: z-stat map"
             )
@@ -356,7 +369,7 @@ if os.path.exists(grp_map_path):
                         cut_coords=plt_coords, 
                         display_mode='ortho', 
                         colorbar=True, 
-                        threshold=1.5, 
+                        threshold=zstat_thresh, 
                         output_file=output_img_path,
                         title=f"{session}, {con_name}: z-stat map"
                     )
@@ -369,7 +382,7 @@ else:
 
 # Get file count and folder size
 gb_size = subprocess.check_output(['du', '-sh', analysis_dir]).split()[0].decode()
-file_count = subprocess.check_output(f"find {analysis_dir} -type f | wc -l", shell=True).strip().decode()
+file_count = subprocess.check_output(f"find {analysis_dir} -type f -o -type l | wc -l", shell=True).strip().decode()
 
 fold_info = f"The size of the Fitlins Derivatives for {study_id} {task} is {gb_size} with {file_count} files."
 
@@ -385,6 +398,7 @@ grp_readme = generate_groupmodsummary(
     signal_regressors=signal_regressors, 
     noise_regressors=noise_regressors, 
     convolved_regressors=convolved_names,
+    paramod_regressors=parametricmodulator_names,
     has_run=has_run, 
     has_subject=has_subject, 
     contrast_dict=contrast_dict, 
@@ -393,7 +407,8 @@ grp_readme = generate_groupmodsummary(
     spec_imgs_dir=spec_imgs_dir,
     r2_quality_ran=r2_success,
     sub_flag=low_quality,
-    sessions=sessionlabs
+    sessions=sessionlabs,
+    task_cites=cite_list
 )
 
 readme_path = os.path.join(f"{spec_path}/{study_id}/group_{task}", "README.md")

@@ -112,6 +112,10 @@
     "Sessions": [],
     "Tasks": {
         "MGT": {
+            "cite_links": [
+                "https://www.nature.com/articles/s41597-019-0113-7",
+                "https://www.nature.com/articles/s41586-020-2314-9"
+            ],
             "plot_coords": [
                 10,
                 10,

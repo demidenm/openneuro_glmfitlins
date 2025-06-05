@@ -21,6 +21,7 @@
     "Sessions": [],
     "Tasks": {
         "deterministicclassification": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroimage.2005.08.010"],
             "plot_coords": [
                 0,
                 0,
@@ -61,6 +62,7 @@
             ]
         },
         "mixedeventrelatedprobe": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroimage.2005.08.010"],
             "plot_coords": [
                 0,
                 0,
@@ -98,6 +100,7 @@
             ]
         },
         "probabilisticclassification": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroimage.2005.08.010"],
             "plot_coords": [
                 0,
                 0,

@@ -19,6 +19,9 @@
     "Sessions": [],
     "Tasks": {
         "flavor": {
+            "cite_links": [
+                "https://www.sciencedirect.com/science/article/pii/S096098221730876X"
+            ],
             "plot_coords": [
                 15,
                 8,

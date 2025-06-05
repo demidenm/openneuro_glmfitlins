@@ -19,6 +19,9 @@
     "Sessions": [],
     "Tasks": {
         "checkerboard": {
+            "cite_links": [
+                "https://doi.org/10.1101/2021.08.02.454708"
+            ],
             "plot_coords": [
                 0,
                 0,

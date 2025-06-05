@@ -30,6 +30,11 @@
     "Sessions": [],
     "Tasks": {
         "flanker": {
+            "cite_links": [
+                "https://www.ncbi.nlm.nih.gov/pubmed/20974260",
+                "http://www.ncbi.nlm.nih.gov/pubmed/20079856",
+                "http://www.ncbi.nlm.nih.gov/pubmed/17919929"
+            ],
             "plot_coords": [
                 38,
                 -26,

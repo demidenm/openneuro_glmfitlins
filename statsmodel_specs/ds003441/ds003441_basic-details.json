@@ -6,6 +6,9 @@
     "Sessions": [],
     "Tasks": {
         "1Norm": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,
@@ -36,6 +39,9 @@
             ]
         },
         "2Swallow": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,
@@ -67,6 +73,9 @@
             ]
         },
         "3HandA": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,
@@ -100,6 +109,9 @@
             ]
         },
         "4HandB": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,
@@ -132,6 +144,9 @@
             ]
         },
         "5Eyes": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,
@@ -166,6 +181,9 @@
             ]
         },
         "6DeepBreathing": {
+            "cite_links": [
+                "https://www.newbi4fmri.com"
+            ],
             "plot_coords": [
                 -36,
                 -72,

@@ -25,6 +25,9 @@
     ],
     "Tasks": {
         "cuedSFM": {
+            "cite_links": [
+                "https://www.jneurosci.org/content/39/35/6968.long"
+            ],
             "plot_coords": [
                 0,
                 -4,

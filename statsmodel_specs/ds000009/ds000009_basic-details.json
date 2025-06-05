@@ -28,6 +28,7 @@
     "Sessions": [],
     "Tasks": {
         "balloonanalogrisktask": {
+            "cite_links": ["https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf"],
             "plot_coords": [
                 4,
                 52,
@@ -75,6 +76,7 @@
             ]
         },
         "discounting": {
+            "cite_links": ["https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf"],
             "plot_coords": [
                 12,
                 10,
@@ -137,6 +139,7 @@
             ]
         },
         "emotionalregulation": {
+            "cite_links": ["https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf"],
             "plot_coords": [
                 -42,
                 -6,
@@ -185,6 +188,7 @@
             ]
         },
         "stopsignal": {
+            "cite_links": ["https://openfmri.org/media/ds000009/ds009_methods_0_CchSZHn.pdf"],
             "plot_coords": [
                 2,
                 8,

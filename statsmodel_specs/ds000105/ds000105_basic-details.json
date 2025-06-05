@@ -10,6 +10,10 @@
     "Sessions": [],
     "Tasks": {
         "objectviewing": {
+            "cite_links": [
+                "https://doi.org/10.1126/science.1063736", 
+                "https://doi.org/10.1162/0898929053467550"
+            ],
             "plot_coords": [
                 -52,
                 -52,

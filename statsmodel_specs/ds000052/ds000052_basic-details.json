@@ -17,6 +17,7 @@
     "Sessions": [],
     "Tasks": {
         "reversalweatherprediction": {
+            "cite_links": ["https://www.nature.com/articles/35107080"],
             "plot_coords": [
                 -33,
                 -30,
@@ -48,6 +49,7 @@
             ]
         },
         "weatherprediction": {
+            "cite_links": ["https://www.nature.com/articles/35107080"],
             "plot_coords": [
                 -33,
                 -30,

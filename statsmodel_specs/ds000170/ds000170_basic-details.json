@@ -19,6 +19,7 @@
     "Sessions": [],
     "Tasks": {
         "TrainedHandTrainedSequence": {
+            "cite_links": ["https://doi.org/10.1162/jocn_a_00675"],
             "plot_coords": [
                 -36,
                 2,
@@ -56,6 +57,7 @@
             ]
         },
         "TrainedHandUntrainedSequence": {
+            "cite_links": ["https://doi.org/10.1162/jocn_a_00675"],
             "plot_coords": [
                 -36,
                 2,
@@ -93,6 +95,7 @@
             ]
         },
         "UntrainedHandTrainedSequence": {
+            "cite_links": ["https://doi.org/10.1162/jocn_a_00675"],
             "plot_coords": [
                 -36,
                 2,
@@ -130,6 +133,7 @@
             ]
         },
         "UntrainedHandUntrainedSequence": {
+            "cite_links": ["https://doi.org/10.1162/jocn_a_00675"],
             "plot_coords": [
                 -36,
                 2,

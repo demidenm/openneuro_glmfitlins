@@ -42,9 +42,15 @@
             "Output": ["rt_reg"]
           },
           {
+            "Name": "Threshold",
+            "Input": ["gain"],
+            "Binarize": true,
+            "Output": ["trial_type"]
+          },
+          {
             "Name": "Factor",
             "Input": [
-              "rt_reg"
+              "rt_reg","trial_type"
             ]
           },
           {
@@ -57,6 +63,7 @@
             "Name": "Convolve",
             "Model": "spm",
             "Input": [
+              "trial_type.1",
               "parametric loss",
               "parametric gain",
               "distance from indifference",
@@ -68,6 +75,7 @@
       "Model": {
         "X": [
           1,
+          "trial_type.1",
           "parametric loss",
           "parametric gain",
           "distance from indifference",

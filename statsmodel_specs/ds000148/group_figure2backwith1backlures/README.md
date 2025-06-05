@@ -1,68 +1,91 @@
 # ds000148: figure2backwith1backlures Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000148 figure2backwith1backlures is 7.8G with 5612 files.
+The size of the Fitlins Derivatives for ds000148 figure2backwith1backlures is 25M with 5612 files.
 
-## Statistical Analysis Boilerplate
+## 1. Statistical Analysis [Boilerplate]
 
-### First-level Analysis
-FitLins was employed to estimate task-related BOLD activity in the figure2backwith1backlures task for 49 subjects. In this instance, FitLins used the Nilearn estimator in its statistical modeling of the BOLD data. For each participant, 5 regressors of interest (out of total 6 regressors; see list below) were convolved with a spm hemodynamic response function in Nilearn. The design matrix incorporated both regressors of interest and 9 additional components, including a drift cosine basis set and nuisance regressors to account for sources of noise in the BOLD signal. Following Nilearn's *FirstLevelModel* default procedure, each voxel's timeseries was mean-scaled by each voxel's mean of the timeseries. Data were smoothed at each run using a 5mm full-width at half maximum smoothing kernal (default: isotropic additive smoothing). From the resulting model, 4 distinct contrast estimates were computed (see list below).
+The below is an automatically generated report for the statistical analyses performed on this task and dataset. Some reporting standards from the 'Statistical Modeling & Inference' section of the COBIDAS checklist ([Nichols et al., 2017](https://www.nature.com/articles/nn.4500)) are adopted here.
 
-### Model Outputs
-For each participant's run, outputs include but are not limited to:
-- A complete design matrix visualization
+### 1.1. First-level Analysis
+For the 49 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 5 regressors of interest (out of 6 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). The design matrix (see example in Section 4.1) included both the convolved regressors of interest and 9 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
+
+**Motion Regressors**: Motion parameters included the six rigid-body parameters estimated during motion correction (three translations, three rotations), their temporal derivatives, and the squares of both the parameters and their derivatives, resulting in 24 motion-related regressors.
+**Drift Regressors**: Cosine basis functions implemented a high-pass temporal filter with a cutoff of 128 seconds to remove low-frequency drift in the BOLD signal.
+
+**Model Implementation**: All regressors were included in the subject-level first-level General Linear Model (GLM) using FitLins with the Nilearn estimator. The preprocessed (fMRIPrep) BOLD time series were pre-whitened using an autoregressive AR(1) model to correct for temporal autocorrelation. Spatial smoothing was applied with a 5 mm full-width at half maximum (FWHM) Gaussian kernel (isotropic additive smoothing). Each voxel's timeseries was mean-scaled by the voxel's mean signal value following Nilearn's *FirstLevelModel* default procedure.
+
+Each voxel's timeseries (Y) was regressed onto the resulting design matrix (Xβ), which included the regressors and an intercept term . As illustrated in Section 3, 4 linear contrasts were computed
+
+### 1.2. Model Outputs
+For each run and subject, outputs include but are not limited to:
+- A complete design matrix for visualization
 - Model fit statistics (R-squared and log-likelihood maps)
 - For each contrast: effect size maps (beta values), t-statistic maps, z-statistic maps and variance maps
 
-An example design matrix and contrast weight specifications are provided below.
+### 1.3. Subject- and Group-level Analyses
+**Within-subject combination**: After the GLM was computed for each subjects' run, multiple runs per subject were combined using Nilearn's *compute_fixed_effects* function with precision weighting disabled (`precision_weighted=False`), implementing a fixed-effects model across runs within each subject. **Group-level model**: The resulting subject-level average statistical maps were entered into a random-effects group analysis using a two-sided one-sample t-test against zero to estimate population-level activation patterns. This approach treats subjects as a random effect, allowing inferences to generalize to the broader population. Resulting group maps were not cluster corrected but thresholded at z > 2.3 for display purposes (see section 5). More details and images are provided below. 
 
-### Group-level Analysis
-Within-subject runs were combined using Nilearn's *compute_fixed_effects* function (without precision weighting; `precision_weighted=False`). These subject-level average statistical maps were then entered into a group-level analysis using a two-sided one-sample t-test to estimate average univariate activation patterns.
+## 2. Additional Analytic Details 
 
-## Additional Analysis Details 
-### Regressors of Interest
-trial_type.distractorcorrectrejection, trial_type.distractorfalsealarm, trial_type.lurecorrectrejection, trial_type.targethit, trial_type.targetmiss, intercept
-#### Convolved Regressors
-trial_type.distractorcorrectrejection, trial_type.distractorfalsealarm, trial_type.lurecorrectrejection, trial_type.targethit, trial_type.targetmiss
-### Nuisance Regressors
-drift_1, drift_2, drift_3, drift_4, drift_5, drift_6, drift_7, drift_8, drift_9
-## Model Structure
+
+### 2.1 BIDS Stats Model Structure
 - Run-level models: Yes
 - Subject-level models: Yes
+- Dataset-level models: Yes 
 
-## Contrasts of Interest
+### 2.2 Regressors of Interest
+trial_type.distractorcorrectrejection, trial_type.distractorfalsealarm, trial_type.lurecorrectrejection, trial_type.targethit, trial_type.targetmiss, intercept
+
+### 2.3 Convolved Regressors
+trial_type.distractorcorrectrejection, trial_type.distractorfalsealarm, trial_type.lurecorrectrejection, trial_type.targethit, trial_type.targetmiss
+
+### 2.4 Parametrically Modulated Regressors*
+None identified
+
+
+> **Note:** Parametric regressors are auto-identified by excluding: intercept, constant, trial_type.* and duration-assigned variables from non-nuisance regressors.
+
+### 2.5 Nuisance Regressors
+drift_1, drift_2, drift_3, drift_4, drift_5, drift_6, drift_7, drift_8, drift_9
+
+## 3 Contrasts of Interest
 - **distractcorr**: 1*`trial_type.distractorcorrectrejection`
+
 - **lurecorr**: 1*`trial_type.lurecorrectrejection`
+
 - **targethit**: 1*`trial_type.targethit`
+
 - **hittargetvlure**: 1*`trial_type.targethit` - 1*`trial_type.lurecorrectrejection`
 
-## Figures
 
-### Contrast Weights
-![Contrast Weight](./files/ds000148_task-figure2backwith1backlures_contrast-matrix.svg)
+# 4 Figures
 
-The contrast maps represents the weights used to model brain activity.
-
-### Design Matrix
+## 4.1 Design Matrix
 ![Design Matrix](./files/ds000148_task-figure2backwith1backlures_design-matrix.svg)
 
 The example design matrix illustrates the model used in the statistical analyses for this task (Note: if motion outliers are included, the number of these will vary between subjects). Each column represents a regressor (of interest or not of interest, based on the above), and each row represents a time point in the BOLD timeseries. The colored patterns show how different experimental conditions are modeled across the scan duration (HRF model).
 
-### Variance Inflation Factor (VIF)
+## 4.2 Contrast Weights
+![Contrast Weight](./files/ds000148_task-figure2backwith1backlures_contrast-matrix.svg)
+
+The contrast maps represent the weights used to model brain activity.
+
+## 4.3 Variance Inflation Factor (VIF)
 ![VIF Distribution](./files/ds000148_task-figure2backwith1backlures_vif-boxplot.png)
 
-The above includes 1) regressor and 2) contrast VIF estimates. The VIF boxplot quantifies multicollinearity between model regressors and how they impact contrasts (for more on contrasts VIFs, see [Dr. Mumford's repo](https://github.com/jmumford/vif_contrasts)). Lower VIF values indicate more statistically independent regressors, which is desirable for reliable parameter estimation. VIFs were estimated using the first-level model design matrices -- nusiance regressors are excluded here for brevity.
+The above includes 1) regressor and 2) contrast VIF estimates. The VIF boxplot quantifies multicollinearity between model regressors and how they impact contrasts (for more on contrasts VIFs, see [Dr. Mumford's repo](https://github.com/jmumford/vif_contrasts)).High VIF (e.g., >5 or >10) indicates that collinearity is inflating the variance at a potentially concerning level, which may lead to outliers.  Data should be queried to assess for outliers (e.g. [fmri-outlier-detector](https://github.com/jmumford/fmri-outlier-detector)). VIFs were estimated using the first-level model design matrices -- nusiance regressors are excluded here for brevity.
 
-### Voxelwise Model Variance Explained (r-squared)
-Voxelwise R-squared values represent the proportion of variance explained by the model at each voxel in the brain. The R-squared images shown here are calculated across runs, subjects and/or sessions (dependent on data Fitlins nodes) for the study and task.
+## 4.4 Voxelwise Model Variance Explained (r-squared)
+Voxelwise R-squared values represent the proportion of variance explained by the model at each voxel in the brain. The R-squared images shown here are calculated across runs, subjects and/or sessions (dependent on data BIDS Stats Model nodes) for the study and task.
 
-#### Voxelwise Average (Mean)
+### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
 ![R Square](./files/ds000148_task-figure2backwith1backlures_rsquare-mean.png)
 
-#### Voxelwise Variance (Standard Deviation)
+### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
 
-#### Flagged Subjects
+#### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
   - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
@@ -76,16 +99,16 @@ The distribution for subjects and runs in figure2backwith1backlures are below.
 ![Dice](./files/ds000148_task-figure2backwith1backlures_hist-dicesimilarity.png)
 ![Voxels Out](./files/ds000148_task-figure2backwith1backlures_hist-voxoutmask.png)
 
-### Statistical Maps
+## 5 Statistical Maps
 
-#### distractcorr
+### distractcorr
 ![distractcorr Map](./files/ds000148_task-figure2backwith1backlures_contrast-distractcorr_map.png)
 
-#### lurecorr
+### lurecorr
 ![lurecorr Map](./files/ds000148_task-figure2backwith1backlures_contrast-lurecorr_map.png)
 
-#### targethit
+### targethit
 ![targethit Map](./files/ds000148_task-figure2backwith1backlures_contrast-targethit_map.png)
 
-#### hittargetvlure
+### hittargetvlure
 ![hittargetvlure Map](./files/ds000148_task-figure2backwith1backlures_contrast-hittargetvlure_map.png)

@@ -36,6 +36,9 @@
     "Sessions": [],
     "Tasks": {
         "encoding": {
+            "cite_links": [
+                "https://doi.org/10.1016/j.neuroimage.2022.119442"
+            ],
             "plot_coords": [
                 -24,
                 -68,
@@ -76,6 +79,9 @@
             ]
         },
         "retrieval": {
+            "cite_links": [
+                "https://doi.org/10.1016/j.neuroimage.2022.119442"
+            ],
             "plot_coords": [
                 -24,
                 0,

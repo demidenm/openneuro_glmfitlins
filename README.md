@@ -7,15 +7,15 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-05-17`*
+*This repository is in active development. `Last updated: 2025-06-05`*
 
 
 
-N OpenNeuro Studies: 33
+N OpenNeuro Studies: 32
 
-N OpenNeuro Task fMRI Group Summaries: 52
+N OpenNeuro Task fMRI Group Summaries: 51
 
-Completed fMRI Task Names: 1Norm, 6DeepBreathing, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, music, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 6DeepBreathing, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, music, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
 
 ## Overview
 
@@ -73,7 +73,7 @@ For items related to specific issues, please use the `Issues` tab. There are sep
    - `./scripts/cluster_jobs/`: Templates for fMRIPrep, fitlins, and [pilot] nilearn jobs on HPC clusters
    - `./scripts/prep_report_py/`: Python scripts and JSON files for the workflow steps. Users typically only need to modify:
      - `modify_events.py`: For preprocessing events files
-     - `file_exclusions.json`: To limit fMRIPrep derivatives download size
+     - `file_exclusions.json`: To limit OpenNeuro Dataset & fMRIPrep derivatives download size
 
 - `statsmodel_specs/`: JSON files defining statistical models for each OpenNeuro study, including MRIQC summaries and README files
 - `LICENSE`: MIT License
@@ -143,8 +143,8 @@ bash 1_download_data_create_details.sh ds003425
 ```
 
 This step:
-- Downloads the dataset and fMRIPrep derivatives
-- Shows the size of the fMRIPrep directory for confirmation (download size can be reduced via `file_exclusions.json`)
+- Downloads the dataset OpenNeuro and fMRIPrep derivatives
+- Shows the size of the OpenNeuro & fMRIPrep directory for confirmation (download size can be reduced via `file_exclusions.json`)
 - Determines if preprocessed MNI NIfTI files are present to identify minimal vs. complete derivatives
 - Generates:
   - A README summarizing the dataset
@@ -274,11 +274,13 @@ This step:
 - Generates a template that should be reviewed and potentially modified before running FitLins
 - Customizations might include changing transformations, adding temporal derivatives, or removing processing nodes
 - After the file is created, the final code confirms that the conditions in contrasts in the spec file match the columns available in resulting design matrix created by BIDS Stats Models. Example report in terminal:
+
 ```bash
 Confirming contrast conditions map to available design matrix columns.
 ** All contrast conditions are present in at least one design matrix. ** 
 
-Conditions used in contrasts specification exist in all design matrices.```
+Conditions used in contrasts specification exist in all design matrices.
+```
 
 ### 5. Run FitLins Model
 

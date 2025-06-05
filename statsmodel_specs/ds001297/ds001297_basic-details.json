@@ -37,6 +37,9 @@
     "Sessions": [],
     "Tasks": {
         "faceidentityoddball": {
+            "cite_links": [
+                "https://doi.org/10.1038/s41598-017-12559-1"
+            ],
             "plot_coords": [
                 50,
                 -54,

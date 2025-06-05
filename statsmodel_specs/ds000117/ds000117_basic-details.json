@@ -30,6 +30,7 @@
     ],
     "Tasks": {
         "facerecognition": {
+            "cite_links": ["https://www.nature.com/articles/sdata20151"],
             "plot_coords": [
                 44,
                 -50,

@@ -134,6 +134,7 @@ for task_name in Tasks:
 
         # Task-specific data dictionary update
         data["Tasks"][task_name] = {
+            "cite_links": [],
             "plot_coords": [0,0,0],
             "bold_volumes": num_volumes,
             "dummy_volumes": None,

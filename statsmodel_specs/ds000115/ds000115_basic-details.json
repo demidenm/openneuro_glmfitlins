@@ -103,6 +103,7 @@
     "Sessions": [],
     "Tasks": {
         "letter0backtask": {
+            "cite_links": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3358772/"],
             "plot_coords": [
                 0,
                 0,
@@ -130,6 +131,7 @@
             ]
         },
         "letter1backtask": {
+            "cite_links": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3358772/"],
             "plot_coords": [
                 0,
                 0,
@@ -157,6 +159,7 @@
             ]
         },
         "letter2backtask": {
+            "cite_links": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3358772/"],
             "plot_coords": [
                 0,
                 0,

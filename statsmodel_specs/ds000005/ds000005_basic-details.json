@@ -20,6 +20,7 @@
     "Sessions": [],
     "Tasks": {
         "mixedgamblestask": {
+            "cite_links": ["https://science.org/doi/10.1126/science.1134239"],
             "plot_coords": [
                 0,
                 10,

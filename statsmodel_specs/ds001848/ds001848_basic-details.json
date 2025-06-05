@@ -56,6 +56,9 @@
     "Sessions": [],
     "Tasks": {
         "ParallelAdaptation": {
+            "cite_links": [
+                "https://doi.org/10.1093/texcom/tgab048"
+            ],
             "plot_coords": [
                 0,
                 0,

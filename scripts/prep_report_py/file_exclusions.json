@@ -1,6 +1,14 @@
 {
-    "exclusions": [
-        ".reproman",
+    "openneuro_exclusions": [
+        "sourcedata/",
+        "derivatives/",
+        "*meg*",
+        "*pet*",
+        "*eeg*"
+    ],
+    "fmriprepderiv_exclusions": [
+        ".datalad/",
+        ".reproman/",
         "*func.gii",
         "*_space-fsaverage5_bold*",
         "*_den-91k_bold.dtseries.*",

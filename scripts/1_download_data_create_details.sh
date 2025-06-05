@@ -36,9 +36,13 @@ done
 
 [ ! -d "$spec_dir" ] && echo "  Creating directory: $spec_dir" && mkdir -p "$spec_dir"
 
+# Check OpenNeuro Input  on S3
+echo -e "\nChecking OpenNeuro Dataset on S3..."
+openneuro_info=$(uv run aws s3 ls --no-sign-request --region us-east-1 s3://openneuro.org/${openneuro_id}/ --recursive --summarize | tail -n 3)
+
 # Check fMRIPrep derivatives on S3
 echo -e "\nChecking fMRIPrep derivatives on S3..."
-df_info=$(uv run aws s3 ls --no-sign-request s3://openneuro-derivatives/fmriprep/${openneuro_id}-fmriprep/ --recursive --summarize | tail -n 3)
+deriv_info=$(uv run aws s3 ls --no-sign-request s3://openneuro-derivatives/fmriprep/${openneuro_id}-fmriprep/ --recursive --summarize | tail -n 3)
 
 # Determine if derivatives are minimal based on MNI files presence
 if aws s3 ls --recursive --no-sign-request "s3://openneuro-derivatives/fmriprep/${openneuro_id}-fmriprep/" 2>/dev/null | grep -q ".*_space-MNI152.*_desc-preproc_bold.nii.gz"; then
@@ -50,21 +54,38 @@ else
 fi
 
 # Extract and display file information
-n_files=$(echo "$df_info" | grep "Total Objects" | awk -F':' '{print $2}' | tr -d ' ')
-total_size_bytes=$(echo "$df_info" | grep "Total Size" | awk -F':' '{print $2}' | tr -d ' ')
-gb_size=$(echo "scale=6; $total_size_bytes / (1024*1024*1024)" | bc)
-gb_rnd=$(printf "%.1f" $gb_size)
+# openneuro
+n_files_on=$(echo "$openneuro_info" | grep "Total Objects" | awk -F':' '{print $2}' | tr -d ' ')
+total_size_bytes_on=$(echo "$openneuro_info" | grep "Total Size" | awk -F':' '{print $2}' | tr -d ' ')
+gb_size_on=$(echo "scale=6; $total_size_bytes_on / (1024*1024*1024)" | bc)
+gb_rnd_on=$(printf "%.1f" $gb_size_on)
 
-echo -e "\nDataset Information for ${openneuro_id}:"
-echo "   - Size: ${gb_rnd} GB"
-echo "   - Files: ${n_files}"
+#fmriprep'd openneuro
+n_files_fp=$(echo "$deriv_info" | grep "Total Objects" | awk -F':' '{print $2}' | tr -d ' ')
+total_size_bytes_fp=$(echo "$deriv_info" | grep "Total Size" | awk -F':' '{print $2}' | tr -d ' ')
+gb_size_fp=$(echo "scale=6; $total_size_bytes_fp / (1024*1024*1024)" | bc)
+gb_rnd_fp=$(printf "%.1f" $gb_size_fp)
+
+echo -e "\nDataset Information on OpenNeuro.org for ${openneuro_id}:"
+echo "   - Size: ${gb_rnd_on} GB"
+echo "   - Files: ${n_files_on}"
+echo "   - Destination: ${data}/input/${openneuro_id}"
+
+echo -e "\nDataset Information on OpenNeuro-Derivatives for ${openneuro_id}:"
+echo "   - Size: ${gb_rnd_fp} GB"
+echo "   - Files: ${n_files_fp}"
 echo "   - Destination: ${data}/fmriprep/${openneuro_id}/derivatives"
+
 if [[ "$minimal_derivatives" == "yes" ]]; then
         echo "   - fMRIPrep Derivatives on s3: Minimal, will ⚠️  require running recreate_fmriprep.sh script. "
+        echo -e "   - Note: OpenNeuro BIDS data size can be reduced by adding filters to './scripts/prep_report_py/file_exclusions.json'"
+
 else
         echo "   - fMRIPrep Derivatives on s3: Full, will not require running recreate_fmriprep.sh script."
+        echo -e "   - Note: Fmriprep derivatives size can be reduced by adding filters to './scripts/prep_report_py/file_exclusions.json'"
+        echo -e "   - Note: BIDS Data will only download non-binary data, files number will remain the same but size will significantly decrease."
+
 fi
-echo -e "   - Note: If minimal, fmriprep derivatives size can be reduced by adding filters to './scripts/prep_report_py/file_exclusions.json'"
 
 # Confirm download with user
 echo
@@ -75,11 +96,11 @@ if [[ "$user_input" == "yes" ]]; then
     
     if [[ "$minimal_derivatives" == "yes" ]]; then
         echo "   Downloading complete BIDS dataset and minimal fMRIPrep data..."
-        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" ${minimal_derivatives}
+        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" "${minimal_derivatives}"
         echo -e "\n   \033[1;31mIMPORTANT: Run recreate_fmriprep.sh script next\033[0m"
     else
         echo "   Downloading minimal BIDS dataset and complete fMRIPrep derivatives..."
-        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" ${minimal_derivatives}
+        uv run python "${scripts_dir}/prep_report_py/get_openneuro_data.py" "${openneuro_id}" "${data}" "${spec_dir}" "${minimal_derivatives}"
     fi
     
     echo -e "\nDownload completed successfully."

@@ -1,4 +1,6 @@
-# Study Details: ds001848
+[![OpenNeuro ID](https://img.shields.io/badge/OpenNeuro_Dataset-ds001848-blue?style=for-the-badge)](https://openneuro.org/datasets/ds001848)
+
+# Dataset Details: ds001848
 
 ## Number of Subjects
 - BIDS Input: 52

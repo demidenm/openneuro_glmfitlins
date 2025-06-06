@@ -1,0 +1,278 @@
+{
+  "Name": "ds003831",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "001",
+      "003",
+      "004",
+      "007",
+      "008",
+      "009",
+      "010",
+      "012",
+      "013",
+      "014",
+      "018",
+      "021",
+      "022",
+      "023",
+      "024",
+      "026",
+      "028",
+      "029",
+      "035",
+      "036",
+      "039",
+      "040",
+      "042",
+      "043",
+      "044",
+      "045",
+      "046",
+      "047",
+      "050",
+      "051",
+      "055",
+      "056",
+      "057",
+      "058",
+      "060",
+      "062",
+      "063",
+      "064",
+      "066",
+      "067",
+      "068",
+      "069",
+      "070",
+      "072",
+      "073",
+      "074",
+      "075",
+      "076",
+      "077",
+      "078",
+      "080",
+      "081",
+      "083",
+      "084",
+      "087",
+      "088",
+      "089",
+      "090",
+      "091",
+      "093",
+      "097",
+      "098",
+      "100",
+      "101",
+      "103",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "111",
+      "113",
+      "114"
+    ],
+    "task": [
+      "modulate2"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*",
+              "reg_error"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "reg_error",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "regvrest",
+          "ConditionList": [
+            "trial_type.feel",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "allfbvrest",
+          "ConditionList": [
+            "trial_type.fb_v_pos",
+            "trial_type.fb_v_neg",
+            "trial_type.fb_a_pos",
+            "trial_type.fb_a_neg",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            0.25,
+            0.25,
+            0.25,
+            0.25,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "valregvrest",
+          "ConditionList": [
+            "trial_type.fb_v_pos",
+            "trial_type.fb_v_neg",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "arousregvrest",
+          "ConditionList": [
+            "trial_type.fb_a_pos",
+            "trial_type.fb_a_neg",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "valposvneg",
+          "ConditionList": [
+            "trial_type.fb_v_pos",
+            "trial_type.fb_v_neg"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "arousalposvneg",
+          "ConditionList": [
+            "trial_type.fb_a_pos",
+            "trial_type.fb_a_neg"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "postregvrest",
+          "ConditionList": [
+            "trial_type.fb_v_pos",
+            "trial_type.fb_a_pos",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "negregvrest",
+          "ConditionList": [
+            "trial_type.fb_v_neg",
+            "trial_type.fb_a_neg",
+            "trial_type.rest"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "regpostvneg",
+          "ConditionList": [
+            "trial_type.fb_v_pos",
+            "trial_type.fb_a_pos",
+            "trial_type.fb_v_neg",
+            "trial_type.fb_a_neg"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "regulationerror",
+          "ConditionList": [
+            "reg_error"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

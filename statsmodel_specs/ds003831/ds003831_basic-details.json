@@ -1,0 +1,243 @@
+{
+    "Subjects": [
+        "001",
+        "003",
+        "004",
+        "007",
+        "008",
+        "009",
+        "010",
+        "012",
+        "013",
+        "014",
+        "018",
+        "021",
+        "022",
+        "023",
+        "024",
+        "026",
+        "028",
+        "029",
+        "034",
+        "035",
+        "036",
+        "039",
+        "040",
+        "042",
+        "043",
+        "044",
+        "045",
+        "046",
+        "047",
+        "050",
+        "051",
+        "055",
+        "056",
+        "057",
+        "058",
+        "060",
+        "062",
+        "063",
+        "064",
+        "066",
+        "067",
+        "068",
+        "069",
+        "070",
+        "072",
+        "073",
+        "074",
+        "075",
+        "076",
+        "077",
+        "078",
+        "080",
+        "081",
+        "083",
+        "084",
+        "087",
+        "088",
+        "089",
+        "090",
+        "091",
+        "093",
+        "097",
+        "098",
+        "100",
+        "101",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "111",
+        "113",
+        "114"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "identify1": {
+            "cite_links": [
+                "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376"
+            ],
+            "plot_coords": [
+                2,
+                18,
+                0
+            ],
+            "bold_volumes": 282,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "dsgn_onset",
+                "dsgn_duration",
+                "trial_type",
+                "database",
+                "identifier",
+                "valence",
+                "arousal"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "dsgn_onset": "float64",
+                "dsgn_duration": "float64",
+                "trial_type": "object",
+                "database": "object",
+                "identifier": "float64",
+                "valence": "float64",
+                "arousal": "float64"
+            },
+            "trial_type_values": [
+                "ex_stim",
+                "in_stim",
+                "in_prep",
+                "in_feel"
+            ]
+        },
+        "identify2": {
+            "cite_links": [
+                "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376"
+            ],
+            "plot_coords": [
+                2,
+                18,
+                -20
+            ],
+            "bold_volumes": 282,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "dsgn_onset",
+                "dsgn_duration",
+                "trial_type",
+                "database",
+                "identifier",
+                "valence",
+                "arousal"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "dsgn_onset": "float64",
+                "dsgn_duration": "float64",
+                "trial_type": "object",
+                "database": "object",
+                "identifier": "float64",
+                "valence": "float64",
+                "arousal": "float64"
+            },
+            "trial_type_values": [
+                "in_stim",
+                "in_prep",
+                "in_feel",
+                "ex_stim"
+            ]
+        },
+        "modulate1": {
+            "cite_links": [
+                "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376"
+            ],
+            "plot_coords": [
+                2,
+                18,
+                -20
+            ],
+            "bold_volumes": 310,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "fb_valence",
+                "fb_arousal"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "fb_valence": "float64",
+                "fb_arousal": "float64"
+            },
+            "trial_type_values": [
+                "rest",
+                "fb_v_pos",
+                "feel",
+                "fb_a_pos",
+                "fb_v_neg",
+                "fb_a_neg",
+                "finish"
+            ]
+        },
+        "modulate2": {
+            "cite_links": [
+                "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376"
+            ],
+            "plot_coords": [
+                2,
+                18,
+                -20
+            ],
+            "bold_volumes": 310,
+            "dummy_volumes": null,
+            "preproc_events": true,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "fb_valence",
+                "fb_arousal"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "fb_valence": "float64",
+                "fb_arousal": "float64"
+            },
+            "trial_type_values": [
+                "rest",
+                "fb_a_neg",
+                "feel",
+                "fb_v_pos",
+                "fb_a_pos",
+                "fb_v_neg",
+                "finish"
+            ]
+        }
+    }
+}

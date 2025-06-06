@@ -1,0 +1,236 @@
+{
+  "Name": "ds003831",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "001",
+      "003",
+      "004",
+      "007",
+      "008",
+      "009",
+      "010",
+      "012",
+      "013",
+      "014",
+      "018",
+      "021",
+      "022",
+      "023",
+      "024",
+      "026",
+      "028",
+      "029",
+      "035",
+      "036",
+      "039",
+      "040",
+      "042",
+      "043",
+      "044",
+      "045",
+      "046",
+      "047",
+      "050",
+      "051",
+      "055",
+      "056",
+      "057",
+      "058",
+      "060",
+      "062",
+      "063",
+      "064",
+      "066",
+      "067",
+      "068",
+      "069",
+      "070",
+      "072",
+      "073",
+      "074",
+      "075",
+      "076",
+      "077",
+      "078",
+      "080",
+      "081",
+      "083",
+      "084",
+      "087",
+      "088",
+      "089",
+      "090",
+      "091",
+      "093",
+      "097",
+      "098",
+      "100",
+      "101",
+      "103",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "111",
+      "113",
+      "114"
+    ],
+    "task": [
+      "identify1"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Input": [
+              "trial_type.*",
+              "exstim_arouscent",
+              "exstim_valcent",
+              "instim_arouscent",
+              "instim_valcent"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "exstim_arouscent",
+          "exstim_valcent",
+          "instim_arouscent",
+          "instim_valcent",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "extrinsicvinstrinsic",
+          "ConditionList": [
+            "trial_type.ex_stim",
+            "trial_type.in_stim"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "prepvrecall",
+          "ConditionList": [
+            "trial_type.in_prep",
+            "trial_type.in_feel"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "exstimarousal",
+          "ConditionList": [
+            "exstim_arouscent"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "exstimval",
+          "ConditionList": [
+            "exstim_valcent"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "instimarousal",
+          "ConditionList": [
+            "instim_arouscent"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "instimval",
+          "ConditionList": [
+            "instim_valcent"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "valinvexstim",
+          "ConditionList": [
+            "instim_valcent",
+            "exstim_valcent"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "arousalinvexstim",
+          "ConditionList": [
+            "instim_arouscent",
+            "exstim_arouscent"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

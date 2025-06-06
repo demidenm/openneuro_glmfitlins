@@ -1,0 +1,140 @@
+{
+    "Contrasts": [
+        {
+            "Name": "regvrest",
+            "ConditionList": [
+                "trial_type.feel",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allfbvrest",
+            "ConditionList": [
+                "trial_type.fb_v_pos",
+                "trial_type.fb_v_neg", 
+                "trial_type.fb_a_pos",
+                "trial_type.fb_a_neg",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                0.25,
+                0.25,
+                0.25,
+                0.25,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "valregvrest",
+            "ConditionList": [
+                "trial_type.fb_v_pos",
+                "trial_type.fb_v_neg",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "arousregvrest",
+            "ConditionList": [
+                "trial_type.fb_a_pos",
+                "trial_type.fb_a_neg",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "valposvneg",
+            "ConditionList": [
+                "trial_type.fb_v_pos",
+                "trial_type.fb_v_neg"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "arousalposvneg",
+            "ConditionList": [
+                "trial_type.fb_a_pos",
+                "trial_type.fb_a_neg"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "postregvrest",
+            "ConditionList": [
+                "trial_type.fb_v_pos",
+                "trial_type.fb_a_pos",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "negregvrest",
+            "ConditionList": [
+                "trial_type.fb_v_neg",
+                "trial_type.fb_a_neg",
+                "trial_type.rest"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "regpostvneg",
+            "ConditionList": [
+                "trial_type.fb_v_pos",
+                "trial_type.fb_a_pos",
+                "trial_type.fb_v_neg",
+                "trial_type.fb_a_neg"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "regulationerror",
+            "ConditionList": [
+                "reg_error"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

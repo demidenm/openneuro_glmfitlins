@@ -1,10 +1,10 @@
 #!/bin/bash
 #
 #SBATCH --job-name=on_minfmriprep
-#SBATCH --array=0-20%25 #1-18%25 #ds0023825 #1-41%30 # ds004006
-#SBATCH --time=02:30:00
+#SBATCH --array=24,15%30#001,003,004,007-010,012-014,018,021-024,026,028,029,034-036,039,040,042-047,050,051,055-058,060,062,063,064,066-070,072-078,080,081,083,084,087-091,093,097,098,100,101,103-108,111,113,114%20 #1-18%25 #ds0023825 #1-41%30 # ds004006
+#SBATCH --time=03:30:00
 #SBATCH --cpus-per-task=6
-#SBATCH --mem-per-cpu=10GB
+#SBATCH --mem-per-cpu=12GB
 #SBATCH -p russpold,normal,owners
 # Outputs ----------------------------------
 #SBATCH --output=./logs/regen_fmriprep.%A_%a.out
@@ -34,7 +34,20 @@ fs_license=$(jq -r '.freesurfer_license' "$config_file")
 
 
 # example from job array, sub=("21" "31" "78" "55" "106")
-subj=$( printf %02d ${SLURM_ARRAY_TASK_ID} )
+# sets interger padding based on second argument, e.g., 2, 3, 4.. default 2 int pad
+pad_width=${2:-2}
+
+# Validate pad_width is a number
+if ! [[ "$pad_width" =~ ^[0-9]+$ ]]; then
+  echo "Error: pad_width must be a positive integer"
+  exit 1
+fi
+
+task_id_digits=${#SLURM_ARRAY_TASK_ID}
+
+
+# format the ID
+subj=$(printf "%0${pad_width}d" ${SLURM_ARRAY_TASK_ID})
 echo "SUBJECT_ID: " $subj
 sub="sub-${subj}"
 

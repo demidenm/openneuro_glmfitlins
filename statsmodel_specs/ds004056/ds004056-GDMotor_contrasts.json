@@ -1,0 +1,64 @@
+{
+    "Contrasts": [
+        {
+            "Name": "instructVMvCON",
+            "ConditionList": [
+                "trial_type.Inst_VM",
+                "trial_type.Inst_CON"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "instructVGvCON",
+            "ConditionList": [
+                "trial_type.Inst_VG",
+                "trial_type.Inst_CON"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "instructVMvVG",
+            "ConditionList": [
+                "trial_type.Inst_VM",
+                "trial_type.Inst_VG"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "actionVGgovnogo",
+            "ConditionList": [
+                "trial_type.DOOR-VG-go",
+                "trial_type.DOOR-VG-no-go"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "actionVMgovnogo",
+            "ConditionList": [
+                "trial_type.DOOR-VM-go",
+                "trial_type.DOOR-VM-no-go"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "Contrasts": [
+        {
+            "Name": "extrinsicvinstrinsic",
+            "ConditionList": [
+                "trial_type.ex_stim",
+                "trial_type.in_stim"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "prepvrecall",
+            "ConditionList": [
+                "trial_type.in_prep",
+                "trial_type.in_feel"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "exstimarousal",
+            "ConditionList": [
+                "exstim_arouscent"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "exstimval",
+            "ConditionList": [
+                "exstim_valcent"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "instimarousal",
+            "ConditionList": [
+                "instim_arouscent"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "instimval",
+            "ConditionList": [
+                "instim_valcent"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "valinvexstim",
+            "ConditionList": [
+                "instim_valcent",
+                "exstim_valcent"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "arousalinvexstim",
+            "ConditionList": [
+                "instim_arouscent",
+                "exstim_arouscent"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }     
+    ]
+}

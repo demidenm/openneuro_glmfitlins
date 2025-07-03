@@ -7,11 +7,11 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-06-06`*
+*This repository is in active development. `Last updated: 2025-07-03`*
 
 
 
-N OpenNeuro Studies: 34
+N OpenNeuro Studies: 39
 
 N OpenNeuro Task fMRI Group Summaries: 55
 
@@ -118,7 +118,7 @@ For items related to specific issues, please use the `Issues` tab. There are sep
 
 1. **Clone the repository**:
    ```bash
-   git clone git@github.com:demidenm/openneuro_glmfitlins.git
+   git clone https://github.com/demidenm/openneuro_glmfitlins.git
    ```
 
 2. **Set up environment**:

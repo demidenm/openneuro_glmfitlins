@@ -157,4 +157,4 @@ uv run python "${scripts_dir}/prep_report_py/study_simple_details.py" \
 echo -e "\nProcess completed for ${openneuro_id}"
 
 # add write rights to input to simplify deletion
-chmod +w -R "${data}/input/${openneuro_id}"
+chmod -R +w "${data}/input/${openneuro_id}"

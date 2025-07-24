@@ -11,7 +11,7 @@
 
 
 
-N OpenNeuro Studies: 39
+N OpenNeuro Studies: 38
 
 N OpenNeuro Task fMRI Group Summaries: 55
 

@@ -34,7 +34,13 @@ for subdir in analyses fmriprep input; do
     [ ! -d "${data}/${subdir}" ] && echo "  Creating directory: ${data}/${subdir}" && mkdir -p "${data}/${subdir}"
 done
 
-[ ! -d "$spec_dir" ] && echo "  Creating directory: $spec_dir" && mkdir -p "$spec_dir"
+# Check if BIDS directory exists
+if ! uv run aws s3 ls --no-sign-request --region us-east-1 s3://openneuro.org/${openneuro_id}/ >/dev/null 2>&1; then
+    echo "ERROR: BIDS Dataset for ${openneuro_id} not found. Dataset may not be processed yet. Check study id and try again."
+    echo "Exiting..."
+    echo
+    exit 1
+fi
 
 # Check OpenNeuro Input  on S3
 echo -e "\nChecking OpenNeuro Dataset on S3..."
@@ -44,6 +50,7 @@ openneuro_info=$(uv run aws s3 ls --no-sign-request --region us-east-1 s3://open
 echo -e "\nChecking fMRIPrep derivatives on S3..."
 deriv_info=$(uv run aws s3 ls --no-sign-request s3://openneuro-derivatives/fmriprep/${openneuro_id}-fmriprep/ --recursive --summarize | tail -n 3)
 
+
 # Determine if derivatives are minimal based on MNI files presence
 if aws s3 ls --recursive --no-sign-request "s3://openneuro-derivatives/fmriprep/${openneuro_id}-fmriprep/" 2>/dev/null | grep -q ".*_space-MNI152.*_desc-preproc_bold.nii.gz"; then
     minimal_derivatives="no"
@@ -52,6 +59,8 @@ else
     minimal_derivatives="yes"
     echo -e "⚠️  Only minimal derivatives available\n   \033[1;31mYou will need to run recreate_fmriprep.sh script after download\033[0m"
 fi
+
+[ ! -d "$spec_dir" ] && echo "  Creating directory: $spec_dir" && mkdir -p "$spec_dir"
 
 # Extract and display file information
 # openneuro

@@ -71,3 +71,6 @@ uv pip install git+https://github.com/bids-standard/pybids.git
 # run to have kernel for jupyternotebook kernel
 uv add --dev ipykernel
 uv run ipython kernel install --user --env VIRTUAL_ENV $(pwd)/.venv --name="openneuro_glm"
+
+# source 
+source .venv/bin/activate

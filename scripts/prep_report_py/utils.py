@@ -196,7 +196,7 @@ def get_bidstats_events(bids_path, spec_cont, scan_length=125, ignored=None, ret
         colls = root_node.get_collections()
         if not colls:
             raise ValueError("No collections found in the root node.")
-        return colls[return_events_num].to_df(entities=True), root_node
+        return colls[return_events_num].to_df(entities=True), root_node, graph
     except Exception as e:
         print(f"Error processing root node collections: {e}")
         return None

@@ -7,7 +7,7 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-07-03`*
+*This repository is in active development. `Last updated: 2025-07-24`*
 
 
 
@@ -123,6 +123,7 @@ For items related to specific issues, please use the `Issues` tab. There are sep
 
 2. **Set up environment**:
    ```bash
+   cd openneuro_glmfitlins
    bash setup_uv.sh
    ```
 
@@ -161,6 +162,9 @@ Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID: Updat
 ```bash
 sbatch recreate_fmriprep.sh ds003425
 ```
+
+> To run fmriprep, you will need a singularity container which you can build using: `singularity build /path/fmriprep-<version>.sif  docker://nipreps/fmriprep:<version>`
+
 
 ### 3. Modify Events/BOLD/Confound Files and Check Event Counts
 

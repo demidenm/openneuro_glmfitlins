@@ -20,15 +20,21 @@
     "Sessions": [],
     "Tasks": {
         "balloonanalogrisktask": {
-            "cite_links": ["https://doi.org/10.3389/fnins.2012.00080"],
+            "cite_links": [],
             "plot_coords": [
-                4,
-                52,
-                -4
+                0,
+                0,
+                0
             ],
             "bold_volumes": 300,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3
+            ],
+            "task_sessions": [],
             "column_names": [
                 "onset",
                 "duration",

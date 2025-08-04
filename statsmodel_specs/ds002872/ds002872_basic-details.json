@@ -52,7 +52,7 @@
                 -3
             ],
             "bold_volumes": null,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [
                 1,

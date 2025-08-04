@@ -24,7 +24,7 @@
                 6
             ],
             "bold_volumes": 173,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "column_names": [
                 "onset",
@@ -50,7 +50,7 @@
                 60
             ],
             "bold_volumes": 184,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "column_names": [
                 "onset",
@@ -78,7 +78,7 @@
                 6
             ],
             "bold_volumes": 238,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "column_names": [
                 "onset",
@@ -108,7 +108,7 @@
                 6
             ],
             "bold_volumes": 88,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "column_names": [
                 "onset",
@@ -134,7 +134,7 @@
                 6
             ],
             "bold_volumes": 76,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "column_names": [
                 "onset",

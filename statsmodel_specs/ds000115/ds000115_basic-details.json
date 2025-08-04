@@ -110,7 +110,7 @@
                 0
             ],
             "bold_volumes": 137,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",
@@ -138,7 +138,7 @@
                 0
             ],
             "bold_volumes": 137,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",
@@ -166,7 +166,7 @@
                 0
             ],
             "bold_volumes": 137,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",

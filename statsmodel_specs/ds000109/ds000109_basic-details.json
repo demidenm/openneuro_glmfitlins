@@ -47,7 +47,7 @@
                 18
             ],
             "bold_volumes": 179,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",

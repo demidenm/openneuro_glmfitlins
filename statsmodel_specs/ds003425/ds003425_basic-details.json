@@ -20,15 +20,13 @@
     ],
     "Tasks": {
         "learning": {
-            "cite_links": [
-                "https://www.nature.com/articles/s41598-022-05019-y"
-            ],
+            "cite_links": [],
             "plot_coords": [
                 0,
                 0,
                 0
             ],
-            "bold_volumes": 125,
+            "bold_volumes": 98,
             "dummy_volumes": 4,
             "preproc_events": true,
             "task_runs": [
@@ -61,15 +59,13 @@
             ]
         },
         "prelearning": {
-            "cite_links": [
-                "https://www.nature.com/articles/s41598-022-05019-y"
-            ],
+            "cite_links": [],
             "plot_coords": [
-                -24,
                 0,
-                -4
+                0,
+                0
             ],
-            "bold_volumes": 85,
+            "bold_volumes": 98,
             "dummy_volumes": 4,
             "preproc_events": true,
             "task_runs": [
@@ -98,13 +94,11 @@
             ]
         },
         "regulate": {
-            "cite_links": [
-                "https://www.nature.com/articles/s41598-022-05019-y"
-            ],
+            "cite_links": [],
             "plot_coords": [
-                -24,
                 0,
-                -4
+                0,
+                0
             ],
             "bold_volumes": 125,
             "dummy_volumes": 4,
@@ -141,15 +135,13 @@
             ]
         },
         "training": {
-            "cite_links": [
-                "https://www.nature.com/articles/s41598-022-05019-y"
-            ],
+            "cite_links": [],
             "plot_coords": [
-                -24,
                 0,
-                -4
+                0,
+                0
             ],
-            "bold_volumes": 98,
+            "bold_volumes": 97,
             "dummy_volumes": 4,
             "preproc_events": true,
             "task_runs": [

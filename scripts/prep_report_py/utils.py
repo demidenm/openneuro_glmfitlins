@@ -4,6 +4,7 @@ import re
 import json
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from IPython.display import display, Markdown
 from bids.modeling import BIDSStatsModelsGraph
 from bids.layout import BIDSLayout, BIDSLayoutIndexer
@@ -11,6 +12,80 @@ from nilearn.interfaces.bids import parse_bids_filename
 from nilearn.image import index_img, load_img, new_img_like, mean_img
 from nilearn.glm import expression_to_contrast_vector
 from pyrelimri import similarity
+import matplotlib.pyplot as plt
+
+
+# Metadata
+
+def get_session_metadata(task_name, bids_layout, Sessions=None, preproc_layout=None):
+    if task_name.lower() in ['rest', 'resting']:
+        print(f"* Task name {task_name} is resting state. Skipping. *")
+        return None
+
+    task_event_files = []
+    task_bold_files = []
+
+    if Sessions and len(Sessions) > 1:
+        for session in Sessions:
+            session_event_files = bids_layout.get(task=task_name, session=session, suffix="events", extension=".tsv")
+            task_event_files.extend(session_event_files)
+
+            session_bold_files = bids_layout.get(task=task_name, session=session, suffix="bold", extension=".nii.gz")
+            task_bold_files.extend(session_bold_files)
+
+        if not task_event_files:
+            task_event_files.extend(
+                bids_layout.get(task=task_name, suffix="events", extension=".tsv", session=None)
+            )
+    else:
+        task_event_files = bids_layout.get(task=task_name, suffix="events", extension=".tsv")
+        task_bold_files = bids_layout.get(task=task_name, suffix="bold", extension=".nii.gz")
+
+    # Determine number of volumes
+    num_volumes = get_numvolumes(task_bold_files[0].path) if task_bold_files else None
+    if num_volumes is None and preproc_layout:
+        # if bids not present, try fmriprep
+        deriv_bold_files = preproc_layout.get(task=task_name, suffix="bold", extension=".nii.gz")
+        num_volumes = get_numvolumes(deriv_bold_files[0].path) if deriv_bold_files else None
+
+    # subject metadata by session
+    subject_data_by_session = {}
+
+    if Sessions and len(Sessions) > 1:
+        # if more than 1 session
+        for session in Sessions:
+            subjects = bids_layout.get_subjects(task=task_name, session=session)
+            subject_data = []
+            for subject in subjects:
+                subject_runs = bids_layout.get_runs(subject=subject, task=task_name, session=session)
+                subject_data.append({
+                    'Subject': f'sub-{subject}',
+                    'Session': f'ses-{session}',
+                    'num_runs': len(subject_runs),
+                    'run_numbers': ', '.join(map(str, sorted(subject_runs))) if subject_runs else 'None'
+                })
+            if subject_data:
+                subject_data_by_session[session] = pd.DataFrame(subject_data)
+    else:
+        #if only one session
+        subjects = bids_layout.get_subjects(task=task_name)
+        subject_data = []
+        for subject in subjects:
+            subject_runs = bids_layout.get_runs(subject=subject, task=task_name)
+            subject_data.append({
+                'Subject': f'sub-{subject}',
+                'num_runs': len(subject_runs),
+                'run_numbers': ', '.join(map(str, sorted(subject_runs))) if subject_runs else 'None'
+            })
+        if subject_data:
+            subject_data_by_session['all'] = pd.DataFrame(subject_data)
+
+    return {
+        "task_event_files": task_event_files,
+        "task_bold_files": task_bold_files,
+        "num_volumes": num_volumes,
+        "subject_data_by_session": subject_data_by_session
+    }
 
 
 def get_numvolumes(nifti_path_4d):
@@ -33,129 +108,6 @@ def get_numvolumes(nifti_path_4d):
     except Exception as e:
         print(f"Nilearn error reading file {nifti_path_4d}: {e}")
         return None
-
-
-def trim_derivatives(boldpath: str, confpath: str, num_totrim: int):
-    """
-    Trim a specified number of initial volumes from an fMRI NIfTI file and confounds file.
-    
-    Parameters:
-    boldpath (str) : Path to the fMRI NIfTI (.nii.gz) file
-    confpath (str) : Path to the counfounds (.tsv) file
-    num_totrim (int) : number of initial volumes to remove, int
-
-    Returns:
-    BOLD NIfTI, confounds dataframe
-    """
-    nifti_data = trim_calibration_volumes(bold_path=boldpath, num_voltotrim=num_totrim)
-    confounds_data = trim_confounds(confounds_path=confpath, num_rowstotrim=num_totrim)
-
-    return nifti_data, confounds_data
-
-
-def trim_calibration_volumes(bold_path: str, num_voltotrim:int):
-    """
-    Trim a specified number of initial volumes from an fMRI NIfTI file.
-    
-    Parameters:
-    bold_path (str): Path to the 4D fMRI NIfTI file (.nii or .nii.gz)
-    num_voltotrim (int): Number of initial volumes to remove
-    
-    Returns:
-    Trimmed nifti file
-    """
-    if not os.path.exists(bold_path):
-        raise FileNotFoundError(f"File not found: {bold_path}")
-    
-    # load nifti & trim
-    try:
-        img = load_img(bold_path)
-        total_vols = img.shape[3] if len(img.shape) == 4 else None
-        if total_vols is None:
-            raise ValueError(f"Invalid NIfTI file: {bold_path}")
-        
-        print("Trimming {} volumes from {} volumes".format(num_voltotrim, total_vols))
-        trimmed_img = index_img(img, slice(num_voltotrim, None))
-
-    except Exception as e:
-        raise ValueError(f"Error loading NIfTI file: {e}")    
-    
-    return trimmed_img
-
-
-def trim_confounds(confounds_path:str, num_rowstotrim:int):
-    """
-    Trim confounds rows by specified N of calibration volumes
-    
-    Parameters:
-    confounds_path (str) : Path to the confounds tsv file
-    num_rowstotrim (int) : Number of initial rows to remove
-    
-    Returns:
-    modified confounds dataframe
-    """
-    # file exists 
-    if not os.path.exists(confounds_path):
-        raise FileNotFoundError(f"File not found: {confounds_path}")
-    
-    # load file
-    try:
-        confounds_df = pd.read_csv(confounds_path, sep='\t')
-    except Exception as e:
-        raise ValueError(f"Error reading confounds file: {e}")
-    
-    # Check number of rows
-    total_rows = len(confounds_df)
-    
-    if num_rowstotrim >= total_rows:
-        raise ValueError(f"Number of rows to trim ({num_rowstotrim}) exceeds total rows ({total_rows}).")
-    
-    # trim rows
-    trimmed_df = confounds_df.iloc[num_rowstotrim:].reset_index(drop=True)
-    
-    return trimmed_df
-
-
-def generate_tablecontents(notebook_name):
-    """Generate a Table of Contents from markdown headers in the current Jupyter Notebook."""
-    toc = ["# Table of Contents\n"]
-
-    # Get the current notebook name dynamically
-    notebook_path = os.getcwd()
-    notebook_file = os.path.join(notebook_path, notebook_name)
-    
-    if not notebook_file:
-        print("No notebook file found in the directory.")
-        return
-    
-    # Load the notebook content
-    with open(notebook_file, "r", encoding="utf-8") as f:
-        notebook = nbformat.read(f, as_version=4)
-
-    for cell in notebook.cells:
-        if cell.cell_type == "markdown":  # Only process markdown cells
-            lines = cell.source.split("\n")
-            for line in lines:
-                match = re.match(r"^(#+)\s+([\d.]+)?\s*(.*)", line)  # Match headers with optional numbering
-                if match:
-                    level = len(match.group(1))  # Number of `#` determines header level
-                    header_number = match.group(2) or ""  # Capture section number if present
-                    header_text = match.group(3).strip()  # Extract actual text
-                    
-                    # Format the anchor link correctly for Jupyter:
-                    # 1. Keep original casing
-                    # 2. Preserve periods
-                    # 3. Replace spaces with hyphens
-                    # 4. Remove special characters except `.` and `-`
-                    anchor = f"{header_number} {header_text}"
-                    anchor = anchor.replace(" ", "-")  # Convert spaces to hyphens
-                    anchor = re.sub(r"[^\w.\-]", "", anchor)  # Remove special characters except `.` and `-`
-
-                    toc.append(f"{'  ' * (level - 1)}- [{header_number} {header_text}](#{anchor})")
-
-    # diplay table of contents in markdown
-    display(Markdown("\n".join(toc)))
-
 
 def get_bidstats_events(bids_path, spec_cont, scan_length=125, ignored=None, return_events_num=0):
     """
@@ -200,7 +152,6 @@ def get_bidstats_events(bids_path, spec_cont, scan_length=125, ignored=None, ret
     except Exception as e:
         print(f"Error processing root node collections: {e}")
         return None
-
 
 def extract_model_info(model_spec):
     """
@@ -260,6 +211,318 @@ def extract_model_info(model_spec):
     return extracted_info
 
 
+# Plotting
+
+def create_task_plots(taskname, subj_data, sess_list, output_dir):
+    """
+    Generate and save comprehensive plots for basic details figure
+    Parameters:
+    -----------
+    task_name : str
+        Name of the task
+    subj_data : dict
+        Dictionary with session keys and DataFrames containing subject/run info
+    sess_list : list
+        List of sessions
+    output_dir : str
+        Directory to save plots
+        
+    Returns:
+    --------
+    None
+    """
+    # a single comprehensive figure for all cases
+    if sess_list and len(sess_list) > 1:
+        return _create_multi_session_plots(taskname, subj_data, sess_list, output_dir)
+    else:
+        return _create_single_session_plots(taskname, subj_data, output_dir)
+
+
+def _create_multi_session_plots(task_name, subject_data_by_session, sessions, output_dir):
+    """Create 3-panel plot for multi-session data."""
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
+    
+    session_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
+    
+    # Collect data for all sessions
+    session_subject_counts = {}
+    all_run_counts = {}
+    
+    for i, (session_key, df) in enumerate(subject_data_by_session.items()):
+        if df.empty:
+            continue
+        
+        color = session_colors[i % len(session_colors)]
+        run_counts = df['num_runs'].value_counts().sort_index()
+        
+        session_subject_counts[session_key] = len(df)
+        all_run_counts[session_key] = run_counts
+        
+        # Plot 1: Subject count by session
+        ax1.bar(i, len(df), color=color, edgecolor='black', label=f'Session {session_key}')
+    
+    # Configure Plot 1: Subject counts
+    ax1.set_xlabel('')
+    ax1.set_ylabel('Num Subjects')
+    ax1.set_title(f'Subject Count by Session - {task_name}')
+    ax1.set_xticks(range(len(session_subject_counts)))
+    ax1.set_xticklabels([f'Session {s}' for s in session_subject_counts.keys()])
+    ax1.legend()
+    ax1.grid(axis='y', alpha=0.3)
+    
+    # Plot 2: Run distribution comparison
+    max_runs = max([max(rncnt.index) if len(rncnt) > 0 else 0 for rncnt in all_run_counts.values()])
+    for i, (session_key, run_counts) in enumerate(all_run_counts.items()):
+        color = session_colors[i % len(session_colors)]
+        x_pos = np.arange(1, max_runs + 1) + i * 0.35
+        run_values = [run_counts.get(j, 0) for j in range(1, max_runs + 1)]
+        ax2.bar(x_pos, run_values, width=0.3, color=color, edgecolor='black', label=f'Session {session_key}')
+    
+    ax2.set_xlabel('Num Runs')
+    ax2.set_ylabel('Num Subjects')
+    ax2.set_title(f'Run Frequency Dist Across Subjects - {task_name}')
+    ax2.set_xticks(np.arange(1, max_runs + 1) + 0.175)
+    ax2.set_xticklabels(range(1, max_runs + 1))
+    ax2.legend()
+    ax2.grid(axis='y', alpha=0.3)
+    
+    # Plot 3: Combined run pattern frequencies across all sessions
+    combined_df = pd.concat([df for df in subject_data_by_session.values() if not df.empty], ignore_index=True)
+    run_lists = combined_df['run_numbers'].value_counts().sort_index()
+    
+    ax3.bar(range(len(run_lists)), run_lists.values, color='maroon', edgecolor='black')
+    ax3.set_xlabel('')
+    ax3.set_ylabel('Frequency')
+    ax3.set_title(f'Count Run List Patterns - {task_name}')
+    ax3.set_xticks(range(len(run_lists)))
+    ax3.set_xticklabels(run_lists.index, rotation=45, ha='right')
+    ax3.grid(axis='y', alpha=0.3)
+    
+    filename_suffix = f"{task_name}_session_summary"
+    
+    plt.tight_layout()
+    
+    # Save the plot
+    output_filename = Path(output_dir) / f"{filename_suffix}.png"
+    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    return output_filename
+
+
+def _create_single_session_plots(task_name, subject_data_by_session, output_dir):
+    """Create 3-panel plot for single session data."""
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
+    
+    # Get the single dataframe
+    df = list(subject_data_by_session.values())[0]
+    run_counts = df['num_runs'].value_counts().sort_index()
+    run_lists = df['run_numbers'].value_counts().sort_index()
+    
+    # Plot 1: Total subject count
+    ax1.bar([0], [len(df)], color='darkblue', edgecolor='black')
+    ax1.set_xlabel('Dataset')
+    ax1.set_ylabel('Number of Subjects')
+    ax1.set_title(f'Total Subjects - {task_name}')
+    ax1.set_xticks([0])
+    ax1.set_xticklabels([task_name])
+    ax1.grid(axis='y', alpha=0.3)
+    
+    # Plot 2: Run frequency distribution
+    ax2.bar(run_counts.index, run_counts.values, color='black', edgecolor='black')
+    ax2.set_xlabel('Num Runs')
+    ax2.set_ylabel('Num Subjects')
+    ax2.set_title(f'Run Frequency Dist Across Subjects - {task_name}')
+    ax2.set_xticks(run_counts.index)
+    ax2.grid(axis='y', alpha=0.3)
+    
+    # Plot 3: Run patterns frequency
+    run_lists = df['run_numbers'].value_counts().sort_index()
+    
+    ax3.bar(range(len(run_lists)), run_lists.values, color='maroon', edgecolor='black')
+    ax3.set_xlabel('')
+    ax3.set_ylabel('Frequency')
+    ax3.set_title(f'Count Run List Patterns - {task_name}')
+    ax3.set_xticks(range(len(run_lists)))
+    ax3.set_xticklabels(run_lists.index, rotation=45, ha='right')
+    ax3.grid(axis='y', alpha=0.3)
+
+    filename_suffix = f"{task_name}_summary"
+    
+    plt.tight_layout()
+    
+    # Save the plot
+    output_filename = Path(output_dir) / f"{filename_suffix}.png"
+    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    return output_filename
+
+
+
+# transforming data
+
+def trim_derivatives(boldpath: str, confpath: str, num_totrim: int):
+    """
+    Trim a specified number of initial volumes from an fMRI NIfTI file and confounds file.
+    
+    Parameters:
+    boldpath (str) : Path to the fMRI NIfTI (.nii.gz) file
+    confpath (str) : Path to the counfounds (.tsv) file
+    num_totrim (int) : number of initial volumes to remove, int
+
+    Returns:
+    BOLD NIfTI, confounds dataframe
+    """
+    nifti_data = trim_calibration_volumes(bold_path=boldpath, num_voltotrim=num_totrim)
+    confounds_data = trim_confounds(confounds_path=confpath, num_rowstotrim=num_totrim)
+
+    return nifti_data, confounds_data
+
+
+def trim_calibration_volumes(bold_path: str, num_voltotrim:int):
+    """
+    Trim a specified number of initial volumes from an fMRI NIfTI file.
+    
+    Parameters:
+    bold_path (str): Path to the 4D fMRI NIfTI file (.nii or .nii.gz)
+    num_voltotrim (int): Number of initial volumes to remove
+    
+    Returns:
+    Trimmed nifti file
+    """
+    bold_path = Path(bold_path)  # Ensure it's a Path object
+
+    if not bold_path.exists():
+        raise FileNotFoundError(f"File not found: {bold_path}")
+    
+    # load nifti & trim
+    try:
+        img = load_img(bold_path)
+        total_vols = img.shape[3] if len(img.shape) == 4 else None
+        if total_vols is None:
+            raise ValueError(f"Invalid NIfTI file: {bold_path}")
+        
+        print("Trimming {} volumes from {} volumes".format(num_voltotrim, total_vols))
+        trimmed_img = index_img(img, slice(num_voltotrim, None))
+
+    except Exception as e:
+        raise ValueError(f"Error loading NIfTI file: {e}")    
+    
+    return trimmed_img
+
+
+def trim_confounds(confounds_path:str, num_rowstotrim:int):
+    """
+    Trim confounds rows by specified N of calibration volumes
+    
+    Parameters:
+    confounds_path (str) : Path to the confounds tsv file
+    num_rowstotrim (int) : Number of initial rows to remove
+    
+    Returns:
+    modified confounds dataframe
+    """
+    # file exists 
+    confounds_path = Path(confounds_path)  # Ensure a Path object
+
+    if not confounds_path.exists():
+        raise FileNotFoundError(f"File not found: {confounds_path}")
+    
+    # load file
+    try:
+        confounds_df = pd.read_csv(confounds_path, sep='\t')
+    except Exception as e:
+        raise ValueError(f"Error reading confounds file: {e}")
+    
+    # Check number of rows
+    total_rows = len(confounds_df)
+    
+    if num_rowstotrim >= total_rows:
+        raise ValueError(f"Number of rows to trim ({num_rowstotrim}) exceeds total rows ({total_rows}).")
+    
+    # trim rows
+    trimmed_df = confounds_df.iloc[num_rowstotrim:].reset_index(drop=True)
+    
+    return trimmed_df
+
+
+# readme creation
+
+def generate_tablecontents(notebook_name):
+    """Generate a Table of Contents from markdown headers in the current Jupyter Notebook."""
+    toc = ["# Table of Contents\n"]
+
+    # Get the current notebook name dynamically
+    notebook_file = Path.cwd() / notebook_name
+    
+    if not notebook_file:
+        print("No notebook file found in the directory.")
+        return
+    
+    # Load the notebook content
+    with open(notebook_file, "r", encoding="utf-8") as f:
+        notebook = nbformat.read(f, as_version=4)
+
+    for cell in notebook.cells:
+        if cell.cell_type == "markdown":  # Only process markdown cells
+            lines = cell.source.split("\n")
+            for line in lines:
+                match = re.match(r"^(#+)\s+([\d.]+)?\s*(.*)", line)  # Match headers with optional numbering
+                if match:
+                    level = len(match.group(1))  # Number of `#` determines header level
+                    header_number = match.group(2) or ""  # Capture section number if present
+                    header_text = match.group(3).strip()  # Extract actual text
+                    
+                    # Format the anchor link correctly for Jupyter:
+                    # 1. Keep original casing
+                    # 2. Preserve periods
+                    # 3. Replace spaces with hyphens
+                    # 4. Remove special characters except `.` and `-`
+                    anchor = f"{header_number} {header_text}"
+                    anchor = anchor.replace(" ", "-")  # Convert spaces to hyphens
+                    anchor = re.sub(r"[^\w.\-]", "", anchor)  # Remove special characters except `.` and `-`
+
+                    toc.append(f"{'  ' * (level - 1)}- [{header_number} {header_text}](#{anchor})")
+
+    # diplay table of contents in markdown
+    display(Markdown("\n".join(toc)))
+
+
+# file creation: functions for subjects and contrasts generic files
+def create_subjects_json(subj_list, studyid, taskname, specpath):
+    subjects_file_path = Path(specpath) / f'{studyid}-{taskname}_subjects.json'
+    subjects_data = {
+        "Subjects": subj_list
+    }
+    with open(subjects_file_path, 'w') as f:
+        json.dump(subjects_data, f, indent=4)
+    print(f"\t\tSaved subjects file for task {taskname} to {subjects_file_path}")
+
+def create_gencontrast_json(studyid, taskname, specpath):
+    contrasts_file_path = Path(specpath) / f'{studyid}-{taskname}_contrasts.json'
+    contrasts_data = {
+        "Contrasts": [
+            {
+                "Name": "AvB",
+                "ConditionList": ["trial_type.a", "trial_type.b"],
+                "Weights": [1, -1],
+                "Test": "t"
+            },
+            {
+                "Name": "FacesvPlaces",
+                "ConditionList": ["trial_type.faces", "trial_type.places"],
+                "Weights": [1, -1],
+                "Test": "t"
+            }
+        ]
+    }
+    with open(contrasts_file_path, 'w') as f:
+        json.dump(contrasts_data, f, indent=4)
+    print(f"\t\tSaved contrasts file for task {taskname} to {contrasts_file_path}")
+
+
+# parameter estimation
 
 # below est_contrast_vifs code is courtsey of Jeanette Mumford's repo: https://github.com/jmumford/vif_contrasts
 def est_contrast_vifs(desmat, contrasts):
@@ -345,39 +608,6 @@ def gen_vifdf(designmat, contrastdict, nuisance_regressors):
     df = df[["type", "name", "value"]]
 
     return con_vifs,reg_vifs,df
-
-
-# functions for subjects and contrasts generic files
-def create_subjects_json(subj_list, studyid, taskname, specpath):
-    subjects_file_path = os.path.join(specpath, f'{studyid}-{taskname}_subjects.json')
-    subjects_data = {
-        "Subjects": subj_list
-    }
-    with open(subjects_file_path, 'w') as f:
-        json.dump(subjects_data, f, indent=4)
-    print(f"\t\tSaved subjects file for task {taskname} to {subjects_file_path}")
-
-def create_gencontrast_json(studyid, taskname, specpath):
-    contrasts_file_path = os.path.join(specpath, f'{studyid}-{taskname}_contrasts.json')
-    contrasts_data = {
-        "Contrasts": [
-            {
-                "Name": "AvB",
-                "ConditionList": ["trial_type.a", "trial_type.b"],
-                "Weights": [1, -1],
-                "Test": "t"
-            },
-            {
-                "Name": "FacesvPlaces",
-                "ConditionList": ["trial_type.faces", "trial_type.places"],
-                "Weights": [1, -1],
-                "Test": "t"
-            }
-        ]
-    }
-    with open(contrasts_file_path, 'w') as f:
-        json.dump(contrasts_data, f, indent=4)
-    print(f"\t\tSaved contrasts file for task {taskname} to {contrasts_file_path}")
 
 
 def calc_niftis_meanstd(path_imgs):
@@ -480,6 +710,7 @@ def similarity_boldstand_metrics(img_path, brainmask_path):
         "voxoutmask": perc_out,
         "ratio_inoutmask": inout_ratio,
     }
+
 
 def get_low_quality_subs(ratio_df, dice_thresh=0.85, voxout_thresh=0.10):
     """

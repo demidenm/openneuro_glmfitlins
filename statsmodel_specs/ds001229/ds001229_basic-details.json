@@ -40,7 +40,7 @@
                 -20
             ],
             "bold_volumes": 301,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [
                 1,
@@ -106,7 +106,7 @@
                 -20
             ],
             "bold_volumes": 301,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [
                 1,

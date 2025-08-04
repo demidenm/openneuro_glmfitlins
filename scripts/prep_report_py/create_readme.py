@@ -1,6 +1,6 @@
 import os 
 import json
-
+import glob
 
 def generate_studysummary(spec_path, study_id, data, repo_url="https://github.com/demidenm/openneuro_glmfitlins/blob/main"):
     """
@@ -41,7 +41,22 @@ def generate_studysummary(spec_path, study_id, data, repo_url="https://github.co
             readme_content += f"- **Unique 'trial_type' Values**: {', '.join(map(str, task_info['trial_type_values']))}\n"
         else:
             readme_content += "- **Unique 'trial_type' Values**: None\n"
+        
         readme_content += "\n"
+        # iteratre and add per task compiled descrptives
+        image_pattern = os.path.join(spec_path, "basics_out", f"{task_name}*.png")
+        image_files = glob.glob(image_pattern)
+        
+        if image_files:
+            readme_content += "**Count Summaries**:\n"
+            for image_file in sorted(image_files):
+                # filename for cleaner display
+                image_name = os.path.basename(image_file)
+                # Create relative path from spec_path
+                relative_image_path = os.path.relpath(image_file, spec_path)
+                readme_content += f"\n![{task_name} {image_name}](./{relative_image_path})\n"
+    
+    readme_content += "\n"
 
     # Scan for HTML files in spec_path/mriqc_summary
     mriqc_dir = os.path.join(spec_path, "mriqc_summary")

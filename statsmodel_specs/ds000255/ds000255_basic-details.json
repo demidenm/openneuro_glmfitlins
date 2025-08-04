@@ -18,7 +18,7 @@
                 0
             ],
             "bold_volumes": 134,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "task_runs": [
                 3,
@@ -61,7 +61,7 @@
                 0
             ],
             "bold_volumes": 149,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "task_runs": [
                 1,

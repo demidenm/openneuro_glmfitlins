@@ -12,6 +12,10 @@
 - **BOLD Volumes**: 300
 - **Unique 'trial_type' Values**: pumps_demean, explode_demean, cash_demean, control_pumps_demean
 
+**Count Summaries**:
+
+![balloonanalogrisktask balloonanalogrisktask_summary.png](./basics_out/balloonanalogrisktask_summary.png)
+
 ## MRIQC Summary Reports
 - [group_T1w.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds000001/mriqc_summary/group_T1w.html)
 - [group_bold.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds000001/mriqc_summary/group_bold.html)

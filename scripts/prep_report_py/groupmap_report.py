@@ -1,5 +1,4 @@
 import json
-import os
 import shutil
 import fnmatch 
 import argparse
@@ -32,11 +31,11 @@ parser.add_argument("--scratch_dir", type=str, help="Scratch directory for inter
 
 args = parser.parse_args()
 
-# Set variables from arguments
+# Set variables from arguments - convert to Path objects
 study_id = args.openneuro_study
-analysis_dir = args.analysis_dir
-scratch_dir = args.scratch_dir
-spec_path = args.spec_dir
+analysis_dir = Path(args.analysis_dir)
+scratch_dir = Path(args.scratch_dir)
+spec_path = Path(args.spec_dir)
 task = args.taskname
 
 # Define nuisance regressor patterns
@@ -50,11 +49,11 @@ noise_reg = [
 zstat_thresh = 2.3
 
 # Create output directory for images
-spec_imgs_dir = Path(f"{spec_path}/{study_id}/group_{task}/files")
+spec_imgs_dir = spec_path / study_id / f"group_{task}" / "files"
 spec_imgs_dir.mkdir(parents=True, exist_ok=True)
 
 # Get plotting coordinates from study details
-study_details = f"{spec_path}/{study_id}/{study_id}_basic-details.json"
+study_details = spec_path / study_id / f"{study_id}_basic-details.json"
 with open(study_details, 'r') as file:
     study_info = json.load(file)
     plt_coords = tuple(study_info.get("Tasks", {}).get(task, {}).get("plot_coords"))
@@ -62,7 +61,7 @@ with open(study_details, 'r') as file:
 
 # Load model specifications & study details
 try:
-    spec_file = f"{spec_path}/{study_id}/{study_id}-{task}_specs.json"
+    spec_file = spec_path / study_id / f"{study_id}-{task}_specs.json"
     with open(spec_file, 'r') as file:
         spec_data = json.load(file)
     
@@ -103,27 +102,27 @@ else:
 
 # COPY CONTRAST AND DESIGN 
 # Find and copy example contrast image & design matrix
-contrast_images = list(Path(analysis_dir).rglob(f"*_task-{task}_*contrasts.svg"))
+contrast_images = list(analysis_dir.rglob(f"*_task-{task}_*contrasts.svg"))
 if contrast_images:
     print(f"Found example contrasts image: {contrast_images[0].name}")
-    con_matrix_copy = Path(spec_imgs_dir) / f"{study_id}_task-{task}_contrast-matrix.svg"
+    con_matrix_copy = spec_imgs_dir / f"{study_id}_task-{task}_contrast-matrix.svg"
     shutil.copy(contrast_images[0], con_matrix_copy)
 
-design_images = list(Path(analysis_dir).rglob(f"*_task-{task}_*design.svg"))
+design_images = list(analysis_dir.rglob(f"*_task-{task}_*design.svg"))
 if design_images:
     print(f"Found example design mat image: {design_images[0].name}")
-    design_matrix_copy = Path(spec_imgs_dir) / f"{study_id}_task-{task}_design-matrix.svg"
+    design_matrix_copy = spec_imgs_dir / f"{study_id}_task-{task}_design-matrix.svg"
     shutil.copy(design_images[0], design_matrix_copy)
 
 # Find design matrices
-design_matrices = list(Path(analysis_dir).rglob(f"*_task-{task}_*design.tsv"))
+design_matrices = list(analysis_dir.rglob(f"*_task-{task}_*design.tsv"))
 if design_matrices:
     print(f"Found design matrix TSV file: {design_matrices[0].name}")
-    design_tsv_copy = Path(spec_imgs_dir) / f"{study_id}_task-{task}_design-matrix.tsv"
+    design_tsv_copy = spec_imgs_dir / f"{study_id}_task-{task}_design-matrix.tsv"
     shutil.copy(design_matrices[0], design_tsv_copy)
 
 # VIF ESTIMATION
-# Get contrast spec from notes for VIF est
+# Get contrast spec from nodes for VIF est
 contrast_dict = {}
 for node in spec_results['nodes']:
     if 'contrasts' in node:
@@ -189,19 +188,19 @@ if all_vif_dfs:
     plt.tight_layout()
     
     # Save the figure
-    plt.savefig(f"{spec_imgs_dir}/{study_id}_task-{task}_vif-boxplot.png", dpi=300)
+    plt.savefig(spec_imgs_dir / f"{study_id}_task-{task}_vif-boxplot.png", dpi=300)
     plt.close()
 else:
     print("No VIF data available for visualization")
 
 # R-SQUARED MAPS
 # Estimate average and variance of r-square maps
-rquare_statmaps = list(Path(analysis_dir).rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
+rquare_statmaps = list(analysis_dir.rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
 r2mean, r2std = calc_niftis_meanstd(path_imgs=rquare_statmaps)
 
 # Plot r-square mean and std maps if available
 if r2mean:
-    r2mean_path = f"{spec_imgs_dir}/{study_id}_task-{task}_rsquare-mean.png"
+    r2mean_path = spec_imgs_dir / f"{study_id}_task-{task}_rsquare-mean.png"
     plot_stat_map(
         stat_map_img=r2mean,
         cut_coords=plt_coords, 
@@ -210,11 +209,11 @@ if r2mean:
         vmax=1,
         display_mode='ortho', 
         colorbar=True,  
-        output_file=r2mean_path,
+        output_file=str(r2mean_path),
         title=f"R2 mean across {len(rquare_statmaps)} Subject/Run Imgs"
     )
 if r2std:
-    r2std_path = f"{spec_imgs_dir}/{study_id}_task-{task}_rsquare-std.png"
+    r2std_path = spec_imgs_dir / f"{study_id}_task-{task}_rsquare-std.png"
     plot_stat_map(
         stat_map_img=r2std,
         cut_coords=plt_coords, 
@@ -223,12 +222,12 @@ if r2std:
         vmax=1,
         display_mode='ortho', 
         colorbar=True, 
-        output_file=r2std_path,
+        output_file=str(r2std_path),
         title=f"R2 stdev across {len(rquare_statmaps)} Subject/Run Imgs"
     )
 
 # Prepare r-squared maps for similarity analysis
-tmp_r2_dir = Path(f"{scratch_dir}/{study_id}_task-{task}/r2tmp")
+tmp_r2_dir = scratch_dir / f"{study_id}_task-{task}" / "r2tmp"
 tmp_r2_dir.mkdir(parents=True, exist_ok=True)
 
 # Squeeze r-squared values to compute the similarity / vox out-in
@@ -243,18 +242,17 @@ try:
             img1_squeezed = new_img_like(img1, squeezed_data)
 
             # Save to tmp directory
-            basename = os.path.basename(file)
-            squeezed_path = os.path.join(tmp_r2_dir, basename)
-            img1_squeezed.to_filename(squeezed_path)
+            squeezed_path = tmp_r2_dir / file.name
+            img1_squeezed.to_filename(str(squeezed_path))
 except Exception as e:
     print(f"Error during squeeze and save: {e}")
 
 # Get or create MNI template mask
-mni_mask_dir = Path(f"{tmp_r2_dir}/mask")
+mni_mask_dir = tmp_r2_dir / "mask"
 mni_mask_dir.mkdir(parents=True, exist_ok=True)
-mni_tmp_img = f"{mni_mask_dir}/MNI152NLin2009cAsym_desc-brain_mask.nii.gz"
+mni_tmp_img = mni_mask_dir / "MNI152NLin2009cAsym_desc-brain_mask.nii.gz"
 
-if not os.path.exists(mni_tmp_img):
+if not mni_tmp_img.exists():
     template_mni = api.get(
         'MNI152NLin2009cAsym',
         desc='brain',
@@ -271,11 +269,12 @@ else:
 r2_success = False
 low_quality = None
 try:
-    tmp_r2_paths = list(Path(tmp_r2_dir).rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
+    tmp_r2_paths = list(tmp_r2_dir.rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
+    import os  # Keep for cpu_count
     num_cpus = os.cpu_count()
     use_workers = max(1, num_cpus - 2)  # Use all but 2 cores
 
-    partial_func = partial(similarity_boldstand_metrics, brainmask_path=mni_tmp_img)
+    partial_func = partial(similarity_boldstand_metrics, brainmask_path=str(mni_tmp_img))
     with ProcessPoolExecutor(max_workers=use_workers) as executor:
         ratio_results = list(executor.map(partial_func, tmp_r2_paths))
 
@@ -289,7 +288,7 @@ except Exception as e:
 # Generate similarity plots if successful
 if r2_success:
     # Save similarity results
-    ratio_df.to_csv(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_hist-dicesimilarity.tsv"), sep='\t', index=False)
+    ratio_df.to_csv(spec_imgs_dir / f"{study_id}_task-{task}_hist-dicesimilarity.tsv", sep='\t', index=False)
 
     # Plot 1: Dice similarity
     plt.figure(figsize=(8, 5))
@@ -299,7 +298,7 @@ if r2_success:
     plt.ylabel("Freq")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_hist-dicesimilarity.png"))
+    plt.savefig(spec_imgs_dir / f"{study_id}_task-{task}_hist-dicesimilarity.png")
     plt.close()
 
     # Plot 2: Voxels Outside of MNI Mask
@@ -310,82 +309,81 @@ if r2_success:
     plt.ylabel("Freq")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_hist-voxoutmask.png"))
+    plt.savefig(spec_imgs_dir / f"{study_id}_task-{task}_hist-voxoutmask.png")
     plt.close()
 
 # GROUP MAP PLOTS
 # Plot group maps if they exist; sometimes fitlins create dataLevel and other times datasetLevel
-if os.path.exists(f"{analysis_dir}/node-dataLevel"):
-    grp_map_path = f"{analysis_dir}/node-dataLevel"
-    print("Setting group map path to:", grp_map_path)
+data_level_path = analysis_dir / "node-dataLevel"
+dataset_level_path = analysis_dir / "node-datasetLevel"
 
-elif os.path.exists(f"{analysis_dir}/node-datasetLevel"):
-    grp_map_path = f"{analysis_dir}/node-datasetLevel"
-    print("Setting group map path to:", grp_map_path)
-
+if data_level_path.exists():
+    grp_map_path = data_level_path
+    print(f"Setting group map path to: {grp_map_path}")
+elif dataset_level_path.exists():
+    grp_map_path = dataset_level_path
+    print(f"Setting group map path to: {grp_map_path}")
 else:
     grp_map_path = None 
     
 sessionlabs = None
 
-if os.path.exists(grp_map_path):
+if grp_map_path and grp_map_path.exists():
     # Create group maps and save them for each contrast
     for con_name in contrast_dict.keys():
         # First, try to find maps directly in the node-dataLevel folder
-        direct_zstat_paths = list(Path(grp_map_path).glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
+        direct_zstat_paths = list(grp_map_path.glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
         
         if direct_zstat_paths:
             print(f"No session folders, grabbing {con_name} group map from node-dataLevel directly.\n")
             # Handle maps found directly in node-dataLevel
-            output_img_path = f"{spec_imgs_dir}/{study_id}_task-{task}_contrast-{con_name}_map.png"
+            output_img_path = spec_imgs_dir / f"{study_id}_task-{task}_contrast-{con_name}_map.png"
             plot_stat_map(
                 stat_map_img=direct_zstat_paths[0],
                 cut_coords=plt_coords, 
                 display_mode='ortho', 
                 colorbar=True, 
                 threshold=zstat_thresh, 
-                output_file=output_img_path,
+                output_file=str(output_img_path),
                 title=f"{con_name}: z-stat map"
             )
         else:
-
             # Look for session folders (ses-*)
-            session_folders = [f for f in os.listdir(grp_map_path) if f.startswith('ses-') and os.path.isdir(os.path.join(grp_map_path, f))]
-            sessionlabs = [session for session in session_folders]
+            session_folders = [f for f in grp_map_path.iterdir() 
+                             if f.is_dir() and f.name.startswith('ses-')]
+            sessionlabs = [session.name for session in session_folders]
 
             # For each session folder, find and plot maps
-            for session in session_folders:
-                print(f"Session folders existing, grabbing {con_name} group map from node-dataLevel {session} sub-directory.\n")
+            for session_folder in session_folders:
+                print(f"Session folders existing, grabbing {con_name} group map from node-dataLevel {session_folder.name} sub-directory.\n")
                 
-                session_path = os.path.join(grp_map_path, session)
                 # Search for contrast maps in each session folder
-                session_maps = list(Path(session_path).glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
+                session_maps = list(session_folder.glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
                 
                 if session_maps:
                     # Include session in filename and title
-                    output_img_path = f"{spec_imgs_dir}/{study_id}_task-{task}_{session}_contrast-{con_name}_map.png"
+                    output_img_path = spec_imgs_dir / f"{study_id}_task-{task}_{session_folder.name}_contrast-{con_name}_map.png"
                     plot_stat_map(
                         stat_map_img=session_maps[0],
                         cut_coords=plt_coords, 
                         display_mode='ortho', 
                         colorbar=True, 
                         threshold=zstat_thresh, 
-                        output_file=output_img_path,
-                        title=f"{session}, {con_name}: z-stat map"
+                        output_file=str(output_img_path),
+                        title=f"{session_folder.name}, {con_name}: z-stat map"
                     )
             
             # if no maps found
-            if not direct_zstat_paths and not any(list(Path(os.path.join(grp_map_path, s)).glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz")) for s in session_folders):
+            if not direct_zstat_paths and not any(list(session_folder.glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz")) for session_folder in session_folders):
                 print(f"No z-stat map found for contrast: {con_name}")
 else:
     print("Group map path not found.")
 
 # Get file count and folder size
-gb_size = subprocess.check_output(['du', '-sh', analysis_dir]).split()[0].decode()
+gb_size = subprocess.check_output(['du', '-sh', str(analysis_dir)]).split()[0].decode()
 file_count = subprocess.check_output(f"find {analysis_dir} -type f -o -type l | wc -l", shell=True).strip().decode()
 
 fold_info = f"The size of the Fitlins Derivatives for {study_id} {task} is {gb_size} with {file_count} files."
-
 
 # GENERATE AND SAVE README
 contrast_image = contrast_images[0] if contrast_images else None
@@ -402,8 +400,8 @@ grp_readme = generate_groupmodsummary(
     has_run=has_run, 
     has_subject=has_subject, 
     contrast_dict=contrast_dict, 
-    contrast_image=Path(con_matrix_copy).name if contrast_image else None, 
-    design_image=Path(design_matrix_copy).name if design_images else None, 
+    contrast_image=con_matrix_copy.name if contrast_image else None, 
+    design_image=design_matrix_copy.name if design_images else None, 
     spec_imgs_dir=spec_imgs_dir,
     r2_quality_ran=r2_success,
     sub_flag=low_quality,
@@ -411,6 +409,6 @@ grp_readme = generate_groupmodsummary(
     task_cites=cite_list
 )
 
-readme_path = os.path.join(f"{spec_path}/{study_id}/group_{task}", "README.md")
+readme_path = spec_path / study_id / f"group_{task}" / "README.md"
 with open(readme_path, "w") as f:
     f.write(grp_readme)

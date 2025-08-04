@@ -45,7 +45,7 @@
                 -11
             ],
             "bold_volumes": 367,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": false,
             "task_runs": [
                 1,

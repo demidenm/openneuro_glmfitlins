@@ -28,7 +28,7 @@
                 -14
             ],
             "bold_volumes": 180,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",
@@ -69,7 +69,7 @@
                 -14
             ],
             "bold_volumes": 237,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",
@@ -107,7 +107,7 @@
                 -14
             ],
             "bold_volumes": 180,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "column_names": [
                 "onset",

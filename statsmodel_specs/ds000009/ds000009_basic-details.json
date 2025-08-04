@@ -35,7 +35,7 @@
                 -4
             ],
             "bold_volumes": 245,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [],
             "task_sessions": [],
@@ -83,7 +83,7 @@
                 -12
             ],
             "bold_volumes": 293,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [],
             "task_sessions": [],
@@ -146,7 +146,7 @@
                 -22
             ],
             "bold_volumes": 200,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [
                 1,
@@ -195,7 +195,7 @@
                 54
             ],
             "bold_volumes": 184,
-            "dummy_volumes": null,
+            "dummy_volumes": 0,
             "preproc_events": true,
             "task_runs": [
                 1,

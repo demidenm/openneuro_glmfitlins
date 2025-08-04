@@ -13,7 +13,8 @@
 
 # Prevent SLURM jobs runaway errors, i.e instances where more threads are ran than requested
 # Per Chris Markewicz, 
-# "FitLins will set the environment variable for subprocesses that are tagged as able to use more threads, but if these are not 1, then nipype can't accurately track resource usage."
+# "FitLins will set the environment variable for subprocesses that are tagged as able to use more threads, but if these are not 1, 
+#   then nipype can't accurately track resource usage."
 MKL_NUM_THREADS=1
 OMP_NUM_THREADS=1
 OPENBLAS_NUM_THREADS=1
@@ -85,3 +86,19 @@ uv --project "$repo_dir" \
       --mem-gb 96 \
       -w "${scratch_data_dir}" \
       -vvv
+
+
+# On sherlock: check exist code status to add to list to push on s3
+run_status=$?
+if [ $run_status -eq 0 ]; then
+    target_dir="${data_dir}/analyses/${openneuro_id}/.to_process"
+    if [ -d "$target_dir" ]; then
+        touch "${target_dir}/${openneuro_id}"
+        echo "Success: Flag file created"
+    else
+        echo "Warning: Directory $target_dir does not exist"
+    fi
+else
+    echo "Error: Fitlins failed with exit code $run_status"
+    exit $run_status
+fi

@@ -136,7 +136,7 @@ else:
 print()
 print("Confirming contrast conditions map to available design matrix columns.")
 try:
-    _, root_mod = get_bidstats_events(bids_dir, model_data, scan_length=brainvols*gen_tr, ignored=[r"sub-.*_physio\.(json|tsv\.gz)"], return_events_num=0)
+    _, root_mod, _ = get_bidstats_events(bids_dir, model_data, scan_length=brainvols*gen_tr, ignored=[r"sub-.*_physio\.(json|tsv\.gz)"], return_events_num=0)
     outputs = root_mod.run(
         group_by=root_mod.group_by, force_dense=False, transformation_history=True
     )

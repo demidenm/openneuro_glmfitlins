@@ -1,4 +1,5 @@
 import os 
+from pathlib import Path
 import json
 import glob
 
@@ -51,17 +52,18 @@ def generate_studysummary(spec_path, study_id, data, repo_url="https://github.co
             readme_content += "**Count Summaries**:\n"
             for image_file in sorted(image_files):
                 # filename for cleaner display
-                image_name = os.path.basename(image_file)
+                image_path = Path(image_file)
+                image_name = image_path.name
                 # Create relative path from spec_path
-                relative_image_path = os.path.relpath(image_file, spec_path)
-                readme_content += f"\n![{task_name} {image_name}](./{relative_image_path})\n"
+                relative_image_path = image_path.relative_to(Path(spec_path))
+                readme_content += f"\n![{task_name} {image_name}]({relative_image_path})\n"
     
     readme_content += "\n"
 
     # Scan for HTML files in spec_path/mriqc_summary
-    mriqc_dir = os.path.join(spec_path, "mriqc_summary")
-    if os.path.exists(mriqc_dir):
-        html_files = [f for f in os.listdir(mriqc_dir) if f.endswith(".html")]
+    mriqc_dir = spec_path / "mriqc_summary"
+    if mriqc_dir.exists():
+        html_files = [f.name for f in mriqc_dir.iterdir() if f.suffix == ".html"]
 
         if html_files:
             readme_content += "## MRIQC Summary Reports\n"
@@ -169,7 +171,7 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
     f"The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs."
     f"In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.\n"
 
-    f"![R Square]({f'./files/{study_id}_task-{task}_rsquare-mean.png'})\n\n"
+    f"![R Square]({f'files/{study_id}_task-{task}_rsquare-mean.png'})\n\n"
     
     f"### 4.4.2 Voxelwise Variance (Standard Deviation)\n"
     f"The **standard deviation** (or variance) image provides insights into the variability of model performance."
@@ -188,8 +190,8 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
 
             f"The distribution for subjects and runs in {task} are below. \n\n"
 
-            f"![Dice](./files/{study_id}_task-{task}_hist-dicesimilarity.png)\n"
-            f"![Voxels Out](./files/{study_id}_task-{task}_hist-voxoutmask.png)\n"
+            f"![Dice](files/{study_id}_task-{task}_hist-dicesimilarity.png)\n"
+            f"![Voxels Out](files/{study_id}_task-{task}_hist-voxoutmask.png)\n"
         )
 
  
@@ -198,8 +200,9 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
     for con_name in contrast_dict.keys():
         if sessions is None:
             # no sessions specified, look for the non-session contrast map
-            map_path = f"./files/{study_id}_task-{task}_contrast-{con_name}_map.png"
-            if os.path.exists(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_contrast-{con_name}_map.png")):
+            map_path = f"files/{study_id}_task-{task}_contrast-{con_name}_map.png"
+            map_file_path = Path(spec_imgs_dir) / f"{study_id}_task-{task}_contrast-{con_name}_map.png"
+            if map_file_path.exists():
                 readme_content += f"\n### {con_name}\n![{con_name} Map]({map_path})\n"
         else:
             # for each session, add its contrast map if it exists
@@ -207,15 +210,17 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
             session_maps_found = False
             
             for session in sessions:
-                session_map_path = f"./files/{study_id}_task-{task}_{session}_contrast-{con_name}_map.png"
-                if os.path.exists(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_{session}_contrast-{con_name}_map.png")):
+                session_map_path = f"files/{study_id}_task-{task}_{session}_contrast-{con_name}_map.png"
+                session_map_file = spec_imgs_dir / f"{study_id}_task-{task}_{session}_contrast-{con_name}_map.png"
+                if session_map_file.exists():
                     readme_content += f"\n#### {session}\n![{con_name} {session} Map]({session_map_path})\n"
                     session_maps_found = True
             
             # If no session maps were found, check if there's a non-session map available
             if not session_maps_found:
-                map_path = f"./files/{study_id}_task-{task}_contrast-{con_name}_map.png"
-                if os.path.exists(os.path.join(spec_imgs_dir, f"{study_id}_task-{task}_contrast-{con_name}_map.png")):
+                map_path = f"files/{study_id}_task-{task}_contrast-{con_name}_map.png"
+                map_file = spec_imgs_dir / f"{study_id}_task-{task}_contrast-{con_name}_map.png"
+                if map_file.exists():
                     readme_content += f"![{con_name} Map]({map_path})\n"
                 else:
                     readme_content += f"*No statistical maps available for contrast {con_name}*\n"

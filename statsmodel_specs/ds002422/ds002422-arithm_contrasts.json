@@ -1,0 +1,36 @@
+{
+    "Contrasts": [
+        {
+            "Name": "arithmeticvcontrol",
+            "ConditionList": [
+                "trial_type.main_condition",
+                "trial_type.control_condition"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "arithmetic",
+            "ConditionList": [
+                "trial_type.main_condition"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "control",
+            "ConditionList": [
+                "trial_type.control_condition"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

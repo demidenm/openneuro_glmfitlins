@@ -7,15 +7,15 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-08-04`*
+*This repository is in active development. `Last updated: 2025-08-06`*
 
 
 
 N OpenNeuro Studies: 38
 
-N OpenNeuro Task fMRI Group Summaries: 55
+N OpenNeuro Task fMRI Group Summaries: 56
 
-Completed fMRI Task Names: 1Norm, 6DeepBreathing, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
 
 ## Overview
 
@@ -296,11 +296,42 @@ bash 4_run_fitlins.sh ds003425 learning
 
 #### 5b. On HPC cluster
 
-Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID and the task name. Note: Update your SBATCH specific information (e.g. `-p`, `--mail-user` and `--time` for larger datasets)
+Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID and the task name. Note: Update your SBATCH specific information (e.g. partition `-p`, account `-a`, mail options `--mail-user` and run time `--time` for larger datasets)
 
+**Basic usage:**
 ```bash
 sbatch run_fitlins.sh ds003425 learning
 ```
+
+**Smoothing /Estimator options:**
+There are additional Fitlins [usage](https://fitlins.readthedocs.io/en/latest/usage.html) options. 
+
+```bash
+# Using alt smoothing kernel, e.g. 8mm FWHM at subject level with isotropic smoothing (as opposed to default 5mm smoothing at run level)
+sbatch run_fitlins.sh -s 8:subject:iso ds003425 learning
+
+# Using AFNI estimator
+sbatch run_fitlins.sh -e afni ds003425 learning
+
+# Combined
+sbatch run_fitlins.sh -s 6:dataset:isoblurto -e nilearn ds003425 learning
+
+# View available options
+sbatch run_fitlins.sh -h
+```
+
+**Available options:**
+
+- `-s <smoothing>`: Customize BOLD series smoothing (default: `5:run:iso`)
+  - Format: `FWHM:LEVEL:TYPE`
+  - FWHM: kernel size in mm
+  - LEVEL: `run`, `subject`, `session`, `dataset`, or `l1`
+  - TYPE: `iso` (isotropic additive) or `isoblurto` (progressive isotropic)
+
+- `-e <estimator>`: Choose the GLM estimator (default: `nilearn`)
+  - `nilearn`: Default estimator using nilearn.glm
+  - `nistats`: Deprecated synonym for nilearn
+  - `afni`: Uses 3dREMLfit for fitting models
 
 This executes the FitLins analysis based on the specification file. Results will be stored in `./data/analyses/<studyID>_task-<taskname>`.
 

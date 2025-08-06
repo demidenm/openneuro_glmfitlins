@@ -10,6 +10,7 @@
 *This repository is in active development. `Last updated: 2025-08-06`*
 
 
+![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
 N OpenNeuro Studies: 38
 

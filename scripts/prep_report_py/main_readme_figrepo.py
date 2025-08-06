@@ -91,30 +91,30 @@ colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']  # Blue, Orange, Green, Re
 # Panel 1: N datasets
 ax1.add_patch(plt.Rectangle((0, 0), 1, 1, facecolor=colors[0]))
 ax1.text(0.5, 0.7, str(total_studies), ha='center', va='center', 
-         fontsize=26, fontweight='bold', color='white')
+         fontsize=18, fontweight='bold', color='white')
 ax1.text(0.5, 0.3, 'Total Datasets', ha='center', va='center', 
-         fontsize=12, fontweight='bold', color='white')
+         fontsize=8, fontweight='bold', color='white')
 
 # Panel 2: N Subjects
 ax2.add_patch(plt.Rectangle((0, 0), 1, 1, facecolor=colors[1]))
 ax2.text(0.5, 0.7, str(total_subjects), ha='center', va='center', 
-         fontsize=26, fontweight='bold', color='white')
+         fontsize=18, fontweight='bold', color='white')
 ax2.text(0.5, 0.3, 'Total Subjects', ha='center', va='center', 
-         fontsize=12, fontweight='bold', color='white')
+         fontsize=8, fontweight='bold', color='white')
 
 # Panel 3: N Group Reports
 ax3.add_patch(plt.Rectangle((0, 0), 1, 1, facecolor=colors[2]))
 ax3.text(0.5, 0.7, str(total_group_reports), ha='center', va='center', 
-         fontsize=26, fontweight='bold', color='white')
+         fontsize=18, fontweight='bold', color='white')
 ax3.text(0.5, 0.3, 'Total Group Reports', ha='center', va='center', 
-         fontsize=12, fontweight='bold', color='white')
+         fontsize=8, fontweight='bold', color='white')
 
 # Panel 4: N Computed Contrasts
 ax4.add_patch(plt.Rectangle((0, 0), 1, 1, facecolor=colors[3]))
 ax4.text(0.5, 0.7, str(total_contrasts), ha='center', va='center', 
-         fontsize=26, fontweight='bold', color='white')
+         fontsize=18, fontweight='bold', color='white')
 ax4.text(0.5, 0.3, 'Total Contrasts', ha='center', va='center', 
-         fontsize=12, fontweight='bold', color='white')
+         fontsize=8, fontweight='bold', color='white')
 
 # no ticks/axes
 for ax in [ax1, ax2, ax3, ax4]:

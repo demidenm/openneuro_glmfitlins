@@ -39,7 +39,7 @@
             "Test": "t"
         },
         {
-            "Name": "cue_LvNeut",
+            "Name": "cueLvNeut",
             "ConditionList": [
                 "trial_type.cue_largeloss",
                 "trial_type.cue_smallloss",

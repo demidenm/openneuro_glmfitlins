@@ -1,7 +1,4 @@
 # ds003858: MID Task Analysis Report
-<p style="color: red; font-style: italic;">
-  NOTE: The run-level data are associated with different acquisitions types (single slice, multi-band 4, multi-band 8). This group report is based on run-4, or the Multi-band 4-slice acquisition.
-</p>
 
 The size of the Fitlins Derivatives for ds003858 MID is 2.2G with 1400 files.
 
@@ -60,7 +57,7 @@ trans_x, trans_x_derivative1, trans_x_derivative1_power2, trans_x_power2, trans_
 
 - **cueLLvNeut**: 1*`trial_type.cue_largeloss` - 1*`trial_type.cue_neutral`
 
-- **cue_LvNeut**: 0.5*`trial_type.cue_largeloss` + 0.5*`trial_type.cue_smallloss` - 1*`trial_type.cue_neutral`
+- **cueLvNeut**: 0.5*`trial_type.cue_largeloss` + 0.5*`trial_type.cue_smallloss` - 1*`trial_type.cue_neutral`
 
 - **cueLWvBase**: 1*`trial_type.cue_largewin`
 
@@ -141,8 +138,8 @@ The distribution for subjects and runs in MID are below.
 ### cueLLvNeut
 ![cueLLvNeut Map](files/ds003858_task-MID_contrast-cueLLvNeut_map.png)
 
-### cue_LvNeut
-*No statistical maps available for contrast cue_LvNeut*
+### cueLvNeut
+![cueLvNeut Map](files/ds003858_task-MID_contrast-cueLvNeut_map.png)
 
 ### cueLWvBase
 ![cueLWvBase Map](files/ds003858_task-MID_contrast-cueLWvBase_map.png)

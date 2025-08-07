@@ -3,5 +3,6 @@
     "openneuro_glmrepo": "/oak/stanford/groups/russpold/users/demidenm/openneuro_glmfitlins",
     "tmp_folder": "/scratch/groups/russpold/demidenm/openneuro_fitlins",
     "fmriprep_simg": "/home/groups/russpold/singularity_images/fmriprep_25.1.1.sif",
-    "freesurfer_license": "/home/users/demidenm/fs/license.txt"
+    "freesurfer_license": "/home/users/demidenm/fs/license.txt",
+    "data_type": "openneuro"
 }

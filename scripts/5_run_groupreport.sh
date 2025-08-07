@@ -11,6 +11,7 @@ fi
 
 openneuro_id=$1 # OpenNeuro ID, e.g. ds000102
 task_label=$2 # Task label, e.g. 'flanker'
+task_suffix=${3:-""} # Optional third suffix for writeout to grp, empty string if not provided
 
 # set paths for config & check existence
 relative_path=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -40,7 +41,8 @@ uv --project ${repo_dir} \
     --taskname ${task_label} \
     --analysis_dir ${analysis_dir} \
     --spec_dir ${specs_dir} \
-    --scratch_dir ${scratch_data_dir}
+    --scratch_dir ${scratch_data_dir} \
+    --tasksuffix "${task_suffix}"
 
 echo "SUCCESS: Group map report completed"
 echo

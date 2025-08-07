@@ -20,8 +20,6 @@
       "MID"
     ],
     "run": [
-      1,
-      4,
       8
     ]
   },
@@ -297,23 +295,6 @@
           "Test": "t"
         }
       ]
-    },
-    {
-      "Level": "Subject",
-      "Name": "subject_level",
-      "GroupBy": [
-        "subject",
-        "contrast"
-      ],
-      "Model": {
-        "X": [
-          1
-        ],
-        "Type": "glm"
-      },
-      "DummyContrasts": {
-        "Test": "t"
-      }
     },
     {
       "Level": "Dataset",

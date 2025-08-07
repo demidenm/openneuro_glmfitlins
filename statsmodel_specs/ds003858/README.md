@@ -1,6 +1,9 @@
 [![OpenNeuro ID](https://img.shields.io/badge/OpenNeuro_Dataset-ds003858-blue?style=for-the-badge)](https://openneuro.org/datasets/ds003858)
 
 # Dataset Details: ds003858
+<p style="color: red; font-style: italic;">
+  NOTE: The run-level data are associated with different acquisitions types (single slice, multi-band 4, multi-band 8). These aren't indicated by sessions or task entities, but by run entities (e.g. run-1, run-4, run-4). Update runs and subject-level in spec files to avoid issues.
+</p>
 
 ## Number of Subjects
 - BIDS Input: 12

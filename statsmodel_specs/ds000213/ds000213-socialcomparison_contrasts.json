@@ -1,0 +1,40 @@
+{
+    "Contrasts": [
+        {
+            "Name": "fatvscramble",
+            "ConditionList": [
+                "trial_type.fat_image",
+                "trial_type.scramble_image"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "thinvscramble",
+            "ConditionList": [
+                "trial_type.thin_image",
+                "trial_type.scramble_image"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "thinvfat",
+            "ConditionList": [
+                "trial_type.thin_image",
+                "trial_type.fat_image"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

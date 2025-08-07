@@ -7,25 +7,26 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-08-06`*
+*This repository is in active development. `Last updated: 2025-08-07`*
 
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 39
+N OpenNeuro Studies: 40
 
-N OpenNeuro Task fMRI Group Summaries: 61
+N OpenNeuro Task fMRI Group Summaries: 64
 
-Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, MID, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, socialcomparison, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 
-`openneuro_glmfitlins` provides a streamlined workflow for analyzing OpenNeuro datasets using [FitLins](https://github.com/poldracklab/fitlins)</a> via [BIDS Stats Models](https://bids-standard.github.io/stats-models/). The repository generates comprehensive reports for datasets and tasks processed through OpenNeuro GLM Fitlins, with two primary goals:
+`openneuro_glmfitlins` provides a streamlined workflow for analyzing neuroimaging datasets using [FitLins](https://github.com/poldracklab/fitlins)</a> via [BIDS Stats Models](https://bids-standard.github.io/stats-models/). The repository supports both **OpenNeuro datasets** and **local "house" datasets**, generating comprehensive reports for datasets and tasks processed through GLM Fitlins, with two primary goals:
 
 1. Facilitate efficient and reproducible neuroimaging data analysis
 2. Provide minimal barriers to entry for researchers at all levels
 
-The FitLins workflow estimates statistical maps (e.g., z-stat, t-stat) across several levels, including `runLevel` (subject-level run contrast maps), `subjectLevel` (fixed-effect averages across runs), and `dataLevel` (group-level average maps). Group results summarize the models and activation maps for each study and task. The provided specification files are sufficient to download and reproduce all outputs. If you are unable to run the workflow but are interested in outputs for any of the datasets listed in `statsmodel_specs`, please feel free to reach out.
+The FitLins workflow estimates statistical maps (e.g., z-stat, t-stat) across several levels, including `runLevel` (subject-level run contrast maps), `subjectLevel` (fixed-effect averages across runs), and `dataLevel` (group-level average maps). Group results summarize the models and activation maps for each study and task. The provided specification files are sufficient to download and reproduce all outputs for OpenNeuro datasets, or to analyze your local datasets. If you are unable to run the workflow but are interested in outputs for any of the datasets listed in `statsmodel_specs`, please feel free to reach out.
+
 
 *Note: If you're simply interested in looking at the task-specific group reports, all of that information is in the subfolders `statsmodel_specs/<studyID>/group_<taskname>`.*
 
@@ -134,10 +135,14 @@ For items related to specific issues, please use the `Issues` tab. There are sep
    - `tmp_folder`: Temporary/scratch space for FitLins processing
    - `fmriprep_simg`: Singularity image for fMRIPrep
    - `freesurfer_license`: Path to Freesurfer license file
+   - `data_type`: Whether 'openneuro' or 'house' (default: openneuro)
+
 
 ## Analysis Workflow
 
-### 1. Download OpenNeuro Data
+### 1. Download Data / Generate Summary
+
+#### For OpenNeuro Datasets (`"data_type": "openneuro"`) [default]
 
 ```bash
 cd openneuro_glmfitlins/scripts/
@@ -145,14 +150,50 @@ bash 1_download_data_create_details.sh ds003425
 ```
 
 This step:
-- Downloads the dataset OpenNeuro and fMRIPrep derivatives
+- Downloads the dataset from OpenNeuro and fMRIPrep derivatives
 - Shows the size of the OpenNeuro & fMRIPrep directory for confirmation (download size can be reduced via `file_exclusions.json`)
 - Determines if preprocessed MNI NIfTI files are present to identify minimal vs. complete derivatives
-- Generates:
-  - A README summarizing the dataset
-    - Note: at the base of the README [example](./statsmodel_specs/ds003425/README.md), there will be links to the plotted distributions of <a href="https://mriqc.readthedocs.io/en/latest/iqms/t1w.html" target="_blank">structural</a> and [functiona](https://mriqc.readthedocs.io/en/latest/iqms/bold.html) MRIQC quality control metrics.
-  - A details JSON file with metadata (subjects, sessions, tasks, BOLD volumes, event columns, trial types)
-  - Subject and contrast list files for each task
+- Generates summary files and metadata
+
+#### For House Datasets (`"data_type": "house"`)
+
+```bash
+cd openneuro_glmfitlins/scripts/
+bash 1_download_data_create_details.sh datasetname
+```
+This step:
+- Skips data download and size checks
+- Directly generates summary files for your local dataset
+- Creates necessary metadata files for analysis
+
+**Expected Data Structure:**
+Your house dataset should follow BIDS format and be organized as follows:
+
+```bash
+# BIDS input data structure
+ls input/datasetname/
+CHANGES                   participants.tsv    
+dataset_description.json  sub-01    
+derivatives               ....         
+dwi.json                        
+
+# fMRIPrep derivatives structure
+ls fmriprep/datasetname/
+logs         sub-01.html  
+README.md    sub-01       
+dataset_description.json     ...
+derivatives              
+desc-aparcaseg_dseg.tsv   
+desc-aseg_dseg.tsv      
+```
+
+**Note:** The `fmriprep/datasetname/derivatives/` directory is the hard symbolic links of the `fmriprep/dataset_id/` root directory contents for proper workflow integration
+
+**Both dataset types generate:**
+- A README summarizing the dataset
+  - Note: at the base of the README [example](./statsmodel_specs/ds003425/README.md), there will be links to the plotted distributions of <a href="https://mriqc.readthedocs.io/en/latest/iqms/t1w.html" target="_blank">structural</a> and [functional](https://mriqc.readthedocs.io/en/latest/iqms/bold.html) MRIQC quality control metrics. (which will not be provided for in-house data)
+- A details JSON file with metadata (subjects, sessions, tasks, BOLD volumes, event columns, trial types)
+- Subject and contrast list files for each task
 
 ### 2. Minimally Preprocessed --> Fully Preprocessed fMRIPrep derivatives 
 

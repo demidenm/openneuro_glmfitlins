@@ -28,6 +28,7 @@ parser.add_argument("--taskname", type=str, help="Task name using in analyses", 
 parser.add_argument("--spec_dir", type=str, help="Directory where model specs are", required=True)
 parser.add_argument("--analysis_dir", type=str, help="Root directory for fitlins output", required=True)
 parser.add_argument("--scratch_dir", type=str, help="Scratch directory for intermediate outputs", required=True)
+parser.add_argument('--tasksuffix', default=None, help='Optional suffix for group report output')
 
 args = parser.parse_args()
 
@@ -37,6 +38,7 @@ analysis_dir = Path(args.analysis_dir)
 scratch_dir = Path(args.scratch_dir)
 spec_path = Path(args.spec_dir)
 task = args.taskname
+tasksuffix = args.tasksuffix  
 
 # Define nuisance regressor patterns
 noise_reg = [
@@ -49,8 +51,12 @@ noise_reg = [
 zstat_thresh = 2.3
 
 # Create output directory for images
-spec_imgs_dir = spec_path / study_id / f"group_{task}" / "files"
-spec_imgs_dir.mkdir(parents=True, exist_ok=True)
+if tasksuffix:
+    spec_imgs_dir = spec_path / study_id / f"group_{task}{tasksuffix}" / "files"
+    spec_imgs_dir.mkdir(parents=True, exist_ok=True)
+else:
+    spec_imgs_dir = spec_path / study_id / f"group_{task}" / "files"
+    spec_imgs_dir.mkdir(parents=True, exist_ok=True)
 
 # Get plotting coordinates from study details
 study_details = spec_path / study_id / f"{study_id}_basic-details.json"
@@ -409,6 +415,11 @@ grp_readme = generate_groupmodsummary(
     task_cites=cite_list
 )
 
-readme_path = spec_path / study_id / f"group_{task}" / "README.md"
+if tasksuffix:
+    readme_path = spec_path / study_id / f"group_{task}{tasksuffix}" / "README.md"
+else:
+    readme_path = spec_path / study_id / f"group_{task}" / "README.md"
+
+
 with open(readme_path, "w") as f:
     f.write(grp_readme)

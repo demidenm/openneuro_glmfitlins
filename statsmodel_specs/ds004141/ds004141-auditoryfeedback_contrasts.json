@@ -1,0 +1,18 @@
+{
+    "Contrasts": [
+        {
+            "Name": "upregfacesvdownregneut",
+            "ConditionList": [
+                "trial_type.Happy",
+                "trial_type.Sad",
+                "trial_type.Alternate",
+                "trial_type.Neutral"
+            ],
+            "Weights": [
+                0.333,0.333,0.333,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

@@ -1,0 +1,216 @@
+{
+    "Contrasts": [
+        {
+            "Name": "cueLWvNeut",
+            "ConditionList": [
+                "trial_type.cue_largewin",
+                "trial_type.cue_neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueWvNeut",
+            "ConditionList": [
+                "trial_type.cue_largewin",
+                "trial_type.cue_smallwin",
+                "trial_type.cue_neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLLvNeut",
+            "ConditionList": [
+                "trial_type.cue_largeloss",
+                "trial_type.cue_neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cue_LvNeut",
+            "ConditionList": [
+                "trial_type.cue_largeloss",
+                "trial_type.cue_smallloss",
+                "trial_type.cue_neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLWvBase",
+            "ConditionList": [
+                "trial_type.cue_largewin"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLWvNeut",
+            "ConditionList": [
+                "trial_type.fix_largewin",
+                "trial_type.fix_neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixWvNeut",
+            "ConditionList": [
+                "trial_type.fix_largewin",
+                "trial_type.fix_smallwin",
+                "trial_type.fix_neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLLvNeut",
+            "ConditionList": [
+                "trial_type.fix_largeloss",
+                "trial_type.fix_neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLvNeut",
+            "ConditionList": [
+                "trial_type.fix_largeloss",
+                "trial_type.fix_smallloss",
+                "trial_type.fix_neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLWvBase",
+            "ConditionList": [
+                "trial_type.fix_largewin"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "probe",
+            "ConditionList": [
+                "trial_type.probe"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbWHitvWMiss",
+            "ConditionList": [
+                "trial_type.fb_largewinhit",
+                "trial_type.fb_smallwinhit",
+                "trial_type.fb_largewinmiss",
+                "trial_type.fb_smallwinmiss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvLWMiss",
+            "ConditionList": [
+                "trial_type.fb_largewinhit",
+                "trial_type.fb_largewinmiss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLHitvLMiss",
+            "ConditionList": [
+                "trial_type.fb_largelosshit",
+                "trial_type.fb_smalllosshit",
+                "trial_type.fb_largelossmiss",
+                "trial_type.fb_smalllossmiss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLLHitvLLMiss",
+            "ConditionList": [
+                "trial_type.fb_largelosshit",
+                "trial_type.fb_largelossmiss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvNeutHit",
+            "ConditionList": [
+                "trial_type.fb_largewinhit",
+                "trial_type.fb_neutralhit"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvBase",
+            "ConditionList": [
+                "trial_type.fb_largewinhit"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

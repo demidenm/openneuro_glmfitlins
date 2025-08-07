@@ -1,0 +1,152 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "auditoryfeedback": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroscience.2019.02.024"],
+            "plot_coords": [
+                54, -46, 12
+            ],
+            "bold_volumes": 300,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Neutral",
+                "Happy",
+                "Sad",
+                "Alternate"
+            ]
+        },
+        "faceexplocalizer": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroscience.2019.02.024"],
+            "plot_coords": [
+                54, -46, 12
+            ],
+            "bold_volumes": 160,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Alternate",
+                "Sad",
+                "Neutral",
+                "Movement",
+                "Happy"
+            ]
+        },
+        "nofeedback": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroscience.2019.02.024"],
+            "plot_coords": [
+                54, -46, 12
+            ],
+            "bold_volumes": 300,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Neutral",
+                "Sad",
+                "Happy",
+                "Alternate"
+            ]
+        },
+        "visualfeedback": {
+            "cite_links": ["https://doi.org/10.1016/j.neuroscience.2019.02.024"],
+            "plot_coords": [
+                54, -46, 12
+            ],
+            "bold_volumes": 300,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [
+                "01"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "Neutral",
+                "Alternate",
+                "Sad",
+                "Happy"
+            ]
+        }
+    }
+}

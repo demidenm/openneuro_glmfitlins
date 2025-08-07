@@ -12,11 +12,11 @@
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 38
+N OpenNeuro Studies: 39
 
-N OpenNeuro Task fMRI Group Summaries: 56
+N OpenNeuro Task fMRI Group Summaries: 61
 
-Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, MID, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 

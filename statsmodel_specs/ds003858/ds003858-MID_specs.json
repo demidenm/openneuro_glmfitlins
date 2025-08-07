@@ -1,0 +1,335 @@
+{
+  "Name": "ds003858",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ],
+    "task": [
+      "MID"
+    ],
+    "run": [
+      1,
+      4,
+      8
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.cue_largeloss",
+          "trial_type.cue_largewin", 
+          "trial_type.cue_neutral",
+          "trial_type.cue_smallloss",
+          "trial_type.cue_smallwin",
+          "trial_type.fix_largeloss",
+          "trial_type.fix_largewin",
+          "trial_type.fix_neutral",
+          "trial_type.fix_smallloss",
+          "trial_type.fix_smallwin",
+          "trial_type.probe",
+          "trial_type.fb_largelosshit",
+          "trial_type.fb_largelossmiss",
+          "trial_type.fb_largewinhit",
+          "trial_type.fb_largewinmiss",
+          "trial_type.fb_neutralhit",
+          "trial_type.fb_neutralmiss",
+          "trial_type.fb_smalllosshit",
+          "trial_type.fb_smalllossmiss",
+          "trial_type.fb_smallwinhit",
+          "trial_type.fb_smallwinmiss",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "cueLWvNeut",
+          "ConditionList": [
+            "trial_type.cue_largewin",
+            "trial_type.cue_neutral"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueWvNeut",
+          "ConditionList": [
+            "trial_type.cue_largewin",
+            "trial_type.cue_smallwin",
+            "trial_type.cue_neutral"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueLLvNeut",
+          "ConditionList": [
+            "trial_type.cue_largeloss",
+            "trial_type.cue_neutral"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cue_LvNeut",
+          "ConditionList": [
+            "trial_type.cue_largeloss",
+            "trial_type.cue_smallloss",
+            "trial_type.cue_neutral"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueLWvBase",
+          "ConditionList": [
+            "trial_type.cue_largewin"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLWvNeut",
+          "ConditionList": [
+            "trial_type.fix_largewin",
+            "trial_type.fix_neutral"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixWvNeut",
+          "ConditionList": [
+            "trial_type.fix_largewin",
+            "trial_type.fix_smallwin",
+            "trial_type.fix_neutral"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLLvNeut",
+          "ConditionList": [
+            "trial_type.fix_largeloss",
+            "trial_type.fix_neutral"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLvNeut",
+          "ConditionList": [
+            "trial_type.fix_largeloss",
+            "trial_type.fix_smallloss",
+            "trial_type.fix_neutral"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLWvBase",
+          "ConditionList": [
+            "trial_type.fix_largewin"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "probe",
+          "ConditionList": [
+            "trial_type.probe"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbWHitvWMiss",
+          "ConditionList": [
+            "trial_type.fb_largewinhit",
+            "trial_type.fb_smallwinhit",
+            "trial_type.fb_largewinmiss",
+            "trial_type.fb_smallwinmiss"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLWHitvLWMiss",
+          "ConditionList": [
+            "trial_type.fb_largewinhit",
+            "trial_type.fb_largewinmiss"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLHitvLMiss",
+          "ConditionList": [
+            "trial_type.fb_largelosshit",
+            "trial_type.fb_smalllosshit",
+            "trial_type.fb_largelossmiss",
+            "trial_type.fb_smalllossmiss"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLLHitvLLMiss",
+          "ConditionList": [
+            "trial_type.fb_largelosshit",
+            "trial_type.fb_largelossmiss"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLWHitvNeutHit",
+          "ConditionList": [
+            "trial_type.fb_largewinhit",
+            "trial_type.fb_neutralhit"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLWHitvBase",
+          "ConditionList": [
+            "trial_type.fb_largewinhit"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

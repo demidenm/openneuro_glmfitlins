@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=fitlins
 #SBATCH --time=20:00:00
-#SBATCH --cpus-per-task=6
-#SBATCH --mem-per-cpu=16GB
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=25GB
 #SBATCH -p russpold,normal,owners
 
 # Output and notifications
@@ -166,8 +166,8 @@ uv --project "$repo_dir" \
       --drop-missing \
       --space MNI152NLin2009cAsym --desc-label preproc \
       --smoothing "${smoothing_type}" --estimator "${estimator}" \
-      --n-cpus 6 \
-      --mem-gb 96 \
+      --n-cpus 4 \
+      --mem-gb 100 \
       -w "${scratch_data_dir}" \
       -vvv
 

@@ -1,0 +1,20 @@
+{
+    "Contrasts": [
+        {
+            "Name": "facesvcontrol",
+            "ConditionList": [
+                "trial_type.Alternate",
+                "trial_type.Sad",
+                "trial_type.Happy",
+                "trial_type.Neutral",
+                "trial_type.Movement"
+
+            ],
+            "Weights": [
+                0.3333,0.3333,0.3333,
+                -0.50,-0.50
+            ],
+            "Test": "t"
+        }
+    ]
+}

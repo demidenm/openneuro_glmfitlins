@@ -1,6 +1,6 @@
 # ds004920: doors Task Analysis Report
 
-The size of the Fitlins Derivatives for ds004920 doors is 709M with 500 files.
+The size of the Fitlins Derivatives for ds004920 doors is 1.4G with 950 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1016/j.biopsycho.2024.108857), [Paper 2](https://www.biorxiv.org/content/10.1101/2023.10.19.562908v2), [Paper 3](https://doi.org/10.1093/scan/nsae033).
 
@@ -9,7 +9,7 @@ Dataset- and task-relevant citations may be found in the papers: [Paper 1](https
 The below is an automatically generated report for the statistical analyses performed on this task and dataset. Some reporting standards from the 'Statistical Modeling & Inference' section of the COBIDAS checklist ([Nichols et al., 2017](https://www.nature.com/articles/nn.4500)) are adopted here.
 
 ### 1.1. First-level Analysis
-For the 27 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 3 regressors of interest (out of 4 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). The design matrix (see example in Section 4.1) included both the convolved regressors of interest and 30 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
+For the 52 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 3 regressors of interest (out of 4 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). The design matrix (see example in Section 4.1) included both the convolved regressors of interest and 30 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
 
 **Motion Regressors**: Motion parameters included the six rigid-body parameters estimated during motion correction (three translations, three rotations), their temporal derivatives, and the squares of both the parameters and their derivatives, resulting in 24 motion-related regressors.
 **Drift Regressors**: Cosine basis functions implemented a high-pass temporal filter with a cutoff of 128 seconds to remove low-frequency drift in the BOLD signal.

@@ -1219,5 +1219,31 @@ def ds004920(eventspath: str, task: str):
         result_df = pd.DataFrame(new_rows)
         return result_df
 
+
+def ds004144(eventspath: str, task: str):
+    """
+    Process event data for ds004144 by modifying trial types if applicable. 
+    epr task trial_type have spacing which can cause issues with BIDS-SM, cleaning to make it easier to work with
+    
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset 
+    
+    Returns:
+    pd.DataFrame or str
+        Modified events DataFrame, or a message that no updates were necessary.
+    """
+
+    if task == "epr":
+        eventsdat = pd.read_csv(eventspath, sep='\t')
+
+        def clean_trialtype(name):
+            return name.replace(" ", "").replace("-", "_")
+
+        # Apply function
+        eventsdat["trial_type"] = eventsdat["trial_type"].apply(clean_trialtype)
+        
+        return eventsdat
+
         
 

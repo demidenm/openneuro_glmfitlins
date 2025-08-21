@@ -2,10 +2,12 @@ import os
 import nbformat
 import re
 import json
+import copy
 import pandas as pd
 import numpy as np
 from collections import defaultdict
 from pathlib import Path
+from typing import List, Optional, Tuple, Callable, Any
 from IPython.display import display, Markdown
 from bids.modeling import BIDSStatsModelsGraph
 from bids.layout import BIDSLayout, BIDSLayoutIndexer
@@ -288,29 +290,221 @@ def debug_bids_consistency(bids_path, spec_cont, scan_length=125, ignored=None):
     }
 
 
-def get_runnode(bids_path, spec_cont, scan_length=125, ignored=None):
+def spectest_subject_batches(bids_inp: str, base_spec: dict, get_bidstats_events: 
+    Callable, TR: int = 2, volumes: int = 250, max_batch_size: int = 10) -> List[str]:
     """
-    Enhanced version that runs debugging first, then attempts model creation
-    """
-    print("=== RUNNING CONSISTENCY DEBUGGING ===")
-    debug_info = debug_bids_consistency(bids_path, spec_cont, scan_length, ignored)
+    Test BIDS model with adaptive batch sizes to efficiently identify problematic subjects.
     
-    if not debug_info:
-        print("Debugging failed, cannot proceed")
+    Parameters
+    ----------
+    bids_inp : str
+        BIDS input path/layout.
+    base_spec : dict
+        Original test_spec dictionary.
+    get_bidstats_events : callable
+        Function for retrieving BIDS stats events.
+    TR : int, optional
+        Repetition time (default: 2).
+    volumes : int, optional
+        Number of volumes (default: 250).
+    max_batch_size : int, optional
+        Maximum subjects per batch (default: 10).
+        
+    Returns
+    -------
+    List[str]
+        List of problematic subjects identified.
+    """
+
+    def test_batch(subjects_batch: List[str], batch_name: str) -> Tuple[bool, Optional[str]]:
+        """Run the model on a batch of subjects and report success/failure."""
+        print(f"\nTesting {batch_name}: {subjects_batch}")
+        
+        batch_spec = copy.deepcopy(base_spec)
+        batch_spec["Input"]["subject"] = subjects_batch
+
+        try:
+            _, root_mod, _ = get_bidstats_events(
+                bids_inp, 
+                batch_spec, 
+                scan_length=volumes * TR, 
+                ignored=[r"sub-.*_physio\.(json|tsv\.gz)"], 
+                return_events_num=0
+            )
+
+            if root_mod is None:
+                print(f"❌ FAILED: {subjects_batch} - No root model returned")
+                return False, "No root model returned"
+
+            root_mod.run(
+                group_by=root_mod.group_by, 
+                force_dense=False, 
+                transformation_history=True
+            )
+            
+            print(f"✅ SUCCESS: {subjects_batch}")
+            return True, None
+
+        except Exception as e:
+            print(f"❌ FAILED: {subjects_batch}")
+            print(f"   Error: {e}")
+            return False, str(e)
+
+    def binary_search_problems(subjects_batch: List[str], batch_name: str) -> List[str]:
+        """Recursively find problematic subjects in a failed batch."""
+        if len(subjects_batch) == 1:
+            print(f"⚠️ Problematic subject identified: {subjects_batch[0]}")
+            return subjects_batch
+
+        mid = len(subjects_batch) // 2
+        left_batch = subjects_batch[:mid]
+        right_batch = subjects_batch[mid:]
+        problematic_subjects = []
+
+        # Test left batch
+        if left_batch:
+            success, _ = test_batch(left_batch, f"{batch_name}_left")
+            if not success:
+                problematic_subjects.extend(
+                    binary_search_problems(left_batch, f"{batch_name}_left")
+                )
+
+        # Test right batch
+        if right_batch:
+            success, _ = test_batch(right_batch, f"{batch_name}_right")
+            if not success:
+                problematic_subjects.extend(
+                    binary_search_problems(right_batch, f"{batch_name}_right")
+                )
+
+        return problematic_subjects
+
+    # Validate inputs
+    if not base_spec.get("Input", {}).get("subject"):
+        print("ERROR: No subjects found in base_spec")
+        return []
+
+    subjects = base_spec["Input"]["subject"]
+    total_subjects = len(subjects)
+
+    if total_subjects == 0:
+        print("ERROR: Empty subjects list")
+        return []
+
+    # Choose starting batch size
+    if total_subjects <= 15:
+        initial_batch_size = 2
+    elif total_subjects < 30:
+        initial_batch_size = 5
+    else:
+        initial_batch_size = min(max_batch_size, total_subjects // 4)
+
+    print(f"Testing {total_subjects} subjects in batches of {initial_batch_size}...")
+    print("=" * 60)
+
+    all_problematic_subjects = []
+
+    # Process batches
+    for batch_num, i in enumerate(range(0, total_subjects, initial_batch_size), start=1):
+        batch = subjects[i:i + initial_batch_size]
+        batch_name = f"batch_{batch_num}"
+
+        success, _ = test_batch(batch, batch_name)
+
+        if not success:
+            print("   Batch failed, using binary search to identify problematic subjects...")
+            problematic = binary_search_problems(batch, batch_name)
+            all_problematic_subjects.extend(problematic)
+
+    # Summary
+    print("\n" + "=" * 60)
+    print("FINAL RESULTS:")
+    if all_problematic_subjects:
+        print(f"⚠️ Problematic subjects found: {all_problematic_subjects}")
+    else:
+        print("✅ No problematic subjects found")
+
+    return all_problematic_subjects
+
+
+def get_runnode(bids_path: str, spec_cont: dict, scan_length: int = 125, ignored: Optional[List[str]] = None) -> Optional[Any]:
+    """
+    Enhanced version that runs debugging first, then attempts model creation.
+    
+    Parameters
+    ----------
+    bids_path : str
+        Path to BIDS dataset.
+    spec_cont : dict
+        Model specification container.
+    scan_length : int, optional
+        Length of scan in TRs (default: 125).
+    ignored : List[str], optional
+        List of patterns to ignore when indexing.
+        
+    Returns
+    -------
+    Optional[Any]
+        Run specifications if successful, None otherwise.
+    """
+    
+    print("=== RUNNING CONSISTENCY DEBUGGING ===")
+    
+    # Run debugging if function exists
+    try:
+        debug_info = debug_bids_consistency(bids_path, spec_cont, scan_length, ignored)
+        
+        if debug_info:
+            print(f"\n=== SUMMARY ===")
+            print(f"Consistent subjects: {len(debug_info.get('consistent_subjects', []))}")
+            print(f"Problematic subjects: {len(debug_info.get('problematic_subjects', []))}")
+        else:
+            print("Debugging failed, proceeding with limited information")
+    except NameError:
+        print("Warning: debug_bids_consistency function not available, skipping debugging")
+        debug_info = None
+    except Exception as e:
+        print(f"Warning: Debugging failed with error: {e}")
+        debug_info = None
+
+    # Try to import required modules
+    try:
+        from bids import BIDSLayout, BIDSLayoutIndexer
+        from fitlins.workflows.bidsstats import BIDSStatsModelsGraph
+    except ImportError as e:
+        print(f"ERROR: Required imports failed: {e}")
+        print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
+        
+        # Run batch testing as fallback when imports fail
+        try:
+            print("Attempting batch testing to identify problematic subjects...")
+            problematic_subjects = spectest_subject_batches(
+                bids_path, 
+                spec_cont,
+                get_bidstats_events, 
+                TR=2,
+                volumes=scan_length,
+                max_batch_size=10
+            )
+            
+            if problematic_subjects:
+                print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
+            else:
+                print("Batch testing completed. No problematic subjects found.")
+                
+        except Exception as batch_e:
+            print(f"ERROR: Batch testing also failed: {batch_e}")
+        
         return None
         
-    print(f"\n=== SUMMARY ===")
-    print(f"Consistent subjects: {len(debug_info['consistent_subjects'])}")
-    print(f"Problematic subjects: {len(debug_info['problematic_subjects'])}")
-    
-        
-    # Now run the original function
+    # Initialize BIDSLayoutIndexer
     try:
         indexer = BIDSLayoutIndexer(ignore=ignored) if ignored else BIDSLayoutIndexer()
     except Exception as e:
         print(f"ERROR: Failed to initialize BIDSLayoutIndexer: {e}")
         return None
 
+    # Initialize BIDSLayout
     try:
         bids_layout = BIDSLayout(root=bids_path, reset_database=True, indexer=indexer)
     except Exception as e:
@@ -318,6 +512,7 @@ def get_runnode(bids_path, spec_cont, scan_length=125, ignored=None):
         print(f"Check that the BIDS directory exists and is valid: {bids_path}")
         return None
 
+    # Create BIDSStatsModelsGraph
     try:
         graph = BIDSStatsModelsGraph(bids_layout, spec_cont)
     except Exception as e:
@@ -327,17 +522,67 @@ def get_runnode(bids_path, spec_cont, scan_length=125, ignored=None):
             print("Try removing subject/dataset level nodes or check the BIDSStatsModelsGraph implementation.")
         return None
 
+    # Get run level node
     try:
-        run_level_node = graph.get_node(name="run_level")
+        _, run_level_node, _ = get_bidstats_events(
+            bids_path, 
+            spec_cont, 
+            scan_length, 
+            ignored, 
+            return_events_num=0
+        )
+        
         if run_level_node is None:
             print("ERROR: Could not find 'run_level' node in the model specification")
             available_nodes = [node.name for node in graph.nodes]
             print(f"Available nodes: {available_nodes}")
+            
+            # Run batch testing as fallback
+            print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
+            try:
+                problematic_subjects = spectest_subject_batches(
+                    bids_path, 
+                    spec_cont,
+                    get_bidstats_events, 
+                    TR=2,
+                    volumes=scan_length,
+                    max_batch_size=10
+                )
+                
+                if problematic_subjects:
+                    print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
+                else:
+                    print("Batch testing completed. No problematic subjects found.")
+                    
+            except Exception as batch_e:
+                print(f"ERROR: Batch testing also failed: {batch_e}")
             return None
+
     except Exception as e:
         print(f"ERROR: Failed to get run_level node: {e}")
+        
+        # Run batch testing as fallback
+        print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
+        try:
+            problematic_subjects = spectest_subject_batches(
+                bids_path, 
+                spec_cont,
+                get_bidstats_events, 
+                TR=2,
+                volumes=scan_length,
+                max_batch_size=10
+            )
+            
+            if problematic_subjects:
+                print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
+            else:
+                print("Batch testing completed. No problematic subjects found.")
+                
+        except Exception as batch_e:
+            print(f"ERROR: Batch testing also failed: {batch_e}")
         return None
 
+    # Run the model
     try:
         run_specs = run_level_node.run(
             group_by=run_level_node.group_by,
@@ -369,7 +614,6 @@ def get_runnode(bids_path, spec_cont, scan_length=125, ignored=None):
         print("- Incompatible model specification with your data")
         print("- Missing required columns in events files")
         return None
-
 
 
 def extract_model_info(model_spec):
@@ -952,69 +1196,156 @@ def get_low_quality_subs(ratio_df, dice_thresh=0.85, voxout_thresh=0.10):
     return low_quality_imgs
 
 
+def analyze_file_sizes(events_list, size_threshold=0.5):
+        """Analyze file sizes and identify suspiciously small files"""
+        file_sizes = {}
+        file_line_counts = {}
+        small_file_alerts = []
+        
+        for event_file in events_list:
+            try:
+                subject = event_file.entities['subject']
+                file_path = event_file.path
+                
+                # Get file size in bytes
+                file_size = os.path.getsize(file_path)
+                
+                # Count lines in file (excluding header)
+                try:
+                    df = pd.read_csv(file_path, sep='\t')
+                    line_count = len(df)
+                except Exception as e:
+                    # Fallback to simple line counting if pandas fails
+                    with open(file_path, 'r') as f:
+                        line_count = sum(1 for line in f) - 1  # Subtract header
+                
+                if subject not in file_sizes:
+                    file_sizes[subject] = []
+                    file_line_counts[subject] = []
+                
+                file_sizes[subject].append(file_size)
+                file_line_counts[subject].append(line_count)
+                
+            except Exception as e:
+                print(f"Error analyzing file size for {event_file.path}: {e}")
+                continue
+        
+        # Calculate statistics and identify outliers
+        all_sizes = [size for sizes in file_sizes.values() for size in sizes]
+        all_line_counts = [count for counts in file_line_counts.values() for count in counts]
+        
+        if all_sizes:
+            median_size = np.median(all_sizes)
+            median_line_count = np.median(all_line_counts)
+            size_threshold_bytes = median_size * size_threshold
+            line_threshold = median_line_count * size_threshold
+            
+            # Flag subjects with suspiciously small files
+            for subject, sizes in file_sizes.items():
+                line_counts = file_line_counts[subject]
+                
+                for i, (size, lines) in enumerate(zip(sizes, line_counts)):
+                    run_info = f"run-{i+1}" if len(sizes) > 1 else "single run"
+                    
+                    if size < size_threshold_bytes:
+                        small_file_alerts.append(
+                            f"⚠️ Subject {subject} ({run_info}): Event file suspiciously small "
+                            f"({size} bytes vs median {median_size:.0f} bytes)"
+                        )
+                    
+                    if lines < line_threshold:
+                        small_file_alerts.append(
+                            f"⚠️ Subject {subject} ({run_info}): Event file has low event counts"
+                            f"({lines} events vs median {median_line_count:.0f} events)"
+                        )
+        
+        return small_file_alerts, file_sizes, file_line_counts
+        
 # qc subjects' events files 
-def eval_missing_events(dir_layout, taskname):
+def eval_missing_events(dir_layout, taskname, size_threshold=0.5):
     """
-    Evaluate missing event files for subjects in a BIDS directory
+    Evaluate missing event files, flag subjects with suspiciously small files,
+    and check for missing corresponding BOLD files in a BIDS dataset.
     
     Parameters:
     dir_layout: BIDSLayout() object
     taskname: The name of the task to analyze
+    size_threshold: Threshold for flagging small files (default 0.5 = files smaller than 50% of median)
         
     Returns:
-    A dictionary containing analysis results for each session if sess_info provided,
-    otherwise returns results for the entire dataset
+    Dictionary containing analysis results for each session (or entire dataset if no sessions)
     """
-    # Get ALL subjects in the dataset, not just those with the task (identify who are missing events)
+    
+    def check_missing_bold(event_file):
+        """Return True if corresponding BOLD file is missing."""
+        entities = event_file.entities
+        subject = entities.get('subject')
+        session = entities.get('session', None)
+        task = entities.get('task')
+        run = entities.get('run', None)
+        
+        bold_files = dir_layout.get(subject=subject,
+                                    session=session,
+                                    task=task,
+                                    run=run,
+                                    suffix='bold',
+                                    extension=['.nii', '.nii.gz'])
+        return len(bold_files) == 0
+    
     all_subjects = dir_layout.get_subjects()
-    # Get sessions for this specific task (if any)
     sess_info = dir_layout.get_sessions(task=taskname)
     all_results = {}
     alerts = []
     
     print(f"Total subjects in dataset: {len(all_subjects)}")
     
-    # If session info is provided, analyze each session separately
+    # Iterate over sessions if they exist
     if sess_info:
-        print(f"\n_________ANALYZING TASK: *{taskname}* across {len(sess_info)} sessions:{sess_info}_________")
+        print(f"\n_________ANALYZING TASK: *{taskname}* across {len(sess_info)} sessions: {sess_info}_________")
         for sess in sess_info:
             session_alerts = []
             print(f"\n=== Analysis for Session: {sess} ===")
             events_list = dir_layout.get(task=taskname, session=sess, suffix="events", extension=".tsv")
             subject_counts = {}
+            file_sizes, file_line_counts = {}, {}
             
-            # Count event files for each subject in this session
+            # Analyze file sizes
+            small_file_alerts, fsizes, flines = analyze_file_sizes(events_list, size_threshold)
+            session_alerts.extend(small_file_alerts)
+            file_sizes.update(fsizes)
+            file_line_counts.update(flines)
+            
+            # Count event files and check BOLD for each subject
             for i, event_file in enumerate(events_list):
                 try:
-                    # Access the subject directly with error handling
                     subject = event_file.entities['subject']
+                    subject_counts[subject] = subject_counts.get(subject, 0) + 1
                     
-                    if subject in subject_counts:
-                        subject_counts[subject] += 1
-                    else:
-                        subject_counts[subject] = 1
+                    # Check missing BOLD
+                    if check_missing_bold(event_file):
+                        run = event_file.entities.get('run', 'NA')
+                        alert_msg = f"⚠️ Session {sess}: Subject {subject} run {run} has event file but NO corresponding BOLD file"
+                        session_alerts.append(alert_msg)
+                        print(alert_msg)
+                        
                 except (AttributeError, KeyError, IndexError) as e:
-                    print(f"Error accessing subject for event file at index {event_file}: {e}")
-                    if i < len(events_list) - 1:
-                        print("Attempting to continue with next file...")
-                    else:
-                        print("No more files to process.")
+                    print(f"Error accessing subject for event file {event_file}: {e}")
                     continue
             
-            # Calculate statistics for this session
+            # Calculate max events and incomplete subjects
             max_events = max(subject_counts.values()) if subject_counts else 0
             incomplete_subjects = {subj: count for subj, count in subject_counts.items() if count < max_events}
             
-            # Find subjects with no event files in this session
+            # Subjects with no event files
             subjects_with_events = set(subject_counts.keys())
             subjects_without_events = set(all_subjects) - subjects_with_events
             
-            # Count missing files for this session
+            # Count missing files
             total_missing_from_incomplete = sum(max_events - count for count in incomplete_subjects.values())
             total_missing_from_no_events = len(subjects_without_events) * max_events if max_events > 0 else len(subjects_without_events)
             total_missing = total_missing_from_incomplete + total_missing_from_no_events
             
-            # Print results and generate alerts for this session
+            # Print results and generate alerts
             print(f"Subjects with {taskname} events in session {sess}: {len(subjects_with_events)}")
             print(f"Subjects without {taskname} events in session {sess}: {len(subjects_without_events)}")
             
@@ -1024,18 +1355,19 @@ def eval_missing_events(dir_layout, taskname):
                     missing_count = max_events - count
                     print(f"  {subject}: {count} event file(s) (missing N = {missing_count} runs)")
                     session_alerts.append(f"⚠️ Session {sess}: Subject {subject} is missing {missing_count} event file(s)")
-            else:
-                print("\nAll subjects with events have complete files")
-            
             if subjects_without_events:
                 print(f"\nSubjects with NO {taskname} event files:")
                 for subject in sorted(subjects_without_events):
                     print(f"  Subject {subject}")
                     session_alerts.append(f"⚠️ Session {sess}: Subject {subject} has NO event files")
-            else:
-                print(f"\nAll subjects have {taskname} event files")
             
-            # Store results for this session
+            # File size alerts
+            if small_file_alerts:
+                print(f"\nFile size/content alerts for session {sess}:")
+                for alert in small_file_alerts:
+                    print(f"  {alert}")
+            
+            # Store results
             all_results[sess] = {
                 "max_events_per_subject": max_events,
                 "subjects_with_events": subjects_with_events,
@@ -1048,95 +1380,51 @@ def eval_missing_events(dir_layout, taskname):
                 "missing_files_from_incomplete": total_missing_from_incomplete,
                 "missing_files_from_no_events": total_missing_from_no_events,
                 "total_missing_files": total_missing,
+                "file_sizes": file_sizes,
+                "file_line_counts": file_line_counts,
+                "small_file_alerts": small_file_alerts,
                 "alerts": session_alerts
             }
-            
-            # Add this session's alerts to the overall alerts
             alerts.extend(session_alerts)
-
-        # Print overall summary and alerts
-        print("\n_____Summary of Missing Files_____")
-        if alerts:
-            print(f"Total alerts: {len(alerts)}")
-            for alert in alerts:
-                print(alert)
-        else:
-            print(f"No missing {taskname} files detected across all sessions.")
-            
-        return all_results
-    
-    # If no session info, analyze the entire dataset
+        
+    # No session info — analyze entire dataset
     else:
         print(f"\n_________ANALYZING TASK: *{taskname}* (no sessions)_________")
         events_list = dir_layout.get(task=taskname, suffix="events", extension=".tsv")
         subject_counts = {}
+        file_sizes, file_line_counts = {}, {}
         
-        print(f"Found {len(events_list)} {taskname} event files")
+        small_file_alerts, fsizes, flines = analyze_file_sizes(events_list, size_threshold)
+        alerts.extend(small_file_alerts)
+        file_sizes.update(fsizes)
+        file_line_counts.update(flines)
         
-        # Count event files for each subject
-        for i, event_file in enumerate(events_list):
-                try:
-                    # Access the subject directly with error handling
-                    subject = event_file.entities['subject']
+        for event_file in events_list:
+            try:
+                subject = event_file.entities['subject']
+                subject_counts[subject] = subject_counts.get(subject, 0) + 1
+                
+                if check_missing_bold(event_file):
+                    run = event_file.entities.get('run', 'NA')
+                    alert_msg = f"⚠️ Subject {subject} run {run} has event file but NO corresponding BOLD file"
+                    alerts.append(alert_msg)
+                    print(alert_msg)
                     
-                    if subject in subject_counts:
-                        subject_counts[subject] += 1
-                    else:
-                        subject_counts[subject] = 1
-                except (AttributeError, KeyError, IndexError) as e:
-                    print(f"Error accessing subject for event file {event_file}: {e}")
-                    if i < len(events_list) - 1:
-                        print("Attempting to continue with next file...")
-                    else:
-                        print("No more files to process.")
-                    continue
+            except (AttributeError, KeyError, IndexError) as e:
+                print(f"Error accessing subject for event file {event_file}: {e}")
+                continue
         
-        # Calculate statistics
         max_events = max(subject_counts.values()) if subject_counts else 0
         incomplete_subjects = {subj: count for subj, count in subject_counts.items() if count < max_events}
-        
-        # Find subjects with no event files
         subjects_with_events = set(subject_counts.keys())
         subjects_without_events = set(all_subjects) - subjects_with_events
         
-        # Count missing files
         total_missing_from_incomplete = sum(max_events - count for count in incomplete_subjects.values())
         total_missing_from_no_events = len(subjects_without_events) * max_events if max_events > 0 else len(subjects_without_events)
         total_missing = total_missing_from_incomplete + total_missing_from_no_events
         
-        # Print results and generate alerts
-        print(f"Subjects with {taskname} events: {len(subjects_with_events)}")
-        print(f"Subjects without {taskname} events: {len(subjects_without_events)}")
-        print(f"Expected events per subject: {max_events}")
-        
-        if incomplete_subjects:
-            print("\nSubjects with incomplete event files:")
-            for subject, count in incomplete_subjects.items():
-                missing_count = max_events - count
-                print(f"  {subject}: {count} event file(s) (missing N = {missing_count} runs)")
-                alerts.append(f"⚠️ Subject {subject} is missing {missing_count} event file(s)")
-        else:
-            print("\nAll subjects with events have complete files")
-        
-        if subjects_without_events:
-            print(f"\nSubjects with NO {taskname} event files:")
-            for subject in sorted(subjects_without_events):
-                print(f"  Subject {subject}")
-                alerts.append(f"⚠️ Subject {subject} has NO event files")
-        else:
-            print(f"\nAll subjects have {taskname} event files")
-        
-        # Print summary of alerts
-        print("\n_____Summary of Missing Files_____")
-        if alerts:
-            print(f"Total alerts: {len(alerts)}")
-            for alert in alerts:
-                print(alert)
-        else:
-            print(f"No missing {taskname} files detected.")
-        
-        # Return results including alerts
-        results = {
+        # Return dataset-level results
+        all_results = {
             "max_events_per_subject": max_events,
             "subjects_with_events": subjects_with_events,
             "subjects_without_events": subjects_without_events,
@@ -1148,11 +1436,22 @@ def eval_missing_events(dir_layout, taskname):
             "missing_files_from_incomplete": total_missing_from_incomplete,
             "missing_files_from_no_events": total_missing_from_no_events,
             "total_missing_files": total_missing,
+            "file_sizes": file_sizes,
+            "file_line_counts": file_line_counts,
+            "small_file_alerts": small_file_alerts,
             "alerts": alerts
         }
-        
-        return results
-
+    
+    # Summary
+    print("\n_____Summary of All Issues_____")
+    if alerts:
+        print(f"Total alerts: {len(alerts)}")
+        for alert in alerts:
+            print(alert)
+    else:
+        print(f"No missing {taskname} files, small files, or missing BOLD detected.")
+    
+    return all_results
 
 def pull_contrast_conditions_spec(spec_content):
     """

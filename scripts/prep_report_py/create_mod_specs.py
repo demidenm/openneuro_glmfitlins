@@ -134,7 +134,7 @@ else:
 
 
 print()
-print("Confirming contrast conditions map to available design matrix columns.")
+print("Debugging check & confirming contrast conditions map to available design matrix columns.")
 try:
     outputs = get_runnode(bids_dir, model_data, brainvols*gen_tr, ignored=[r"sub-.*_physio\.(json|tsv\.gz)"])
     

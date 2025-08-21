@@ -1,0 +1,86 @@
+{
+    "Contrasts": [
+        {
+            "Name": "attndposvneut",
+            "ConditionList": [
+                "trial_type.Happy_OBSERVAR",
+                "trial_type.Neutral_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "attndnegvneut",
+            "ConditionList": [
+                "trial_type.Negativo_OBSERVAR",
+                "trial_type.Neutral_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "reapprposvattndpos",
+            "ConditionList": [
+                "trial_type.Happy_INCREMENTAR",
+                "trial_type.Happy_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "reapprnegvattndneg",
+            "ConditionList": [
+                "trial_type.Negativo_REDUCIR",
+                "trial_type.Negativo_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "supprposvattndpos",
+            "ConditionList": [
+                "trial_type.Happy_SUPRIMIR",
+                "trial_type.Happy_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "supprnegvattndneg",
+            "ConditionList": [
+                "trial_type.Negativo_SUPRIMIR",
+                "trial_type.Negativo_OBSERVAR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "neutralvbase",
+            "ConditionList": [
+                "trial_type.Neutral_OBSERVAR"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

@@ -100,16 +100,7 @@
       "Model": {
         "X": [
           1,
-          "trial_type.cue_ug-resp_pmod",
-          "trial_type.cue_ug-prop_pmod",
-          "trial_type.cue_dict_pmod",
-          "trial_type.dec_dg-prop_pmod_choice",
-          "trial_type.dec_ug-resp_pmod_option_presented",
-          "trial_type.dec_ug-resp_pmod_choice",
-          "trial_type.dec_ug-prop_pmod_choice",
-          "trial_type.missed_trial",
-          "Decision_pmod",
-          "Endowment_pmod",
+          "trial_type.*",
           "trans_*",
           "rot_*",
           "cosine*"
@@ -172,6 +163,18 @@
           ],
           "Weights": [
             1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ultacceptvreject",
+          "ConditionList": [
+            "trial_type.dec_ug-resp_pmod_accept",
+            "trial_type.dec_ug-resp_pmod_reject"
+          ],
+          "Weights": [
+            1,
+            -1
           ],
           "Test": "t"
         },

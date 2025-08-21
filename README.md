@@ -7,16 +7,16 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-08-07`*
+*This repository is in active development. `Last updated: 2025-08-20`*
 
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 40
+N OpenNeuro Studies: 41
 
-N OpenNeuro Task fMRI Group Summaries: 64
+N OpenNeuro Task fMRI Group Summaries: 67
 
-Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, dts, em, emotionalregulation, Emotionregulation, encoding, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, socialcomparison, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, doors, dts, em, emotionalregulation, Emotionregulation, encoding, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 

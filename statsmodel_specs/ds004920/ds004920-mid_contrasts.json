@@ -1,0 +1,207 @@
+{
+    "Contrasts": [
+        {
+            "Name": "cueLWvNeut",
+            "ConditionList": [
+                "trial_type.cue_Largegain",
+                "trial_type.cue_Neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueWvNeut",
+            "ConditionList": [
+                "trial_type.cue_Largegain",
+                "trial_type.cue_Smallgain",
+                "trial_type.cue_Neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLLvNeut",
+            "ConditionList": [
+                "trial_type.cue_Largeloss",
+                "trial_type.cue_Neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLvNeut",
+            "ConditionList": [
+                "trial_type.cue_Largeloss",
+                "trial_type.cue_Smallloss",
+                "trial_type.cue_Neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLWvBase",
+            "ConditionList": [
+                "trial_type.cue_Largegain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLWvNeut",
+            "ConditionList": [
+                "trial_type.fix_Largegain",
+                "trial_type.fix_Neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixWvNeut",
+            "ConditionList": [
+                "trial_type.fix_Largegain",
+                "trial_type.fix_Smallgain",
+                "trial_type.fix_Neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLLvNeut",
+            "ConditionList": [
+                
+                "trial_type.fix_Largeloss",
+                "trial_type.fix_Neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLvNeut",
+            "ConditionList": [
+                "trial_type.fix_Largeloss",
+                "trial_type.fix_Smallloss",
+                "trial_type.fix_Neutral"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLWvBase",
+            "ConditionList": [
+                "trial_type.fix_Largegain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbWHitvWMiss",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largegain",
+                "trial_type.feedback_Hit_Smallgain",
+                "trial_type.feedback_Miss_Largegain",
+                "trial_type.feedback_Miss_Smallgain"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvLWMiss",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largegain",
+                "trial_type.feedback_Miss_Largegain"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLHitvLMiss",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largeloss",
+                "trial_type.feedback_Hit_Smallloss",
+                "trial_type.feedback_Miss_Largeloss",
+                "trial_type.feedback_Miss_Smallloss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLLHitvLLMiss",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largeloss",
+                "trial_type.feedback_Miss_Largeloss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvNeutHit",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largegain",
+                "trial_type.feedback_Hit_Neutral"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLWHitvBase",
+            "ConditionList": [
+                "trial_type.feedback_Hit_Largegain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

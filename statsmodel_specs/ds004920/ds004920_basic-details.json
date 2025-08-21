@@ -1,0 +1,300 @@
+{
+    "Subjects": [
+        "1001",
+        "1002",
+        "1003",
+        "1004",
+        "1006",
+        "1007",
+        "1009",
+        "1010",
+        "1011",
+        "1012",
+        "1013",
+        "1015",
+        "1016",
+        "1019",
+        "1021",
+        "1240",
+        "1242",
+        "1243",
+        "1244",
+        "1245",
+        "1247",
+        "1248",
+        "1249",
+        "1251",
+        "1253",
+        "1255",
+        "1276",
+        "1282",
+        "1286",
+        "1294",
+        "1300",
+        "1301",
+        "1302",
+        "1303",
+        "3101",
+        "3116",
+        "3122",
+        "3125",
+        "3140",
+        "3143",
+        "3152",
+        "3164",
+        "3166",
+        "3167",
+        "3170",
+        "3173",
+        "3175",
+        "3176",
+        "3186",
+        "3189",
+        "3190",
+        "3199",
+        "3200",
+        "3206",
+        "3210",
+        "3212",
+        "3218",
+        "3220",
+        "3223"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "doors": {
+            "cite_links": ["https://doi.org/10.1016/j.biopsycho.2024.108857",
+        "https://www.biorxiv.org/content/10.1101/2023.10.19.562908v2", "https://doi.org/10.1093/scan/nsae033"],
+            "plot_coords": [
+                10,
+                10,
+                -8
+            ],
+            "bold_volumes": 293,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "rt",
+                "resp",
+                "gender",
+                "response_time",
+                "stim_file",
+                "TODO -- fill in rows and add more tab-separated columns if desired"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "rt": "float64",
+                "resp": "object",
+                "gender": "object",
+                "response_time": "object",
+                "stim_file": "object",
+                "TODO -- fill in rows and add more tab-separated columns if desired": "object"
+            },
+            "trial_type_values": [
+                "decision",
+                "win",
+                "loss",
+                "decision-missed"
+            ]
+        },
+        "mid": {
+            "cite_links": ["https://doi.org/10.1016/j.dib.2024.110197", "https://www.biorxiv.org/content/10.1101/2025.04.17.649386v2.abstract"],
+            "plot_coords": [
+                10,
+                10,
+                -8
+            ],
+            "bold_volumes": 265,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "response_time",
+                "stim_file",
+                "TODO -- fill in rows and add more tab-separated columns if desired"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "response_time": "object",
+                "stim_file": "object",
+                "TODO -- fill in rows and add more tab-separated columns if desired": "object"
+            },
+            "trial_type_values": [
+                "Small_loss",
+                "Neutral",
+                "Large_loss",
+                "Large_gain",
+                "Small_gain",
+                "ConHit",
+                "ConMiss"
+            ]
+        },
+        "sharedreward": {
+            "cite_links": ["https://www.biorxiv.org/content/10.1101/2023.10.19.562908v2", 
+            "https://doi.org/10.1016/j.dib.2024.110197"],
+            "plot_coords": [
+                10,
+                10,
+                -8
+            ],
+            "bold_volumes": 231,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "response_time",
+                "stim_file",
+                "TODO -- fill in rows and add more tab-separated columns if desired"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "response_time": "float64",
+                "stim_file": "object",
+                "TODO -- fill in rows and add more tab-separated columns if desired": "object"
+            },
+            "trial_type_values": [
+                "event_stranger_punish",
+                "block_stranger_punish",
+                "event_stranger_neutral",
+                "event_stranger_reward",
+                "missed_trial",
+                "block_friend_reward",
+                "event_friend_punish",
+                "event_friend_reward",
+                "block_stranger_reward",
+                "event_friend_neutral",
+                "event_computer_punish",
+                "block_computer_punish",
+                "event_computer_neutral",
+                "block_friend_punish",
+                "event_computer_reward",
+                "block_computer_reward"
+            ]
+        },
+        "socialdoors": {
+            "cite_links": ["https://doi.org/10.1093/scan/nsae033", "https://doi.org/10.1016/j.dib.2024.110197"],
+            "plot_coords": [
+                10,
+                10,
+                -8
+            ],
+            "bold_volumes": 293,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "rt",
+                "resp",
+                "gender",
+                "response_time",
+                "stim_file",
+                "TODO -- fill in rows and add more tab-separated columns if desired"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "rt": "float64",
+                "resp": "object",
+                "gender": "object",
+                "response_time": "object",
+                "stim_file": "object",
+                "TODO -- fill in rows and add more tab-separated columns if desired": "object"
+            },
+            "trial_type_values": [
+                "decision",
+                "win",
+                "loss",
+                "decision-missed",
+                NaN
+            ]
+        },
+        "ugdg": {
+            "cite_links": ["https://doi.org/10.1016/j.biopsycho.2024.108857",
+            "https://doi.org/10.1016/j.dib.2024.110197"
+        ],
+            "plot_coords": [
+                10,
+                10,
+                -8
+            ],
+            "bold_volumes": 225,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "response_time",
+                "Endowment",
+                "Endowment_pmod",
+                "Decision",
+                "Decision_pmod",
+                "stim_file",
+                "TODO -- fill in rows and add more tab-separated columns if desired"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "response_time": "float64",
+                "Endowment": "float64",
+                "Endowment_pmod": "float64",
+                "Decision": "float64",
+                "Decision_pmod": "float64",
+                "stim_file": "object",
+                "TODO -- fill in rows and add more tab-separated columns if desired": "object"
+            },
+            "trial_type_values": [
+                "cue_ug-resp_pmod",
+                "cue_ug-prop_pmod",
+                "cue_dict_pmod",
+                "dec_dg-prop_pmod_choice",
+                "dec_ug-resp_pmod_accept",
+                "dec_ug-resp_pmod_option_presented",
+                "dec_ug-resp_pmod_choice",
+                "dec_ug-prop_pmod_choice",
+                "dec_ug-resp_pmod_reject",
+                "missed_trial"
+            ]
+        }
+    }
+}

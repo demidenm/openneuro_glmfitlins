@@ -2,7 +2,7 @@ import argparse
 import os
 import json
 import numpy as np
-from utils import pull_contrast_conditions_spec, get_bidstats_events
+from utils import pull_contrast_conditions_spec, get_bidstats_events, get_runnode
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -136,16 +136,22 @@ else:
 print()
 print("Confirming contrast conditions map to available design matrix columns.")
 try:
-    _, root_mod, _ = get_bidstats_events(bids_dir, model_data, scan_length=brainvols*gen_tr, ignored=[r"sub-.*_physio\.(json|tsv\.gz)"], return_events_num=0)
-    outputs = root_mod.run(
-        group_by=root_mod.group_by, force_dense=False, transformation_history=True
-    )
-except TypeError as e:
-    if "'<' not supported between instances of 'str' and 'float'" in str(e):
-        print("ERROR: Mixed data types found in 'amplitude' column. This suggests that columns being Factored and convolved have a combination of numeric and string.")
-        print("Typical cause is are NA values in the columns being factored/convolved, check first.")
+    outputs = get_runnode(bids_dir, model_data, brainvols*gen_tr, ignored=[r"sub-.*_physio\.(json|tsv\.gz)"])
+    
+    if outputs is None:
+        print("\nFailed to generate run-level outputs. Please check the errors above.")
+        print("Common debugging steps:")
+        print("1. Verify your BIDS directory structure")
+        print("2. Check that all required event files exist")
+        print("3. Validate your model specification JSON")
+        print("4. Ensure event files have consistent column names and data types")
+        print("5. Ensure the subjects in your specification files contain the necessary files to groupby")
+
     else:
-        raise
+        print("Successfully generated run-level outputs!")
+        
+except Exception as e:
+    print(f"UNEXPECTED ERROR: {e}")
 
 unique_conditions = pull_contrast_conditions_spec(model_data)
 

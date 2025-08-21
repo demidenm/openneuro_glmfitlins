@@ -4,6 +4,7 @@ import re
 import json
 import pandas as pd
 import numpy as np
+from collections import defaultdict
 from pathlib import Path
 from IPython.display import display, Markdown
 from bids.modeling import BIDSStatsModelsGraph
@@ -152,6 +153,224 @@ def get_bidstats_events(bids_path, spec_cont, scan_length=125, ignored=None, ret
     except Exception as e:
         print(f"Error processing root node collections: {e}")
         return None
+
+
+def debug_bids_consistency(bids_path, spec_cont, scan_length=125, ignored=None):
+    """
+    Debug BIDS layout by checking:
+    1. Subject entity index mapping
+    2. Data consistency for specified task and subjects
+    """
+    
+    
+    try:
+        indexer = BIDSLayoutIndexer(ignore=ignored) if ignored else BIDSLayoutIndexer()
+        bids_layout = BIDSLayout(root=bids_path, reset_database=True, indexer=indexer)
+        print(f"✓ BIDS Layout initialized: {bids_path}")
+    except Exception as e:
+        print(f"ERROR: Failed to initialize BIDS layout: {e}")
+        return None
+
+
+    # Get basic layout info
+    all_subjects = bids_layout.get_subjects()
+    all_tasks = bids_layout.get_tasks()
+    all_runs = bids_layout.get_runs()
+
+    print("\n=== MODEL SPECIFICATION ANALYSIS ===")
+    
+    # Extract info from model spec
+    spec_subjects = spec_cont.get('Input', {}).get('subject', [])
+    spec_tasks = spec_cont.get('Input', {}).get('task', [])
+    spec_runs = spec_cont.get('Input', {}).get('run', [])
+    
+    print(f"Model expects:")
+    print(f"  Subjects: {len(spec_subjects)} - {spec_subjects[:5]}...")
+    print(f"  Tasks: {spec_tasks}")
+    print(f"  Runs: {spec_runs}")
+    
+    # Check subject overlap
+    spec_subjects_set = set(spec_subjects)
+    layout_subjects_set = set(all_subjects)
+    
+    missing_in_layout = spec_subjects_set - layout_subjects_set
+    missing_in_spec = layout_subjects_set - spec_subjects_set
+    
+    print(f"\nSubject comparison:")
+    print(f"  In spec but not in layout: {len(missing_in_layout)} - {list(missing_in_layout)[:5]}")
+    print(f"  In layout but not in spec: {len(missing_in_spec)} - {list(missing_in_spec)[:5]}")
+
+    print("\n=== DATA CONSISTENCY CHECK ===")
+    
+    # For the main task, check data consistency
+    target_task = spec_tasks[0] if spec_tasks else None
+    if not target_task:
+        print("No target task specified in model")
+        return None
+        
+    print(f"Checking data consistency for task: {target_task}")
+    
+    # Get all files for this task
+    data_summary = defaultdict(lambda: defaultdict(list))
+    
+    for subject in spec_subjects:
+        # Check BOLD files
+        bold_files = bids_layout.get(
+            subject=subject, 
+            task=target_task, 
+            suffix='bold', 
+            extension='.nii.gz'
+        )
+        
+        # Check events files  
+        events_files = bids_layout.get(
+            subject=subject,
+            task=target_task,
+            suffix='events',
+            extension='.tsv'
+        )
+        
+        for bf in bold_files:
+            run = bf.get_entities().get('run', 'no_run')
+            data_summary[subject]['bold'].append(run)
+            
+        for ef in events_files:
+            run = ef.get_entities().get('run', 'no_run') 
+            data_summary[subject]['events'].append(run)
+    
+    # Analyze consistency
+    print(f"\nData consistency analysis:")
+    
+    consistent_subjects = []
+    problematic_subjects = []
+    
+    expected_runs = set(spec_runs)
+    
+    for subject in spec_subjects:
+        bold_runs = set(data_summary[subject]['bold'])
+        events_runs = set(data_summary[subject]['events'])
+        
+        # Check if subject has expected runs
+        has_all_bold = expected_runs.issubset(bold_runs)
+        has_all_events = expected_runs.issubset(events_runs)
+        runs_match = bold_runs == events_runs
+        
+        if has_all_bold and has_all_events and runs_match:
+            consistent_subjects.append(subject)
+        else:
+            problematic_subjects.append({
+                'subject': subject,
+                'bold_runs': sorted(bold_runs),
+                'events_runs': sorted(events_runs), 
+                'expected_runs': sorted(expected_runs),
+                'missing_bold': sorted(expected_runs - bold_runs),
+                'missing_events': sorted(expected_runs - events_runs)
+            })
+    
+    print(f"  Consistent subjects: {len(consistent_subjects)}/{len(spec_subjects)}")
+    print(f"  Problematic subjects: {len(problematic_subjects)}")
+    
+    if problematic_subjects:
+        print(f"\nFirst 10 problematic subjects:")
+        for i, prob in enumerate(problematic_subjects[:10]):
+            print(f"  {prob['subject']}:")
+            print(f"    BOLD runs: {prob['bold_runs']}")
+            print(f"    Events runs: {prob['events_runs']}")
+            if prob['missing_bold']:
+                print(f"    Missing BOLD: {prob['missing_bold']}")
+            if prob['missing_events']:
+                print(f"    Missing events: {prob['missing_events']}")
+            print()
+    
+    return {
+        'consistent_subjects': consistent_subjects,
+        'problematic_subjects': problematic_subjects,
+    }
+
+
+def get_runnode(bids_path, spec_cont, scan_length=125, ignored=None):
+    """
+    Enhanced version that runs debugging first, then attempts model creation
+    """
+    print("=== RUNNING CONSISTENCY DEBUGGING ===")
+    debug_info = debug_bids_consistency(bids_path, spec_cont, scan_length, ignored)
+    
+    if not debug_info:
+        print("Debugging failed, cannot proceed")
+        return None
+        
+    print(f"\n=== SUMMARY ===")
+    print(f"Consistent subjects: {len(debug_info['consistent_subjects'])}")
+    print(f"Problematic subjects: {len(debug_info['problematic_subjects'])}")
+    
+        
+    # Now run the original function
+    try:
+        indexer = BIDSLayoutIndexer(ignore=ignored) if ignored else BIDSLayoutIndexer()
+    except Exception as e:
+        print(f"ERROR: Failed to initialize BIDSLayoutIndexer: {e}")
+        return None
+
+    try:
+        bids_layout = BIDSLayout(root=bids_path, reset_database=True, indexer=indexer)
+    except Exception as e:
+        print(f"ERROR: Failed to initialize BIDSLayout: {e}")
+        print(f"Check that the BIDS directory exists and is valid: {bids_path}")
+        return None
+
+    try:
+        graph = BIDSStatsModelsGraph(bids_layout, spec_cont)
+    except Exception as e:
+        print(f"ERROR: Failed to create BIDSStatsModelsGraph: {e}")
+        if "'Dict' nodes are not implemented" in str(e):
+            print("This error typically occurs with DummyContrasts specification.")
+            print("Try removing subject/dataset level nodes or check the BIDSStatsModelsGraph implementation.")
+        return None
+
+    try:
+        run_level_node = graph.get_node(name="run_level")
+        if run_level_node is None:
+            print("ERROR: Could not find 'run_level' node in the model specification")
+            available_nodes = [node.name for node in graph.nodes]
+            print(f"Available nodes: {available_nodes}")
+            return None
+    except Exception as e:
+        print(f"ERROR: Failed to get run_level node: {e}")
+        return None
+
+    try:
+        run_specs = run_level_node.run(
+            group_by=run_level_node.group_by,
+            force_dense=False,
+            transformation_history=True
+        )
+        return run_specs
+
+    except TypeError as e:
+        if "'<' not supported between instances of 'str' and 'float'" in str(e):
+            print("ERROR: Mixed data types found in 'amplitude' column.")
+            print("This suggests that columns being Factored and convolved have a combination of numeric and string values.")
+            print("TYPICAL CAUSES:")
+            print("1. NA/NaN values in the columns being factored/convolved")
+            print("2. Mixed data types in event files (e.g., some values are strings, others are numbers)")
+            print("3. Inconsistent formatting across event files")
+            print("\nSUGGESTED FIXES:")
+            print("- Check your *_events.tsv files for missing values or inconsistent data types")
+            print("- Ensure all numeric columns contain only numeric values or are properly handled")
+            print("- Consider using pandas to clean your events files before running the model")
+            return None
+        else:
+            print(f"ERROR: TypeError in run_level_node.run(): {e}")
+            raise
+    except Exception as e:
+        print(f"ERROR: Failed to run the model: {e}")
+        print("This could be due to:")
+        print("- Missing or malformed event files")
+        print("- Incompatible model specification with your data")
+        print("- Missing required columns in events files")
+        return None
+
+
 
 def extract_model_info(model_spec):
     """
@@ -746,10 +965,14 @@ def eval_missing_events(dir_layout, taskname):
     A dictionary containing analysis results for each session if sess_info provided,
     otherwise returns results for the entire dataset
     """
-    all_subjects = dir_layout.get_subjects(task=taskname)
+    # Get ALL subjects in the dataset, not just those with the task (identify who are missing events)
+    all_subjects = dir_layout.get_subjects()
+    # Get sessions for this specific task (if any)
     sess_info = dir_layout.get_sessions(task=taskname)
     all_results = {}
     alerts = []
+    
+    print(f"Total subjects in dataset: {len(all_subjects)}")
     
     # If session info is provided, analyze each session separately
     if sess_info:
@@ -788,26 +1011,29 @@ def eval_missing_events(dir_layout, taskname):
             
             # Count missing files for this session
             total_missing_from_incomplete = sum(max_events - count for count in incomplete_subjects.values())
-            total_missing_from_no_events = len(subjects_without_events) * max_events
+            total_missing_from_no_events = len(subjects_without_events) * max_events if max_events > 0 else len(subjects_without_events)
             total_missing = total_missing_from_incomplete + total_missing_from_no_events
             
             # Print results and generate alerts for this session
+            print(f"Subjects with {taskname} events in session {sess}: {len(subjects_with_events)}")
+            print(f"Subjects without {taskname} events in session {sess}: {len(subjects_without_events)}")
+            
             if incomplete_subjects:
                 print("\nSubjects with incomplete event files:")
                 for subject, count in incomplete_subjects.items():
                     missing_count = max_events - count
-                    print(f"{subject}: {count} event file(s) (missing N = {missing_count} runs)")
+                    print(f"  {subject}: {count} event file(s) (missing N = {missing_count} runs)")
                     session_alerts.append(f"⚠️ Session {sess}: Subject {subject} is missing {missing_count} event file(s)")
             else:
                 print("\nAll subjects with events have complete files")
             
             if subjects_without_events:
-                print("\nSubjects with NO event files:")
-                for subject in subjects_without_events:
-                    print(f"Subject {subject}")
+                print(f"\nSubjects with NO {taskname} event files:")
+                for subject in sorted(subjects_without_events):
+                    print(f"  Subject {subject}")
                     session_alerts.append(f"⚠️ Session {sess}: Subject {subject} has NO event files")
             else:
-                print("\nAll subjects have event files")
+                print(f"\nAll subjects have {taskname} event files")
             
             # Store results for this session
             all_results[sess] = {
@@ -835,15 +1061,17 @@ def eval_missing_events(dir_layout, taskname):
             for alert in alerts:
                 print(alert)
         else:
-            print("No missing files detected across all sessions.")
+            print(f"No missing {taskname} files detected across all sessions.")
             
         return all_results
     
     # If no session info, analyze the entire dataset
     else:
-        print(f"\n_________ANALYZING TASK: *{taskname}* one session_________")
+        print(f"\n_________ANALYZING TASK: *{taskname}* (no sessions)_________")
         events_list = dir_layout.get(task=taskname, suffix="events", extension=".tsv")
         subject_counts = {}
+        
+        print(f"Found {len(events_list)} {taskname} event files")
         
         # Count event files for each subject
         for i, event_file in enumerate(events_list):
@@ -873,26 +1101,30 @@ def eval_missing_events(dir_layout, taskname):
         
         # Count missing files
         total_missing_from_incomplete = sum(max_events - count for count in incomplete_subjects.values())
-        total_missing_from_no_events = len(subjects_without_events) * max_events
+        total_missing_from_no_events = len(subjects_without_events) * max_events if max_events > 0 else len(subjects_without_events)
         total_missing = total_missing_from_incomplete + total_missing_from_no_events
         
         # Print results and generate alerts
+        print(f"Subjects with {taskname} events: {len(subjects_with_events)}")
+        print(f"Subjects without {taskname} events: {len(subjects_without_events)}")
+        print(f"Expected events per subject: {max_events}")
+        
         if incomplete_subjects:
             print("\nSubjects with incomplete event files:")
             for subject, count in incomplete_subjects.items():
                 missing_count = max_events - count
-                print(f"{subject}: {count} event file(s) (missing N = {missing_count} runs)")
+                print(f"  {subject}: {count} event file(s) (missing N = {missing_count} runs)")
                 alerts.append(f"⚠️ Subject {subject} is missing {missing_count} event file(s)")
         else:
             print("\nAll subjects with events have complete files")
         
         if subjects_without_events:
-            print("\nSubjects with NO event files:")
-            for subject in subjects_without_events:
-                print(f"Subject {subject}")
-                alerts.append(f"* {subject} has NO event files")
+            print(f"\nSubjects with NO {taskname} event files:")
+            for subject in sorted(subjects_without_events):
+                print(f"  Subject {subject}")
+                alerts.append(f"⚠️ Subject {subject} has NO event files")
         else:
-            print("\nAll subjects have event files")
+            print(f"\nAll subjects have {taskname} event files")
         
         # Print summary of alerts
         print("\n_____Summary of Missing Files_____")
@@ -901,7 +1133,7 @@ def eval_missing_events(dir_layout, taskname):
             for alert in alerts:
                 print(alert)
         else:
-            print("No missing files detected.")
+            print(f"No missing {taskname} files detected.")
         
         # Return results including alerts
         results = {

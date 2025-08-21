@@ -1,0 +1,106 @@
+{
+    "Contrasts": [
+        {
+          "Name": "cueultvdict",
+          "ConditionList": [
+            "trial_type.cue_ug-prop_pmod",
+            "trial_type.cue_dict_pmod"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "decisionultvdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueultproposervdict",
+          "ConditionList": [
+            "trial_type.cue_ug-prop_pmod",
+            "trial_type.cue_dict_pmod"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "choiceultproposervdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueresponder",
+          "ConditionList": [
+            "trial_type.cue_ug-resp_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "ultacceptvreject",
+          "ConditionList": [
+            "trial_type.dec_ug-resp_pmod_accept",
+            "trial_type.dec_ug-resp_pmod_reject"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "choiceultvdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "paramdecision",
+          "ConditionList": [
+            "Decision_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "paramendowment",
+          "ConditionList": [
+            "Endowment_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+}

@@ -1,0 +1,171 @@
+{
+  "Name": "ds004920",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "1001",
+      "1002",
+      "1003",
+      "1004",
+      "1006",
+      "1007",
+      "1009",
+      "1010",
+      "1011",
+      "1012",
+      "1013",
+      "1015",
+      "1016",
+      "1019",
+      "1021",
+      "1242",
+      "1243",
+      "1244",
+      "1245",
+      "1247",
+      "1248",
+      "1249",
+      "1251",
+      "1253",
+      "1255",
+      "1276",
+      "1286",
+      "1294",
+      "1300",
+      "1301",
+      "1302",
+      "1303",
+      "3101",
+      "3116",
+      "3122",
+      "3125",
+      "3140",
+      "3143",
+      "3152",
+      "3164",
+      "3166",
+      "3167",
+      "3170",
+      "3173",
+      "3175",
+      "3176",
+      "3186",
+      "3189",
+      "3190",
+      "3199",
+      "3200",
+      "3206",
+      "3210",
+      "3212",
+      "3218",
+      "3220",
+      "3223"
+    ],
+    "task": [
+      "ugdg"
+    ],
+    "run": [
+      1,
+      2
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "Endowment_pmod",
+          "Decision_pmod",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "decision",
+          "ConditionList": [
+              "trial_type.decision"
+          ],
+          "Weights": [
+              1
+          ],
+          "Test": "t"
+        },
+        {
+            "Name": "winvloss",
+            "ConditionList": [
+                "trial_type.win",
+                "trial_type.loss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

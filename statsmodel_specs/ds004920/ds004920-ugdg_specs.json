@@ -1,0 +1,246 @@
+{
+  "Name": "ds004920",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "1001",
+      "1002",
+      "1003",
+      "1004",
+      "1006",
+      "1007",
+      "1009",
+      "1010",
+      "1011",
+      "1012",
+      "1013",
+      "1015",
+      "1016",
+      "1019",
+      "1021",
+      "1242",
+      "1243",
+      "1244",
+      "1245",
+      "1247",
+      "1248",
+      "1249",
+      "1251",
+      "1253",
+      "1255",
+      "1276",
+      "1286",
+      "1294",
+      "1300",
+      "1301",
+      "1302",
+      "1303",
+      "3101",
+      "3116",
+      "3122",
+      "3125",
+      "3140",
+      "3143",
+      "3152",
+      "3164",
+      "3166",
+      "3167",
+      "3170",
+      "3173",
+      "3175",
+      "3176",
+      "3186",
+      "3189",
+      "3190",
+      "3199",
+      "3200",
+      "3206",
+      "3210",
+      "3212",
+      "3218",
+      "3220",
+      "3223"
+    ],
+    "task": [
+      "ugdg"
+    ],
+    "run": [
+      1,
+      2
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.cue_ug-resp_pmod",
+          "trial_type.cue_ug-prop_pmod",
+          "trial_type.cue_dict_pmod",
+          "trial_type.dec_dg-prop_pmod_choice",
+          "trial_type.dec_ug-resp_pmod_option_presented",
+          "trial_type.dec_ug-resp_pmod_choice",
+          "trial_type.dec_ug-prop_pmod_choice",
+          "trial_type.missed_trial",
+          "Decision_pmod",
+          "Endowment_pmod",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "cueultvdict",
+          "ConditionList": [
+            "trial_type.cue_ug-prop_pmod",
+            "trial_type.cue_dict_pmod"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "decisionultvdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueultproposervdict",
+          "ConditionList": [
+            "trial_type.cue_ug-prop_pmod",
+            "trial_type.cue_dict_pmod"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "choiceultproposervdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueresponder",
+          "ConditionList": [
+            "trial_type.cue_ug-resp_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "choiceultvdict",
+          "ConditionList": [
+            "trial_type.dec_ug-prop_pmod_choice",
+            "trial_type.dec_dg-prop_pmod_choice"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "paramdecision",
+          "ConditionList": [
+            "Decision_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "paramendowment",
+          "ConditionList": [
+            "Endowment_pmod"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

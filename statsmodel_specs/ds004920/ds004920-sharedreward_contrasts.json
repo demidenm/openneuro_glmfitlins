@@ -1,0 +1,141 @@
+{
+    "Contrasts": [
+      {
+        "Name": "all_decisions",
+        "ConditionList": [
+          "trial_type.stranger_decision",
+          "trial_type.friend_decision", 
+          "trial_type.computer_decision"
+        ],
+        "Weights": [
+            0.333, 
+            0.333,
+            0.333
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "winvlose",
+        "ConditionList": [
+          "trial_type.stranger_win",
+          "trial_type.friend_win",
+          "trial_type.computer_win",
+          "trial_type.stranger_lose",
+          "trial_type.friend_lose",
+          "trial_type.computer_lose"
+        ],
+        "Weights": [
+            0.333, 0.333, 0.333, 
+            -0.333, -0.333, -0.333
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "strangerwinvlose",
+        "ConditionList": [
+          "trial_type.stranger_win",
+          "trial_type.stranger_lose"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "friendwinvlose",
+        "ConditionList": [
+          "trial_type.friend_win",
+          "trial_type.friend_lose"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "computerwinvlose",
+        "ConditionList": [
+          "trial_type.computer_win",
+          "trial_type.computer_lose"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "decisionfriendvstranger",
+        "ConditionList": [
+          "trial_type.friend_decision",
+          "trial_type.stranger_decision"
+        ],
+        "Weights": [
+            1,
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "winfriendvstranger",
+        "ConditionList": [
+          "trial_type.friend_win",
+          "trial_type.stranger_win"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "losefriendvstranger",
+        "ConditionList": [
+          "trial_type.friend_lose",
+          "trial_type.stranger_lose"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },{
+        "Name": "decisionfriendvcomputer",
+        "ConditionList": [
+          "trial_type.friend_decision",
+          "trial_type.computer_decision"
+        ],
+        "Weights": [
+            1,
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "winfriendvcomputer",
+        "ConditionList": [
+          "trial_type.friend_win",
+          "trial_type.computer_win"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "losefriendvcomputer",
+        "ConditionList": [
+          "trial_type.friend_lose",
+          "trial_type.computer_lose"
+        ],
+        "Weights": [
+            1, 
+            -1
+        ],
+        "Test": "t"
+      }
+    ]
+  }

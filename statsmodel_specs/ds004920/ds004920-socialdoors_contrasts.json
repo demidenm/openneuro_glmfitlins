@@ -1,0 +1,26 @@
+{
+    "Contrasts": [
+        {
+            "Name": "decision",
+            "ConditionList": [
+                "trial_type.decision"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "winvloss",
+            "ConditionList": [
+                "trial_type.win",
+                "trial_type.loss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

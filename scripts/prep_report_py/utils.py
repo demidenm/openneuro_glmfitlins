@@ -466,36 +466,6 @@ def get_runnode(bids_path: str, spec_cont: dict, scan_length: int = 125, ignored
     except Exception as e:
         print(f"Warning: Debugging failed with error: {e}")
         debug_info = None
-
-    # Try to import required modules
-    try:
-        from bids import BIDSLayout, BIDSLayoutIndexer
-        from fitlins.workflows.bidsstats import BIDSStatsModelsGraph
-    except ImportError as e:
-        print(f"ERROR: Required imports failed: {e}")
-        print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
-        
-        # Run batch testing as fallback when imports fail
-        try:
-            print("Attempting batch testing to identify problematic subjects...")
-            problematic_subjects = spectest_subject_batches(
-                bids_path, 
-                spec_cont,
-                get_bidstats_events, 
-                TR=2,
-                volumes=scan_length,
-                max_batch_size=10
-            )
-            
-            if problematic_subjects:
-                print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
-            else:
-                print("Batch testing completed. No problematic subjects found.")
-                
-        except Exception as batch_e:
-            print(f"ERROR: Batch testing also failed: {batch_e}")
-        
-        return None
         
     # Initialize BIDSLayoutIndexer
     try:

@@ -12,11 +12,11 @@
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 42
+N OpenNeuro Studies: 43
 
-N OpenNeuro Task fMRI Group Summaries: 72
+N OpenNeuro Task fMRI Group Summaries: 73
 
-Completed fMRI Task Names: 1Norm, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, doors, dts, em, emotionalregulation, Emotionregulation, encoding, epr, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1Norm, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, doors, dts, em, emotionalregulation, Emotionregulation, encoding, epr, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodStimHiLo, GDMotor, identify1, identify2, illusion, learning, linebisection, MGT, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 

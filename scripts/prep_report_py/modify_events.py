@@ -1245,5 +1245,30 @@ def ds004144(eventspath: str, task: str):
         
         return eventsdat
 
+def ds004656(eventspath: str, task: str):
+    """
+    Process event data for ds004656 by modifying trial types if applicable. 
+    Create a trial_type column which is copy of condition. Simple standardization
+    
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset 
+    
+    Returns:
+    pd.DataFrame or str
+        Modified events DataFrame, or a message that no updates were necessary.
+    """
+
+    if task == "FoodStimHiLo":
+        eventsdat = pd.read_csv(eventspath, sep='\t')
+        if 'trial_type' not in eventsdat.columns:
+            eventsdat["trial_type"] = eventsdat["condition"]
+            print("Copied condition to trial_type")
+
+            return eventsdat
+        else:
+            print("No updates necessary, 'trial_type' already present")
+            return None
+
         
 

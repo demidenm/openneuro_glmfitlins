@@ -1,0 +1,40 @@
+{
+    "Contrasts": [
+        {
+            "Name": "highvlow",
+            "ConditionList": [
+                "trial_type.hi",
+                "trial_type.low"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "highvcont",
+            "ConditionList": [
+                "trial_type.hi",
+                "trial_type.cont"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "lowvcont",
+            "ConditionList": [
+                "trial_type.low",
+                "trial_type.cont"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

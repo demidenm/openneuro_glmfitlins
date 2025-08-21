@@ -1,0 +1,55 @@
+{
+    "Subjects": [
+        "1301",
+        "1302",
+        "1303",
+        "1304",
+        "1305",
+        "1306",
+        "1307",
+        "1308",
+        "1309",
+        "1310",
+        "1311",
+        "1312",
+        "1313",
+        "1314",
+        "1315"
+    ],
+    "Sessions": [
+        "AM",
+        "PM"
+    ],
+    "Tasks": {
+        "FoodStimHiLo": {
+            "cite_links": ["https://doi.org/10.1007/s11682-015-9366-8"],
+            "plot_coords": [
+                -10,
+                0,
+                -10
+            ],
+            "bold_volumes": 270,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [
+                "AM",
+                "PM"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "condition"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "condition": "object"
+            },
+            "trial_type_values": []
+        }
+    }
+}

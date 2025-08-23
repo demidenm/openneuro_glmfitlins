@@ -20,7 +20,7 @@
     "Sessions": [],
     "Tasks": {
         "balloonanalogrisktask": {
-            "cite_links": [],
+            "cite_links": ["https://www.doi.org/10.3389/fnins.2012.00080"],
             "plot_coords": [
                 0,
                 0,

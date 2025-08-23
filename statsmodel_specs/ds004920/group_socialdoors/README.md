@@ -1,6 +1,6 @@
 # ds004920: socialdoors Task Analysis Report
 
-The size of the Fitlins Derivatives for ds004920 socialdoors is 1.3G with 896 files.
+The size of the Fitlins Derivatives for ds004920 socialdoors is 1.3G with 914 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1093/scan/nsae033), [Paper 2](https://doi.org/10.1016/j.dib.2024.110197).
 
@@ -9,7 +9,7 @@ Dataset- and task-relevant citations may be found in the papers: [Paper 1](https
 The below is an automatically generated report for the statistical analyses performed on this task and dataset. Some reporting standards from the 'Statistical Modeling & Inference' section of the COBIDAS checklist ([Nichols et al., 2017](https://www.nature.com/articles/nn.4500)) are adopted here.
 
 ### 1.1. First-level Analysis
-For the 57 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 3 regressors of interest (out of 4 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). The design matrix (see example in Section 4.1) included both the convolved regressors of interest and 30 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
+For the 50 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 3 regressors of interest (out of 4 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). The design matrix (see example in Section 4.1) included both the convolved regressors of interest and 30 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
 
 **Motion Regressors**: Motion parameters included the six rigid-body parameters estimated during motion correction (three translations, three rotations), their temporal derivatives, and the squares of both the parameters and their derivatives, resulting in 24 motion-related regressors.
 **Drift Regressors**: Cosine basis functions implemented a high-pass temporal filter with a cutoff of 128 seconds to remove low-frequency drift in the BOLD signal.
@@ -25,14 +25,14 @@ For each run and subject, outputs include but are not limited to:
 - For each contrast: effect size maps (beta values), t-statistic maps, z-statistic maps and variance maps
 
 ### 1.3. Subject- and Group-level Analyses
-**Within-subject combination**: After the GLM was computed for each subjects' run, multiple runs per subject were combined using Nilearn's *compute_fixed_effects* function with precision weighting disabled (`precision_weighted=False`), implementing a fixed-effects model across runs within each subject. **Group-level model**: The resulting subject-level average statistical maps were entered into a random-effects group analysis using a two-sided one-sample t-test against zero to estimate population-level activation patterns. This approach treats subjects as a random effect, allowing inferences to generalize to the broader population. Resulting group maps were not cluster corrected but thresholded at z > 2.3 for display purposes (see section 5). More details and images are provided below. 
+**Group-level model**: Subject-level statistical maps (single run per subject) were entered directly into a random-effects group analysis using a two-sided one-sample t-test against zero to estimate population-level activation patterns. This approach treats subjects as a random effect, allowing inferences to generalize to the broader population. Resulting group maps were not cluster corrected but thresholded at z > 2.3 for display purposes (see section 5). More details and images are provided below. 
 
 ## 2. Additional Analytic Details 
 
 
 ### 2.1 BIDS Stats Model Structure
 - Run-level models: Yes
-- Subject-level models: Yes
+- Subject-level models: No
 - Dataset-level models: Yes 
 
 ### 2.2 Regressors of Interest

@@ -20,7 +20,7 @@
     ],
     "Tasks": {
         "learning": {
-            "cite_links": [],
+            "cite_links": ["https://www.nature.com/articles/s41598-022-05019-y"],
             "plot_coords": [
                 0,
                 0,
@@ -59,7 +59,7 @@
             ]
         },
         "prelearning": {
-            "cite_links": [],
+            "cite_links": ["https://www.nature.com/articles/s41598-022-05019-y"],
             "plot_coords": [
                 0,
                 0,
@@ -94,7 +94,7 @@
             ]
         },
         "regulate": {
-            "cite_links": [],
+            "cite_links": ["https://www.nature.com/articles/s41598-022-05019-y"],
             "plot_coords": [
                 0,
                 0,
@@ -135,7 +135,7 @@
             ]
         },
         "training": {
-            "cite_links": [],
+            "cite_links": ["https://www.nature.com/articles/s41598-022-05019-y"],
             "plot_coords": [
                 0,
                 0,

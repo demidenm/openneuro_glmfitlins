@@ -1076,8 +1076,6 @@ def ds003858(eventspath: str, task: str):
             return None
 
 
-import pandas as pd
-
 def ds004920(eventspath: str, task: str):
     """
     Process event data for ds004920 by modifying trial types if applicable. 
@@ -1270,5 +1268,99 @@ def ds004656(eventspath: str, task: str):
             print("No updates necessary, 'trial_type' already present")
             return None
 
-        
 
+def ds003545(eventspath: str, task: str):
+    """
+    Process event data for ds003545 by modifying trial types if applicable.
+    
+    Remapping values in trial_type for clarity in contrast estimations/design matrices
+    
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were necessary.
+    """
+    
+    # Define the remapping dictionaries for each task
+    remapping = {
+        "compL1": {
+            "1": "printed_word",
+            "2": "spoken_word", 
+            "3": "fixation"
+        },
+        "compLn": {
+            "1": "printed_word",
+            "2": "spoken_word", 
+            "3": "fixation"
+        },
+        "prodL1": {
+            "1": "fixation",
+            "2": "end_fixation", 
+            "3": "semantic_cond", 
+            "4": "control_cond", 
+            "5": "irrelevant_cond"
+        },
+        "prodLn": {
+            "1": "fixation",
+            "2": "end_fixation", 
+            "3": "semantic_cond", 
+            "4": "control_cond", 
+            "5": "irrelevant_cond"
+        }
+    }
+
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+    
+    # if task value
+    if task == "compL1":
+        # Check if remapping needed, apply if so
+        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+        if any(key in eventsdat['trial_type'].values for key in remapping["compL1"].keys()):
+            eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["compL1"])
+            print("Applied remapping for compL1 task", eventsdat['trial_type'].unique())
+            return eventsdat
+        else:
+            print("No remapping needed for compL1 - values already present")
+            return None
+        
+    elif task == "compLn":        
+        # Check if remapping needed, apply if so
+        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+        if any(key in eventsdat['trial_type'].values for key in remapping["compLn"].keys()):
+            eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["compLn"])
+            print("Applied remapping for compLn task", eventsdat['trial_type'].unique())
+            return eventsdat
+        else:
+            print("No remapping needed for compLn, values already present")
+            return None
+    
+    elif task == "prodL1":
+        # Check if remapping needed, apply if so
+        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+        if any(key in eventsdat['trial_type'].values for key in remapping["prodL1"].keys()):
+            eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["prodL1"])
+            print("Applied remapping for prodL1 task", eventsdat['trial_type'].unique())
+            return eventsdat
+
+        else:
+            print("No remapping needed for prodL1, values already present")
+            return None
+
+    elif task == "prodLn":
+        # Check if remapping needed, apply if so
+        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+        if any(key in eventsdat['trial_type'].values for key in remapping["prodLn"].keys()):
+            eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["prodLn"])
+            print("Applied remapping for prodLn task", eventsdat['trial_type'].unique())
+            return eventsdat
+
+        else:
+            print("No remapping needed for prodLn, values already present")
+            return None
+    
+    else:
+        print(f"{task} does not match available tasks")
+        return None

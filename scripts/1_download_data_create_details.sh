@@ -11,6 +11,7 @@ if [ -z "$dataset_id" ]; then
     exit 1
 fi
 
+
 # Load configuration and set paths
 echo -e "\nSetting up paths and configuration..."
 relative_path=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -35,7 +36,7 @@ done
 
 # Process based on configuration type
 if [[ "$config_type" == "openneuro" ]]; then
-    echo -e "\n Processing OpenNeuro dataset..."
+    echo -e "\nProcessing OpenNeuro dataset..."
     
     # Check for AWS CLI installation
     if ! command -v aws &> /dev/null; then
@@ -91,6 +92,7 @@ if [[ "$config_type" == "openneuro" ]]; then
     echo "   - Files: ${n_files_fp}"
     echo "   - Destination: ${data}/fmriprep/${dataset_id}/derivatives"
 
+
     if [[ "$minimal_derivatives" == "yes" ]]; then
         echo "   - fMRIPrep Derivatives on s3: Minimal, will ⚠️  require running recreate_fmriprep.sh script. "
         echo -e "   - Note: OpenNeuro BIDS data size can be reduced by adding filters to './scripts/prep_report_py/file_exclusions.json'"
@@ -101,8 +103,22 @@ if [[ "$config_type" == "openneuro" ]]; then
     fi
 
     # Confirm download with user
-    echo
-    read -p "❓ Do you want to proceed with the download? (yes/no): " user_input
+    if [[ -n "$SLURM_JOB_ID" ]]; then
+        # Skip questions ONLY for non-interactive slurm job names (i.e., want question in interactive vs-code/jupyter slurm sessions)
+        if [[ "$SLURM_JOB_NAME" =~ ^(sys/|interactive|code-server|bash) ]]; then
+            echo "Running in interactive Slurm session (job $SLURM_JOB_ID)"
+            echo
+            read -p "❓ Do you want to proceed with the download? (yes/no): " user_input
+        else
+            echo "Running in batch Slurm job: $SLURM_JOB_ID ($SLURM_JOB_NAME)"
+            echo "Skipping confirmation question..."
+            user_input="yes"
+        fi
+    else
+        echo "Not running in Slurm job"
+        echo
+        read -p "❓ Do you want to proceed with the download? (yes/no): " user_input
+    fi
 
     if [[ "$user_input" == "yes" ]]; then
         echo -e "\nStarting download process..."
@@ -149,7 +165,6 @@ if [[ "$config_type" == "openneuro" ]]; then
 
     # Add write rights to input to simplify deletion (only for openneuro datasets)
     chmod -R +w "${data}/input/${dataset_id}"
-
 
 elif [[ "$config_type" == "house" ]]; then
     echo -e "\n In-house dataset..."

@@ -1,0 +1,70 @@
+{
+    "Contrasts": [
+      {
+        "Name": "semanticvcontrol",
+        "ConditionList": [
+          "trial_type.semantic_cond",
+          "trial_type.control_cond"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      },
+      {
+        "Name": "semanticvirrelevant",
+        "ConditionList": [
+          "trial_type.semantic_cond",
+          "trial_type.irrelevant_cond"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      },
+      {
+        "Name": "controlvirrelevant",
+        "ConditionList": [
+          "trial_type.control_cond",
+          "trial_type.irrelevant_cond"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      },
+      {
+        "Name": "taskvfixation",
+        "ConditionList": [
+          "trial_type.semantic_cond",
+          "trial_type.control_cond",
+          "trial_type.irrelevant_cond",
+          "trial_type.fixation"
+        ],
+        "Weights": [1, 1, 1, -3],
+        "Test": "t"
+      },
+      {
+        "Name": "semanticvfixation",
+        "ConditionList": [
+          "trial_type.semantic_cond",
+          "trial_type.fixation"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      },
+      {
+        "Name": "controlvfixation",
+        "ConditionList": [
+          "trial_type.control_cond",
+          "trial_type.fixation"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      },
+      {
+        "Name": "irrelevantvfixation",
+        "ConditionList": [
+          "trial_type.irrelevant_cond",
+          "trial_type.fixation"
+        ],
+        "Weights": [1, -1],
+        "Test": "t"
+      }
+    ]
+  }
+  

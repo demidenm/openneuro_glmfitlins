@@ -1,0 +1,14 @@
+{
+    "Contrasts": [
+        {
+            "Name": "gas",
+            "ConditionList": [
+                "trial_type.gas"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

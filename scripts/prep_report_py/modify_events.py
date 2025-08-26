@@ -1464,7 +1464,7 @@ def ds000120(eventspath: str, task: str):
             print("Columns already modified, skipping")
             return None
     else:
-        print(f"Task {task} not recognized for ds000120, skipping modifications")
+        print(f"Task {task} not recognized for dataset, skipping modifications")
         return None
 
 
@@ -1533,4 +1533,81 @@ def ds002006(eventspath: str, task: str):
         return None
 
 
+def ds000144(eventspath: str, task: str):
+    """
+    Process event data for ds000114 by modifying trial types if applicable. 
+    Create a distinct trial type (trial_type)
+    
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset 
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
 
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+    if task.lower() == "emotionalfaces":
+        # Only apply modifications if not already present
+        if not {"trail_type"}.issubset(eventsdat.columns):
+            
+            # create trial_type
+            eventsdat["trial_type"] = eventsdat["stim_emotion"]
+
+
+            print(f"Created trial_type for task {task}")
+            return eventsdat
+        else:
+            print("Columns already modified, skipping")
+            return None
+    else:
+        print(f"Task {task} not recognized for dataset, skipping modifications")
+        return None
+
+
+def ds001357(eventspath: str, task: str):
+    """
+    Process event data for ds001357 by correcting column names,
+    normalizing trial_type values, and cleaning onset/duration.
+
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset ("familiarity" or "viewing")
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+    if task.lower() in ["familiarity", "viewing"]:
+        # Clean column names - remove spaces
+        eventsdat.columns = eventsdat.columns.str.strip()
+        
+        # Copy "events" column to "trial_type", get either "events" or " events" as there may be leading space
+        events_col = None
+        for col in eventsdat.columns:
+            if col.strip() == "events":
+                events_col = col
+                break
+        
+        if events_col:
+            eventsdat["trial_type"] = eventsdat[events_col]
+        
+        # fix spaces in trial_type values
+        if "trial_type" in eventsdat.columns:
+            eventsdat["trial_type"] = eventsdat["trial_type"].astype(str).str.replace(" ", "", regex=False)
+        
+        # onset and duration to numeric (removing any spaces first)
+        for col in ["onset", "duration"]:
+            if col in eventsdat.columns:
+                eventsdat[col] = eventsdat[col].astype(str).str.replace(" ", "", regex=False)
+                eventsdat[col] = pd.to_numeric(eventsdat[col], errors="coerce").fillna(0)
+
+        print(f"Cleaned onset/duration and normalized trial_type for task {task}")
+        return eventsdat
+    else:
+        print(f"Task {task} not recognized for ds001357, skipping modifications")
+        return None

@@ -1,0 +1,46 @@
+Subject,num_runs,run_numbers,Session
+sub-01,1,01,ses-all
+sub-02,1,01,ses-all
+sub-03,2,"01, 02",ses-all
+sub-04,1,01,ses-all
+sub-05,2,"01, 02",ses-all
+sub-06,2,"01, 02",ses-all
+sub-07,1,01,ses-all
+sub-08,1,02,ses-all
+sub-09,1,01,ses-all
+sub-10,2,"01, 02",ses-all
+sub-11,2,"01, 02",ses-all
+sub-12,1,01,ses-all
+sub-13,2,"01, 02",ses-all
+sub-14,2,"01, 02",ses-all
+sub-15,2,"01, 02",ses-all
+sub-16,1,02,ses-all
+sub-17,1,01,ses-all
+sub-18,2,"01, 02",ses-all
+sub-19,1,01,ses-all
+sub-20,2,"01, 02",ses-all
+sub-21,2,"01, 02",ses-all
+sub-22,1,02,ses-all
+sub-23,1,01,ses-all
+sub-24,1,01,ses-all
+sub-25,2,"01, 02",ses-all
+sub-26,1,01,ses-all
+sub-27,2,"01, 02",ses-all
+sub-28,2,"01, 02",ses-all
+sub-29,2,"01, 02",ses-all
+sub-30,2,"01, 02",ses-all
+sub-31,2,"01, 02",ses-all
+sub-32,2,"01, 02",ses-all
+sub-33,2,"01, 02",ses-all
+sub-34,1,01,ses-all
+sub-35,1,02,ses-all
+sub-36,1,01,ses-all
+sub-37,1,02,ses-all
+sub-38,1,01,ses-all
+sub-39,1,01,ses-all
+sub-40,2,"01, 02",ses-all
+sub-41,1,02,ses-all
+sub-42,1,01,ses-all
+sub-43,1,02,ses-all
+sub-44,1,01,ses-all
+sub-45,2,"01, 02",ses-all

@@ -1,0 +1,40 @@
+{
+    "Contrasts": [
+        {
+            "Name": "congruentvincongruent",
+            "ConditionList": [
+                "trial_type.congruent",
+                "trial_type.incongruent"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "unfamiliarvcongruent",
+            "ConditionList": [
+                "trial_type.unfamiliar",
+                "trial_type.congruent"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "unfamiliarvincongruent",
+            "ConditionList": [
+                "trial_type.unfamiliar",
+                "trial_type.incongruent"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

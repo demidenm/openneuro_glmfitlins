@@ -1,0 +1,36 @@
+{
+    "Contrasts": [
+        {
+            "Name": "angryvfearful",
+            "ConditionList": [
+                "trial_type.angry",
+                "trial_type.fearful"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "angry",
+            "ConditionList": [
+                "trial_type.angry"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fearful",
+            "ConditionList": [
+                "trial_type.fearful"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

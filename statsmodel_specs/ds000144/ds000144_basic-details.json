@@ -1,0 +1,79 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "emotionalfaces": {
+            "cite_links": ["https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0116854"],
+            "plot_coords": [
+                -20,
+                -6,
+                -15
+            ],
+            "bold_volumes": 115,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "stim_emotion"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "stim_emotion": "object"
+            },
+            "trial_type_values": []
+        }
+    }
+}

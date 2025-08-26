@@ -1,0 +1,40 @@
+{
+    "Contrasts": [
+        {
+            "Name": "familiarvunfamiliar",
+            "ConditionList": [
+                "trial_type.familiarfaces",
+                "trial_type.unfamiliarfaces"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "familiarvfourier",
+            "ConditionList": [
+                "trial_type.familiarfaces",
+                "trial_type.fourier"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "unfamiliarvfourier",
+            "ConditionList": [
+                "trial_type.unfamiliarfaces",
+                "trial_type.fourier"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

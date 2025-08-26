@@ -12,11 +12,11 @@
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 46
+N OpenNeuro Studies: 48
 
-N OpenNeuro Task fMRI Group Summaries: 88
+N OpenNeuro Task fMRI Group Summaries: 92
 
-Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, compL1, compLn, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, doors, dts, ec, em, emotionalregulation, Emotionregulation, encoding, epr, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodStimHiLo, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, MGT, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, pc, prelearning, probabilisticclassification, prodL1, prodLn, regulate, retrieval, reversalweatherprediction, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, antisaccadetaskwithfixedorder, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, ColorDots, compL1, compLn, conditionalstopsignal, covertverbgeneration, deterministicclassification, discounting, doors, dts, ec, em, emotionalregulation, Emotionregulation, encoding, epr, faceexplocalizer, faceidentityoddball, facerecognition, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodChoice, FoodStimHiLo, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, Memory, MGT, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, pc, prelearning, probabilisticclassification, prodL1, prodLn, regulate, retrieval, reversalweatherprediction, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 

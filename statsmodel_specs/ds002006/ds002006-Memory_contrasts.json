@@ -1,0 +1,48 @@
+{
+    "Contrasts": [
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "hitvcorrectrejection",
+            "ConditionList": [
+                "trial_type.hit",
+                "trial_type.correctrejection"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "falsealarmvhit",
+            "ConditionList": [
+                "trial_type.falsealarm",
+                "trial_type.hit"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "paramliking",
+            "ConditionList": [
+                "liking_demean"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

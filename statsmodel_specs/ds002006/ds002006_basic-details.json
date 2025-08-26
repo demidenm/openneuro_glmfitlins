@@ -1,0 +1,155 @@
+{
+    "Subjects": [
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "33"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "ColorDots": {
+            "cite_links": ["https://elifesciences.org/articles/46080#s4"],
+            "plot_coords": [
+                32,
+                8,
+                -14
+
+            ],
+            "bold_volumes": 197,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "TRIALTYPE",
+                "COHERENCE",
+                "RESPONSE_TIME",
+                "BUTTON_ORDER",
+                "CHOSE_RIGHT"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "TRIALTYPE": "object",
+                "COHERENCE": "float64",
+                "RESPONSE_TIME": "float64",
+                "BUTTON_ORDER": "int64",
+                "CHOSE_RIGHT": "float64"
+            },
+            "trial_type_values": []
+        },
+        "FoodChoice": {
+            "cite_links": ["https://elifesciences.org/articles/46080#s4"],
+            "plot_coords": [
+                32,
+                8,
+                -14
+
+            ],
+            "bold_volumes": 212,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "TRIALTYPE",
+                "DELTAVALUE",
+                "RESPONSE_TIME",
+                "MEAN_VALUE",
+                "VALUE_RIGHT",
+                "VALUE_LEFT",
+                "CHOSE_RIGHT"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "TRIALTYPE": "object",
+                "DELTAVALUE": "float64",
+                "RESPONSE_TIME": "float64",
+                "MEAN_VALUE": "float64",
+                "VALUE_RIGHT": "float64",
+                "VALUE_LEFT": "float64",
+                "CHOSE_RIGHT": "float64"
+            },
+            "trial_type_values": []
+        },
+        "Memory": {
+            "cite_links": ["https://elifesciences.org/articles/46080#s4"],
+            "plot_coords": [
+                32,
+                8,
+                -14
+
+            ],
+            "bold_volumes": 150,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "TRIALTYPE",
+                "LIKING_RATING",
+                "RESPONSE_TIME",
+                "OLD_ON_LEFT",
+                "ITEM_ISOLD",
+                "CHOSE_RIGHT"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "TRIALTYPE": "object",
+                "LIKING_RATING": "float64",
+                "RESPONSE_TIME": "float64",
+                "OLD_ON_LEFT": "int64",
+                "ITEM_ISOLD": "int64",
+                "CHOSE_RIGHT": "float64"
+            },
+            "trial_type_values": []
+        }
+    }
+}

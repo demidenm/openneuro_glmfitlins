@@ -1,0 +1,175 @@
+{
+  "Name": "ds002006",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "33"
+    ],
+    "task": [
+      "ColorDots"
+    ],
+    "run": [
+      1,
+      2,
+      3
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Copy",
+            "Input": ["trial_type"],
+            "Output": ["rt_reg"]
+          },
+          {
+            "Name": "Replace",
+            "Input": ["rt_reg"],
+            "Replace": {
+                "colordots": "rt",
+                "missed": "rt"
+                },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type", "rt_reg"
+            ]
+          },
+          {
+            "Name": "Assign",
+            "Input": ["response_time"],
+            "Target": ["rt_reg.rt"],
+            "TargetAttr": "duration"
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*",
+              "COHERENCE",
+              "rt_reg.rt"
+
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "COHERENCE",
+          "rt_reg.rt",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "rt",
+          "ConditionList": [
+            "rt_reg.rt"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "colordots",
+          "ConditionList": [
+            "trial_type.colordots"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "coherence",
+          "ConditionList": [
+            "COHERENCE"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

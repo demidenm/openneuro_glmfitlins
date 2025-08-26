@@ -1,0 +1,34 @@
+{
+    "Contrasts": [
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "foodchoice",
+            "ConditionList": [
+                "trial_type.foodchoice"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "valuedifference",
+            "ConditionList": [
+                "DELTAVALUE"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

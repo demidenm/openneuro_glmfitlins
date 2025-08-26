@@ -1,0 +1,149 @@
+{
+    "Subjects": [
+        "xp201",
+        "xp202",
+        "xp203",
+        "xp204",
+        "xp205",
+        "xp206",
+        "xp207",
+        "xp210",
+        "xp211",
+        "xp213",
+        "xp216",
+        "xp217",
+        "xp218",
+        "xp219",
+        "xp220",
+        "xp221",
+        "xp222"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "1dNF": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 332,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stim_file"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stim_file": "object"
+            },
+            "trial_type_values": [
+                "Rest",
+                "Task-NF"
+            ]
+        },
+        "2dNF": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 332,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                3
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stim_file"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stim_file": "object"
+            },
+            "trial_type_values": [
+                "Rest",
+                "Task-NF"
+            ]
+        },
+        "MIpost": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 332,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stim_file"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stim_file": "object"
+            },
+            "trial_type_values": [
+                "Rest",
+                "Task-MI"
+            ]
+        },
+        "MIpre": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 332,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "stim_file"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "trial_type": "object",
+                "stim_file": "object"
+            },
+            "trial_type_values": [
+                "Rest",
+                "Task-MI"
+            ]
+        }
+    }
+}

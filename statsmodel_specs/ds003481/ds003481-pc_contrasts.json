@@ -1,0 +1,66 @@
+{
+    "Contrasts": [
+        {
+            "Name": "familiarvliteral",
+            "ConditionList": [
+                "trial_type.Familiar",
+                "trial_type.Literal"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "novedosovliteral",
+            "ConditionList": [
+                "trial_type.Novedoso",
+                "trial_type.Literal"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "familiarvnovedoso",
+            "ConditionList": [
+                "trial_type.Familiar",
+                "trial_type.Novedoso"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "proverbsvliteral",
+            "ConditionList": [
+                "trial_type.Familiar",
+                "trial_type.Novedoso",
+                "trial_type.Literal"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "preguntavliteral",
+            "ConditionList": [
+                "trial_type.Pregunta",
+                "trial_type.Literal"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

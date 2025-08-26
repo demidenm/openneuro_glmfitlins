@@ -1,0 +1,18 @@
+{
+    "Contrasts": [
+        {
+            "Name": "nonliteralvliteral",
+            "ConditionList": [
+                "trial_type.Metafora",
+                "trial_type.Absurdo",
+                "trial_type.Literal"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

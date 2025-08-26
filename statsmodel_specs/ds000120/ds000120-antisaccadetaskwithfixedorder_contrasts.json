@@ -1,0 +1,128 @@
+{
+    "Contrasts": [
+        {
+            "Name": "allphaserewardvneutral",
+            "ConditionList": [
+                "trial_type.reward_cue",
+                "trial_type.reward_prep", 
+                "trial_type.reward_resp",
+                "trial_type.neutral_cue",
+                "trial_type.neutral_prep",
+                "trial_type.neutral_resp"
+            ],
+            "Weights": [
+                0.33,
+                0.33,
+                0.33,
+                -0.33,
+                -0.33,
+                -0.33
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cuerewardvneutral",
+            "ConditionList": [
+                "trial_type.reward_cue",
+                "trial_type.neutral_cue"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "preprewardvneutral",
+            "ConditionList": [
+                "trial_type.reward_prep",
+                "trial_type.neutral_prep"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "resprewardvneutral",
+            "ConditionList": [
+                "trial_type.reward_resp",
+                "trial_type.neutral_resp"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "prepantisaccadevvgs",
+            "ConditionList": [
+                "trial_type.neutral_prep",
+                "trial_type.reward_prep",
+                "trial_type.vgs_prep"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "respantisaccadevvgs",
+            "ConditionList": [
+                "trial_type.neutral_resp",
+                "trial_type.reward_resp", 
+                "trial_type.vgs_resp"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allphaserewardantisaccade",
+            "ConditionList": [
+                "trial_type.reward_cue",
+                "trial_type.reward_prep",
+                "trial_type.reward_resp"
+            ],
+            "Weights": [
+                0.33,
+                0.33,
+                0.33
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allphaseneutralantisaccade",
+            "ConditionList": [
+                "trial_type.neutral_cue",
+                "trial_type.neutral_prep",
+                "trial_type.neutral_resp"
+            ],
+            "Weights": [
+                0.33,
+                0.33,
+                0.33
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allphasevgs",
+            "ConditionList": [
+                "trial_type.vgs_prep",
+                "trial_type.vgs_resp"
+            ],
+            "Weights": [
+                0.5,
+                0.5
+            ],
+            "Test": "t"
+        }
+    ]
+}

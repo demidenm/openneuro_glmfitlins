@@ -1,0 +1,198 @@
+{
+  "Name": "ds003481",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "123",
+      "124",
+      "125",
+      "126",
+      "127",
+      "128",
+      "129",
+      "130",
+      "131",
+      "132",
+      "133",
+      "134",
+      "135",
+      "136",
+      "137",
+      "138",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "145",
+      "146"
+    ],
+    "task": [
+      "verbs"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "verbsvnonverbs",
+          "ConditionList": [
+            "trial_type.mental",
+            "trial_type.motor",
+            "trial_type.pseudo",
+            "trial_type.symbol"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "mentalvmotor",
+          "ConditionList": [
+            "trial_type.mental",
+            "trial_type.motor"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "mentalvpseudo",
+          "ConditionList": [
+            "trial_type.mental",
+            "trial_type.pseudo"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "motorvpseudo",
+          "ConditionList": [
+            "trial_type.motor",
+            "trial_type.pseudo"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "lexicalvprelexical",
+          "ConditionList": [
+            "trial_type.mental",
+            "trial_type.motor",
+            "trial_type.symbol"
+          ],
+          "Weights": [
+            0.50,
+            0.50,
+            0.33,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "pseudovsymbol",
+          "ConditionList": [
+            "trial_type.pseudo",
+            "trial_type.symbol"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

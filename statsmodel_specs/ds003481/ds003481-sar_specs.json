@@ -1,0 +1,165 @@
+{
+  "Name": "ds003481",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "001",
+      "002",
+      "003",
+      "004",
+      "005",
+      "006",
+      "007",
+      "008",
+      "009",
+      "010",
+      "011",
+      "012",
+      "013",
+      "014",
+      "015",
+      "016",
+      "017",
+      "018",
+      "019",
+      "020",
+      "021",
+      "022",
+      "023",
+      "024"
+    ],
+    "task": [
+      "sar"
+    ],
+    "run": [
+      1,
+      2,
+      3
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "speechactsvcontrols",
+          "ConditionList": [
+            "trial_type.ah",
+            "trial_type.controlyes",
+            "trial_type.controlno"
+          ],
+          "Weights": [
+            1,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "speechactsvcontrolyes",
+          "ConditionList": [
+            "trial_type.ah",
+            "trial_type.controlyes"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "speechactsvcontrolno",
+          "ConditionList": [
+            "trial_type.ah",
+            "trial_type.controlno"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "controlyesvno",
+          "ConditionList": [
+            "trial_type.controlyes",
+            "trial_type.controlno"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

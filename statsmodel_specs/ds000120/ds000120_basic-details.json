@@ -1,0 +1,79 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "antisaccadetaskwithfixedorder": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 216,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type",
+                "trial_phase",
+                "score",
+                "score_txt",
+                "stim_dot_position",
+                "targetxdat",
+                "latency",
+                "eptrno"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object",
+                "trial_phase": "object",
+                "score": "float64",
+                "score_txt": "object",
+                "stim_dot_position": "float64",
+                "targetxdat": "int64",
+                "latency": "float64",
+                "eptrno": "int64"
+            },
+            "trial_type_values": [
+                "neutral",
+                "reward",
+                "vgs"
+            ]
+        }
+    }
+}

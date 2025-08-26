@@ -1,0 +1,146 @@
+{
+  "Name": "ds003481",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "025",
+      "026",
+      "027",
+      "028",
+      "029",
+      "030",
+      "031",
+      "032",
+      "033",
+      "034",
+      "035",
+      "036",
+      "037",
+      "038",
+      "039",
+      "040",
+      "041",
+      "042",
+      "043",
+      "044",
+      "045",
+      "046"
+    ],
+    "task": [
+      "sae"
+    ],
+    "run": [
+      1,
+      2,
+      3
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "emotionsvneutral",
+          "ConditionList": [
+            "trial_type.Enojo",
+            "trial_type.Alegr\u00eda",
+            "trial_type.Tristeza",
+            "trial_type.SinRostro"
+          ],
+          "Weights": [
+            0.33,
+            0.33,
+            0.33,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "positivevnegative",
+          "ConditionList": [
+            "trial_type.Alegr\u00eda",
+            "trial_type.Tristeza",
+            "trial_type.Enojo"
+          ],
+          "Weights": [
+            1,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

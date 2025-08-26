@@ -1,0 +1,132 @@
+{
+  "Name": "ds003481",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "064",
+      "065",
+      "066",
+      "067",
+      "068",
+      "069",
+      "070",
+      "071",
+      "072",
+      "073",
+      "074",
+      "075",
+      "076",
+      "077",
+      "078",
+      "079",
+      "080",
+      "081",
+      "082",
+      "083",
+      "084",
+      "085",
+      "086",
+      "087",
+      "088",
+      "089",
+      "090",
+      "091"
+    ],
+    "task": [
+      "cmp"
+    ],
+    "run": [
+      1,
+      2
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "nonliteralvliteral",
+          "ConditionList": [
+            "trial_type.Metafora",
+            "trial_type.Absurdo",
+            "trial_type.Literal"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

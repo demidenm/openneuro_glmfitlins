@@ -1,0 +1,54 @@
+{
+    "Contrasts": [
+        {
+            "Name": "speechactsvcontrols",
+            "ConditionList": [
+                "trial_type.ah",
+                "trial_type.controlyes",
+                "trial_type.controlno"
+            ],
+            "Weights": [
+                1,
+                -0.50,
+                -0.50
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "speechactsvcontrolyes",
+            "ConditionList": [
+                "trial_type.ah",
+                "trial_type.controlyes"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "speechactsvcontrolno",
+            "ConditionList": [
+                "trial_type.ah",
+                "trial_type.controlno"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "controlyesvno",
+            "ConditionList": [
+                "trial_type.controlyes",
+                "trial_type.controlno"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

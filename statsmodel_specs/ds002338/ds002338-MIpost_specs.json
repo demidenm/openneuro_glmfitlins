@@ -1,0 +1,98 @@
+{
+  "Name": "ds002338",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "xp201",
+      "xp202",
+      "xp203",
+      "xp204",
+      "xp205",
+      "xp206",
+      "xp207",
+      "xp210",
+      "xp211",
+      "xp213",
+      "xp216",
+      "xp217",
+      "xp218",
+      "xp219",
+      "xp220",
+      "xp221",
+      "xp222"
+    ],
+    "task": [
+      "MIpost"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "taskvrest",
+          "ConditionList": [
+            "trial_type.Task-NF",
+            "trial_type.Rest"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

@@ -1364,3 +1364,109 @@ def ds003545(eventspath: str, task: str):
     else:
         print(f"{task} does not match available tasks")
         return None
+
+
+def ds004656(eventspath: str, task: str):
+    """
+    Process event data for ds004656 by modifying trial types if applicable. 
+    Create a trial_type column which is copy of condition. Simple standardization
+    
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset 
+    
+    Returns:
+    pd.DataFrame or str
+        Modified events DataFrame, or a message that no updates were necessary.
+    """
+
+    if task == "FoodStimHiLo":
+        eventsdat = pd.read_csv(eventspath, sep='\t')
+        if 'trial_type' not in eventsdat.columns:
+            eventsdat["trial_type"] = eventsdat["condition"]
+            print("Copied condition to trial_type")
+
+            return eventsdat
+        else:
+            print("No updates necessary, 'trial_type' already present")
+            return None
+
+
+def ds003481(eventspath: str, task: str):
+    """
+    Process event data for ds003481 by modifying trial types if applicable. 
+    Simple standardization (lowercase values)
+    
+    Parameters:
+    eventspath (str): path to the events .tsv file
+    task (str): task name for dataset 
+    
+    Returns:
+    pd.DataFrame or str
+        Modified events DataFrame, or a message that no updates were necessary.
+    """
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+
+    # For tasks sar or sae, convert trial_type to lowercase
+    if task.lower() in ["sar"]:
+        eventsdat["trial_type"] = eventsdat["trial_type"].str.lower()
+        print(f"Converted trial_type values to lowercase for task {task}")
+
+        return eventsdat
+    
+    if task.lower() in ["verbs"]:
+        eventsdat["trial_type"] = eventsdat["trial_type"].str.strip()
+        print(f"Stripped whitespace from trial_type for task {task}")
+
+        return eventsdat
+    else:
+        print("Task provided is not 'sar' or 'verbs', skipping modifications")
+        return None
+
+
+def ds000120(eventspath: str, task: str):
+    """
+    Process event data for ds000120 by modifying trial types if applicable. 
+    Create a distinct trial type (trial_type + trial_phase).
+    Use score_txt to create 1/0 regressors for incorrect and drop trials.
+    
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset 
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
+    import pandas as pd
+
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+    if task.lower() == "antisaccadetaskwithfixedorder":
+        # Only apply modifications if not already present
+        if not {"incorrect", "drop"}.issubset(eventsdat.columns):
+            
+            # combined trial_type
+            eventsdat["trial_type"] = (
+                eventsdat["trial_type"].str.strip().str.lower()
+                + "_" +
+                eventsdat["trial_phase"].str.strip().str.lower()
+            )
+
+            # incorrect & drop regressors (1/0), score_txt to lowercase
+            score_lower = eventsdat["score_txt"].str.strip().str.lower()
+            eventsdat["incorrect"] = (score_lower == "incorrect").astype(int)
+            eventsdat["drop"] = (score_lower == "drop").astype(int)
+
+            print(f"Modified trial_type and created incorrect/drop columns for task {task}")
+            return eventsdat
+        else:
+            print("Columns already modified, skipping")
+            return None
+    else:
+        print(f"Task {task} not recognized for ds000120, skipping modifications")
+        return None
+
+
+

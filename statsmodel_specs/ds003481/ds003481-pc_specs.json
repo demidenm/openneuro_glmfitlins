@@ -1,0 +1,174 @@
+{
+  "Name": "ds003481",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "047",
+      "048",
+      "049",
+      "050",
+      "051",
+      "052",
+      "053",
+      "054",
+      "055",
+      "056",
+      "057",
+      "058",
+      "059",
+      "060",
+      "061",
+      "062",
+      "063"
+    ],
+    "task": [
+      "pc"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "familiarvliteral",
+          "ConditionList": [
+            "trial_type.Familiar",
+            "trial_type.Literal"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "novedosovliteral",
+          "ConditionList": [
+            "trial_type.Novedoso",
+            "trial_type.Literal"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "familiarvnovedoso",
+          "ConditionList": [
+            "trial_type.Familiar",
+            "trial_type.Novedoso"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "proverbsvliteral",
+          "ConditionList": [
+            "trial_type.Familiar",
+            "trial_type.Novedoso",
+            "trial_type.Literal"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "preguntavliteral",
+          "ConditionList": [
+            "trial_type.Pregunta",
+            "trial_type.Literal"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

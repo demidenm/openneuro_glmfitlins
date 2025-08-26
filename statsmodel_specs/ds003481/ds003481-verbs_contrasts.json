@@ -1,0 +1,82 @@
+{
+    "Contrasts": [
+        {
+            "Name": "verbsvnonverbs",
+            "ConditionList": [
+                "trial_type.mental",
+                "trial_type.motor",
+                "trial_type.pseudo",
+                "trial_type.symbol"
+            ],
+            "Weights": [
+                0.50,
+                0.50,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "mentalvmotor",
+            "ConditionList": [
+                "trial_type.mental",
+                "trial_type.motor"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "mentalvpseudo",
+            "ConditionList": [
+                "trial_type.mental",
+                "trial_type.pseudo"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "motorvpseudo",
+            "ConditionList": [
+                "trial_type.motor",
+                "trial_type.pseudo"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "lexicalvprelexical",
+            "ConditionList": [
+                "trial_type.mental",
+                "trial_type.motor",
+                "trial_type.symbol"
+            ],
+            "Weights": [
+                0.50,
+                0.50,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "pseudovsymbol",
+            "ConditionList": [
+                "trial_type.pseudo",
+                "trial_type.symbol"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

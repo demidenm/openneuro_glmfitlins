@@ -1,0 +1,16 @@
+{
+    "Contrasts": [
+        {
+            "Name": "taskvrest",
+            "ConditionList": [
+                "trial_type.Task-NF",
+                "trial_type.Rest"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

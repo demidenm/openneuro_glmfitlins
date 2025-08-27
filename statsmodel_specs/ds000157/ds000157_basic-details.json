@@ -1,0 +1,65 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "passiveimageviewing": {
+            "cite_links": ["https://doi.org/10.1016/j.bbr.2013.03.041"],
+            "plot_coords": [
+                12,
+                10,
+                -6
+            ],
+            "bold_volumes": 375,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "float64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "food",
+                "nonfood",
+                "break"
+            ]
+        }
+    }
+}

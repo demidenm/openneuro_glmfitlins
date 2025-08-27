@@ -1,0 +1,335 @@
+{
+  "Name": "ds000051",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "task": [
+      "abstractconcretejudgment"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "present_spanish",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel",
+            "trial_type.Spanish-English-Abstract-Repeat",
+            "trial_type.Spanish-English-Concrete-Novel",
+            "trial_type.Spanish-English-Concrete-Repeat",
+            "trial_type.Spanish-Spanish-Abstract-Novel",
+            "trial_type.Spanish-Spanish-Abstract-Repeat",
+            "trial_type.Spanish-Spanish-Concrete-Novel",
+            "trial_type.Spanish-Spanish-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "present_english",
+          "ConditionList": [
+            "trial_type.English-English-Abstract-Novel",
+            "trial_type.English-English-Abstract-Repeat",
+            "trial_type.English-English-Concrete-Novel",
+            "trial_type.English-English-Concrete-Repeat",
+            "trial_type.English-Spanish-Abstract-Novel",
+            "trial_type.English-Spanish-Abstract-Repeat",
+            "trial_type.English-Spanish-Concrete-Novel",
+            "trial_type.English-Spanish-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "present_spanishvenglish",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel",
+            "trial_type.Spanish-English-Abstract-Repeat",
+            "trial_type.Spanish-English-Concrete-Novel",
+            "trial_type.Spanish-English-Concrete-Repeat",
+            "trial_type.Spanish-Spanish-Abstract-Novel",
+            "trial_type.Spanish-Spanish-Abstract-Repeat",
+            "trial_type.Spanish-Spanish-Concrete-Novel",
+            "trial_type.Spanish-Spanish-Concrete-Repeat",
+            "trial_type.English-English-Abstract-Novel",
+            "trial_type.English-English-Abstract-Repeat",
+            "trial_type.English-English-Concrete-Novel",
+            "trial_type.English-English-Concrete-Repeat",
+            "trial_type.English-Spanish-Abstract-Novel",
+            "trial_type.English-Spanish-Abstract-Repeat",
+            "trial_type.English-Spanish-Concrete-Novel",
+            "trial_type.English-Spanish-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "languageswitch",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel",
+            "trial_type.Spanish-English-Abstract-Repeat",
+            "trial_type.Spanish-English-Concrete-Novel",
+            "trial_type.Spanish-English-Concrete-Repeat",
+            "trial_type.English-Spanish-Abstract-Novel",
+            "trial_type.English-Spanish-Abstract-Repeat",
+            "trial_type.English-Spanish-Concrete-Novel",
+            "trial_type.English-Spanish-Concrete-Repeat",
+            "trial_type.Spanish-Spanish-Abstract-Novel",
+            "trial_type.Spanish-Spanish-Abstract-Repeat",
+            "trial_type.Spanish-Spanish-Concrete-Novel",
+            "trial_type.Spanish-Spanish-Concrete-Repeat",
+            "trial_type.English-English-Abstract-Novel",
+            "trial_type.English-English-Abstract-Repeat",
+            "trial_type.English-English-Concrete-Novel",
+            "trial_type.English-English-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "abstractvconcrete",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel",
+            "trial_type.Spanish-English-Abstract-Repeat",
+            "trial_type.Spanish-Spanish-Abstract-Novel",
+            "trial_type.Spanish-Spanish-Abstract-Repeat",
+            "trial_type.English-English-Abstract-Novel",
+            "trial_type.English-English-Abstract-Repeat",
+            "trial_type.English-Spanish-Abstract-Novel",
+            "trial_type.English-Spanish-Abstract-Repeat",
+            "trial_type.Spanish-English-Concrete-Novel",
+            "trial_type.Spanish-English-Concrete-Repeat",
+            "trial_type.Spanish-Spanish-Concrete-Novel",
+            "trial_type.Spanish-Spanish-Concrete-Repeat",
+            "trial_type.English-English-Concrete-Novel",
+            "trial_type.English-English-Concrete-Repeat",
+            "trial_type.English-Spanish-Concrete-Novel",
+            "trial_type.English-Spanish-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "novelvrepeat",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel",
+            "trial_type.Spanish-English-Concrete-Novel",
+            "trial_type.Spanish-Spanish-Abstract-Novel",
+            "trial_type.Spanish-Spanish-Concrete-Novel",
+            "trial_type.English-English-Abstract-Novel",
+            "trial_type.English-English-Concrete-Novel",
+            "trial_type.English-Spanish-Abstract-Novel",
+            "trial_type.English-Spanish-Concrete-Novel",
+            "trial_type.Spanish-English-Abstract-Repeat",
+            "trial_type.Spanish-English-Concrete-Repeat",
+            "trial_type.Spanish-Spanish-Abstract-Repeat",
+            "trial_type.Spanish-Spanish-Concrete-Repeat",
+            "trial_type.English-English-Abstract-Repeat",
+            "trial_type.English-English-Concrete-Repeat",
+            "trial_type.English-Spanish-Abstract-Repeat",
+            "trial_type.English-Spanish-Concrete-Repeat"
+          ],
+          "Weights": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "spanishswitchabstractnovel",
+          "ConditionList": [
+            "trial_type.Spanish-English-Abstract-Novel"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "englishswitchabstractnovel",
+          "ConditionList": [
+            "trial_type.English-Spanish-Abstract-Novel"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

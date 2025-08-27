@@ -1,0 +1,356 @@
+{
+  "Name": "ds005012",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "02",
+      "09",
+      "15",
+      "16",
+      "18",
+      "20",
+      "22",
+      "24",
+      "25",
+      "27",
+      "28",
+      "32",
+      "35",
+      "36",
+      "37",
+      "38",
+      "42",
+      "43",
+      "44",
+      "45",
+      "47",
+      "48",
+      "51",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "60",
+      "62",
+      "64",
+      "65",
+      "66",
+      "71",
+      "73",
+      "75",
+      "77",
+      "78",
+      "80",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "89",
+      "90",
+      "91",
+      "92",
+      "93",
+      "96",
+      "97",
+      "98",
+      "99",
+      "100",
+      "103",
+      "105",
+      "106",
+      "108"
+    ],
+    "task": [
+      "mid"
+    ],
+    "run": [
+      1,
+      2
+    ],
+    "session": [
+      "1",
+      "2"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject",
+        "session"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type"
+            ]
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "cueLGvNeut",
+          "ConditionList": [
+            "trial_type.cue_LargeGain",
+            "trial_type.cue_NoMoneyStake"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueGvNeut",
+          "ConditionList": [
+            "trial_type.cue_LargeGain",
+            "trial_type.cue_SmallGain",
+            "trial_type.cue_NoMoneyStake"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueLLvNeut",
+          "ConditionList": [
+            "trial_type.cue_LargeLoss",
+            "trial_type.cue_NoMoneyStake"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueLvNeut",
+          "ConditionList": [
+            "trial_type.cue_LargeLoss",
+            "trial_type.cue_SmallLoss",
+            "trial_type.cue_NoMoneyStake"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "cueLGvBase",
+          "ConditionList": [
+            "trial_type.cue_LargeGain"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLGvNeut",
+          "ConditionList": [
+            "trial_type.fix_LargeGain",
+            "trial_type.fix_NoMoneyStake"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixGvNeut",
+          "ConditionList": [
+            "trial_type.fix_LargeGain",
+            "trial_type.fix_SmallGain",
+            "trial_type.fix_NoMoneyStake"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLLvNeut",
+          "ConditionList": [
+            "trial_type.fix_LargeLoss",
+            "trial_type.fix_NoMoneyStake"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLvNeut",
+          "ConditionList": [
+            "trial_type.fix_LargeLoss",
+            "trial_type.fix_SmallLoss",
+            "trial_type.fix_NoMoneyStake"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fixLGvBase",
+          "ConditionList": [
+            "trial_type.fix_LargeGain"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "probe",
+          "ConditionList": [
+            "trial_type.probe"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbGHitvGMiss",
+          "ConditionList": [
+            "trial_type.fb_hit_LargeGain",
+            "trial_type.fb_hit_SmallGain",
+            "trial_type.fb_miss_LargeGain",
+            "trial_type.fb_miss_SmallGain"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLGHitvLGMiss",
+          "ConditionList": [
+            "trial_type.fb_hit_LargeGain",
+            "trial_type.fb_miss_LargeGain"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLHitvLMiss",
+          "ConditionList": [
+            "trial_type.fb_hit_LargeLoss",
+            "trial_type.fb_hit_SmallLoss",
+            "trial_type.fb_miss_LargeLoss",
+            "trial_type.fb_miss_SmallLoss"
+          ],
+          "Weights": [
+            0.5,
+            0.5,
+            -0.5,
+            -0.5
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLLHitvLLMiss",
+          "ConditionList": [
+            "trial_type.fb_hit_LargeLoss",
+            "trial_type.fb_miss_LargeLoss"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "fbLGHitvBase",
+          "ConditionList": [
+            "trial_type.fb_hit_LargeGain"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast",
+        "session"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

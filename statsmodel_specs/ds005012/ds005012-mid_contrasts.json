@@ -1,0 +1,204 @@
+{
+    "Contrasts": [
+        {
+            "Name": "cueLGvNeut",
+            "ConditionList": [
+                "trial_type.cue_LargeGain",
+                "trial_type.cue_NoMoneyStake"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueGvNeut",
+            "ConditionList": [
+                "trial_type.cue_LargeGain",
+                "trial_type.cue_SmallGain",
+                "trial_type.cue_NoMoneyStake"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLLvNeut",
+            "ConditionList": [
+                "trial_type.cue_LargeLoss",
+                "trial_type.cue_NoMoneyStake"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLvNeut",
+            "ConditionList": [
+                "trial_type.cue_LargeLoss",
+                "trial_type.cue_SmallLoss",
+                "trial_type.cue_NoMoneyStake"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cueLGvBase",
+            "ConditionList": [
+                "trial_type.cue_LargeGain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLGvNeut",
+            "ConditionList": [
+                "trial_type.fix_LargeGain",
+                "trial_type.fix_NoMoneyStake"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixGvNeut",
+            "ConditionList": [
+                "trial_type.fix_LargeGain",
+                "trial_type.fix_SmallGain",
+                "trial_type.fix_NoMoneyStake"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLLvNeut",
+            "ConditionList": [
+                "trial_type.fix_LargeLoss",
+                "trial_type.fix_NoMoneyStake"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLvNeut",
+            "ConditionList": [
+                "trial_type.fix_LargeLoss",
+                "trial_type.fix_SmallLoss",
+                "trial_type.fix_NoMoneyStake"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fixLGvBase",
+            "ConditionList": [
+                "trial_type.fix_LargeGain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "probe",
+            "ConditionList": [
+                "trial_type.probe"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbGHitvGMiss",
+            "ConditionList": [
+                "trial_type.fb_hit_LargeGain",
+                "trial_type.fb_hit_SmallGain",
+                "trial_type.fb_miss_LargeGain",
+                "trial_type.fb_miss_SmallGain"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLGHitvLGMiss",
+            "ConditionList": [
+                "trial_type.fb_hit_LargeGain",
+                "trial_type.fb_miss_LargeGain"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLHitvLMiss",
+            "ConditionList": [
+                "trial_type.fb_hit_LargeLoss",
+                "trial_type.fb_hit_SmallLoss",
+                "trial_type.fb_miss_LargeLoss",
+                "trial_type.fb_miss_SmallLoss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLLHitvLLMiss",
+            "ConditionList": [
+                "trial_type.fb_hit_LargeLoss",
+                "trial_type.fb_miss_LargeLoss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "fbLGHitvBase",
+            "ConditionList": [
+                "trial_type.fb_hit_LargeGain"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

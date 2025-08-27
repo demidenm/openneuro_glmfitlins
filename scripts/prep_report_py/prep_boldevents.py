@@ -1,5 +1,6 @@
 import argparse
 import os
+import inspect
 import shutil
 import json
 import importlib
@@ -112,23 +113,20 @@ if preproc_events:
 
     for eventtsv_path in task_event_files:
         try:
-            events_data = refactor_events(eventspath=eventtsv_path.path, task=taskname)
+            # if refactor_events accepts bids_layout (helpful in messy cases to recreate events in fly)
+            sig = inspect.signature(refactor_events)
+            if 'bids_layout' in sig.parameters:
+                events_data = refactor_events(eventspath=eventtsv_path.path, task=taskname, bids_layout=bids_layout)
+            else:
+                events_data = refactor_events(eventspath=eventtsv_path.path, task=taskname)     
 
-            # mod path
-            #ogevent_path = Path(eventtsv_path.path)
-            #newevent_path = Path(str(ogevent_path).replace(f"input/{study_id}", f"fmriprep/{study_id}/derivatives"))
-            #newevent_path.parent.mkdir(parents=True, exist_ok=True) 
-
-            # remove if the output file is a symlink
-            #if newevent_path.is_symlink():
-            #    newevent_path.unlink()            
 
             if events_data is not None:           
                 # save the modified events file to the *resolved* path
                 events_data.to_csv(eventtsv_path.path, sep='\t', index=False)
                 print(f"Modified events file for {os.path.basename(eventtsv_path.path)}")
             else:
-                print(f"No changes needed for {os.path.basename(eventtsv_path.path)}")
+                print(f"No changes made to {os.path.basename(eventtsv_path.path)}")
 
         except Exception as e:
             print(f"Error processing events file {eventtsv_path.filename}: {e}")

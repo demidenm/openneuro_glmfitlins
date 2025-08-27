@@ -2,7 +2,8 @@ import os
 import pandas as pd
 import numpy as np
 from pathlib import Path
-
+from typing import Optional
+from bids.layout import BIDSLayout
 
 def add_reactiontime_regressor(eventsdf, trial_type_col='trial_type', resp_trialtype: list = ['response'], 
                                 response_colname: str = 'response_time', rtreg_name: str ='rt_reg', 
@@ -1611,3 +1612,153 @@ def ds001357(eventspath: str, task: str):
     else:
         print(f"Task {task} not recognized for ds001357, skipping modifications")
         return None
+
+
+def ds005012(eventspath: str, task: str):
+    """
+    Process event data for ds005012 by reformating timing values into BIDS standard to run the models
+    
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset 
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
+
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+    eventsdat['trial'] = range(1, len(eventsdat) + 1)
+    eventsdat['condition'] = eventsdat['TRIAL_TYPE']
+
+    if task.lower() == "mid":
+        # apply modifications if not already present
+        if not {'trial_type', 'condition', 'trial', 'accuracy', 'response_time', 'result_words','result_reason'}.issubset(eventsdat.columns):
+            
+            bids_events = []
+
+            # Fixed: Use eventsdat instead of df
+            for idx, row in eventsdat.iterrows():
+                # Handle missing trial column - use index if not present
+                trial_num = row.get('trial', idx)  # Use index if 'trial' column doesn't exist
+                
+                # Extract condition from original data structure
+                # You may need to adjust this based on your actual column names
+                condition = row.get('TRIAL_TYPE', row.get('condition', 'unknown'))
+                probe_hit = row.get('PROBE_HIT', 0)
+                
+                # Cue 
+                cue_event = {
+                    'onset': row['CUE_ONSET'],
+                    'duration': row['CUE_DURATION'],
+                    'trial_type': f'cue_{condition}',
+                    'condition': condition,
+                    'trial': trial_num
+                }
+                bids_events.append(cue_event)
+                
+                # Fixation 
+                fixation_event = {
+                    'onset': row['FIXATION_ONSET'],
+                    'duration': row['FIXATION_DURATION'],
+                    'trial_type': f'fix_{condition}',
+                    'condition': condition,
+                    'trial': trial_num
+                }
+                bids_events.append(fixation_event)
+                
+                # Probe 
+                probe_event = {
+                    'onset': row['PROBE_ONSET'],
+                    'duration': row['PROBE_DURATION'],
+                    'trial_type': 'probe',
+                    'condition': condition,
+                    'trial': trial_num,
+                    'accuracy': probe_hit,
+                    'response_time': row['PROBE_MRT'] if pd.notna(row['PROBE_MRT']) and row['PROBE_MRT'] > 0 else 'n/a'
+                }
+                bids_events.append(probe_event)
+                
+                # Feedback: hit vs miss
+                feedback_type = f"fb_{'hit' if probe_hit == 1 else 'miss'}"
+                feedback_event = {
+                    'onset': row['FEEDBACK_ONSET'],
+                    'duration': row['FEEDBACK_DURATION'],
+                    'trial_type': f'{feedback_type}_{condition}',
+                    'condition': condition,
+                    'result_words': row.get('TRIAL_RESULT', ''),
+                    'result_reason': row.get('RESULT_REASON', ''),
+                    'trial': trial_num
+                }
+                bids_events.append(feedback_event)
+
+            # by onset
+            bids_df = pd.DataFrame(bids_events)
+            bids_df = bids_df.sort_values('onset').reset_index(drop=True)
+
+            # cols BIDS format
+            column_order = ['onset', 'duration', 'trial_type', 'condition', 'trial', 'accuracy', 'response_time', 'result_words','result_reason']
+            
+            # grab only existing columns
+            available_cols = [col for col in column_order if col in bids_df.columns]
+            bids_df = bids_df[available_cols]
+
+            return bids_df
+
+        else:
+            print("Columns already modified, skipping")
+            return None
+    else:
+        print(f"Task {task} not recognized for dataset, skipping modifications")
+        return None
+
+
+def ds002294(eventspath: str, task: str, bids_layout: Optional[BIDSLayout] = None):
+    """
+    Process event data for ds002294, setting up BIDS-compliant events.
+    Parse events file to individual run/subejct specific values and drop run/Subject entities to not conflict with BIDS values
+
+    Parameters
+    ----------
+    eventspath : str
+        Path to the events .tsv file
+    task : str
+        Task name for dataset
+    bids_layout : BIDSLayout, optional
+        Optional BIDSLayout object, if available
+
+    Returns
+    -------
+    None
+    """
+    # Load main events file from root
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+    event_file = Path(eventspath)
+
+
+    if task.lower() == "roletrait" and event_file.is_file():
+        bold_files = bids_layout.get(task=task, suffix="bold", extension=".nii.gz")
+        for bold in bold_files:
+            subject = bold.entities['subject']
+            run = bold.entities['run']
+
+            # grab from main events file for this subject/run
+            run_df = eventsdat[(eventsdat['Subject'] == int(subject)) & (eventsdat['run'] == run)].copy()
+            run_df = run_df.drop(columns=['run', 'Subject'])
+
+            if run_df.empty:
+                continue
+
+            # use the real path
+            bold_path = Path(bold.path)
+            events_filepath = bold_path.with_name(bold_path.name.replace("bold.nii.gz", "events.tsv"))
+            print("Created events file for", events_filepath)
+            run_df.to_csv(events_filepath, sep='\t', index=False)
+        
+        # move old file so it no longer exists and allows script to run
+        old_events_file = event_file.with_name(event_file.name.replace("events", "old-events"))
+        print("move OG root events file to", old_events_file)
+
+        event_file.rename(old_events_file)
+    else:
+        print(f"Task {task} not recognized for dataset, skipping modifications")

@@ -1,0 +1,188 @@
+{
+    "Contrasts": [
+        {
+            "Name": "traitselfvfriend",
+            "ConditionList": [
+                "trial_type.selfTraitBlock",
+                "trial_type.friendTraitBlock"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "roleselfvfriend",
+            "ConditionList": [
+                "trial_type.selfRoleBlock",
+                "trial_type.friendRoleBlock"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "groupselfvfriend",
+            "ConditionList": [
+                "trial_type.selfGroupBlock",
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "traitvrole",
+            "ConditionList": [
+                "trial_type.selfTraitBlock",
+                "trial_type.friendTraitBlock",
+                "trial_type.selfRoleBlock",
+                "trial_type.friendRoleBlock"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "socialevalvgroupattend",
+            "ConditionList": [
+                "trial_type.selfTraitBlock",
+                "trial_type.friendTraitBlock",
+                "trial_type.selfRoleBlock",
+                "trial_type.friendRoleBlock",
+                "trial_type.selfGroupBlock",
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                0.25,
+                0.25,
+                0.25,
+                0.25,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "selftraitvbase",
+            "ConditionList": [
+                "trial_type.selfTraitBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "friendtraitvbase",
+            "ConditionList": [
+                "trial_type.friendTraitBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "selfrolevbase",
+            "ConditionList": [
+                "trial_type.selfRoleBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "friendrolevbase",
+            "ConditionList": [
+                "trial_type.friendRoleBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "selfgroupvbase",
+            "ConditionList": [
+                "trial_type.selfGroupBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "friendgroupvbase",
+            "ConditionList": [
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allselfvfriend",
+            "ConditionList": [
+                "trial_type.selfTraitBlock",
+                "trial_type.selfRoleBlock",
+                "trial_type.selfGroupBlock",
+                "trial_type.friendTraitBlock",
+                "trial_type.friendRoleBlock",
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                0.33,
+                0.33,
+                0.33,
+                -0.33,
+                -0.33,
+                -0.33
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "groupbias",
+            "ConditionList": [
+                "trial_type.selfGroupBlock",
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allconditions",
+            "ConditionList": [
+                "trial_type.selfTraitBlock",
+                "trial_type.friendTraitBlock",
+                "trial_type.selfRoleBlock",
+                "trial_type.friendRoleBlock",
+                "trial_type.selfGroupBlock",
+                "trial_type.friendGroupBlock"
+            ],
+            "Weights": [
+                0.167,
+                0.167,
+                0.167,
+                0.167,
+                0.167,
+                0.167
+            ],
+            "Test": "t"
+        }
+    ]
+}

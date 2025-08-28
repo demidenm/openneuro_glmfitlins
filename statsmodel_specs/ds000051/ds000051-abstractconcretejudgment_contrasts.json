@@ -1,7 +1,7 @@
 {
     "Contrasts": [
         {
-            "Name": "present_spanish",
+            "Name": "presentspanish",
             "ConditionList": [
                 "trial_type.Spanish-English-Abstract-Novel",
                 "trial_type.Spanish-English-Abstract-Repeat",
@@ -16,7 +16,7 @@
             "Test": "t"
         },
         {
-            "Name": "present_english",
+            "Name": "presentenglish",
             "ConditionList": [
                 "trial_type.English-English-Abstract-Novel",
                 "trial_type.English-English-Abstract-Repeat",
@@ -31,7 +31,7 @@
             "Test": "t"
         },
         {
-            "Name": "present_spanishvenglish",
+            "Name": "presentspanishvenglish",
             "ConditionList": [
                 "trial_type.Spanish-English-Abstract-Novel",
                 "trial_type.Spanish-English-Abstract-Repeat",

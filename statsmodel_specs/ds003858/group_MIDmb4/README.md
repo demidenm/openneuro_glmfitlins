@@ -2,7 +2,7 @@
 
 The size of the Fitlins Derivatives for ds003858 MID is 2.2G with 1400 files.
 
-Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.doi.org10.1016/j.neuroimage.2021.118617).
+Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.doi.org/10.1016/j.neuroimage.2021.118617).
 
 ## 1. Statistical Analysis [Boilerplate]
 

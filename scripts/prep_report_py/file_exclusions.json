@@ -1,6 +1,7 @@
 {
     "openneuro_exclusions": [
         "derivatives/*",
+        "sourcedata/*",
         "*meg*",
         "*pet*",
         "*eeg*"

@@ -52,7 +52,7 @@ zstat_thresh = 2.3
 
 # Create output directory for images
 if tasksuffix:
-    spec_imgs_dir = spec_path / study_id / f"group_{task}{tasksuffix}" / "files"
+    spec_imgs_dir = spec_path / study_id / f"group_{task}-{tasksuffix}" / "files"
     spec_imgs_dir.mkdir(parents=True, exist_ok=True)
 else:
     spec_imgs_dir = spec_path / study_id / f"group_{task}" / "files"
@@ -67,7 +67,11 @@ with open(study_details, 'r') as file:
 
 # Load model specifications & study details
 try:
-    spec_file = spec_path / study_id / f"{study_id}-{task}_specs.json"
+    if tasksuffix:
+        spec_file = spec_path / study_id / f"{study_id}-{task}-{suffix}.json"
+    else:
+        spec_file = spec_path / study_id / f"{study_id}-{task}_specs.json"
+    
     with open(spec_file, 'r') as file:
         spec_data = json.load(file)
     
@@ -416,7 +420,7 @@ grp_readme = generate_groupmodsummary(
 )
 
 if tasksuffix:
-    readme_path = spec_path / study_id / f"group_{task}{tasksuffix}" / "README.md"
+    readme_path = spec_path / study_id / f"group_{task}-{tasksuffix}" / "README.md"
 else:
     readme_path = spec_path / study_id / f"group_{task}" / "README.md"
 

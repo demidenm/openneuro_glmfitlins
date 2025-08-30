@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=fitlins
 #SBATCH --time=20:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --mem-per-cpu=25GB
+#SBATCH --cpus-per-task=5
+#SBATCH --mem=120GB
 #SBATCH -p russpold,normal,owners
 
 # Output and notifications
@@ -10,6 +10,11 @@
 #SBATCH --error=./logs/fitlins.%A_%a.err
 #SBATCH --mail-user=demidenm@stanford.edu
 #SBATCH --mail-type=ALL
+
+# ------------------------------------------------------
+# -------------- Set CPUS & TOTAL MEMORY in GB --------------
+FITLINS_MEMORY_GB=120
+NUM_CPUS=5
 
 # Prevent SLURM jobs runaway errors, i.e instances where more threads are ran than requested
 # Per Chris Markewicz, 
@@ -19,9 +24,10 @@ MKL_NUM_THREADS=1
 OMP_NUM_THREADS=1
 OPENBLAS_NUM_THREADS=1
 
+# ------------------------------------------------------
 # -------------------- Parse Params --------------------
 show_help() {
-    echo "Usage: sbatch $0 [-s smoothing_type] [-e estimator] <OpenNeuro Study ID> <Task Label>"
+    echo "Usage: sbatch $0 [-s smoothing_type] [-e estimator] <OpenNeuro Study ID> <Task Label> [Task Suffix]"
     echo ""
     echo "Options:"
     echo "  -s <smoothing>   Smooth BOLD series with FWHM mm kernel prior to fitting at LEVEL."
@@ -43,12 +49,18 @@ show_help() {
     echo ""
     echo "  -h               Show this help message"
     echo ""
+    echo "Arguments:"
+    echo "  OpenNeuro Study ID    Required. The dataset identifier (e.g., ds003425)"
+    echo "  Task Label           Required. The task name (e.g., learning)"
+    echo "  Task Suffix          Optional. Additional suffix for model spec file and output directories"
+    echo ""
     echo "Examples:"
     echo "  sbatch $0 ds003425 learning"
-    echo "  sbatch $0 -s 6:run:iso ds003425 learning"
+    echo "  sbatch $0 ds003425 learning run1"
+    echo "  sbatch $0 -s 6:run:iso ds003425 learning session1"
     echo "  sbatch $0 -e afni ds003425 learning"
-    echo "  sbatch $0 -s 4:subject:iso -e nilearn ds003425 learning"
-    echo "  sbatch $0 -s 8:dataset:isoblurto -e afni ds003425 learning"
+    echo "  sbatch $0 -s 4:subject:iso -e nilearn ds003425 learning block1"
+    echo "  sbatch $0 -s 8:dataset:isoblurto -e afni ds003425 learning pilot"
 }
 
 # Defaults
@@ -105,6 +117,7 @@ shift $((OPTIND-1))
 # Get positional arguments
 openneuro_id="$1"
 task_label="$2"
+task_suffix=${3:-""} # Optional third suffix for spec file creations
 
 # Check required parameters
 if [[ -z "$openneuro_id" ]] || [[ -z "$task_label" ]]; then
@@ -112,7 +125,7 @@ if [[ -z "$openneuro_id" ]] || [[ -z "$task_label" ]]; then
     show_help
     exit 1
 fi
-
+# ------------------------------------------------------------
 # -------------------- Load Configuration --------------------
 config_file="../../path_config.json"
 
@@ -123,18 +136,28 @@ fi
 
 data_dir=$(jq -r '.datasets_folder' "$config_file")
 repo_dir=$(jq -r '.openneuro_glmrepo' "$config_file")
-model_json="${repo_dir}/statsmodel_specs/${openneuro_id}/${openneuro_id}-${task_label}_specs.json"
-scratch_out=$(jq -r '.tmp_folder' "$config_file")
 
+# Build model JSON path with optional suffix
+if [[ -n "$task_suffix" ]]; then
+    model_json="${repo_dir}/statsmodel_specs/${openneuro_id}/${openneuro_id}-${task_label}${task_suffix}_specs.json"
+    task_output_label="${task_label}${task_suffix}"
+else
+    model_json="${repo_dir}/statsmodel_specs/${openneuro_id}/${openneuro_id}-${task_label}_specs.json"
+    task_output_label="${task_label}"
+fi
+
+scratch_out=$(jq -r '.tmp_folder' "$config_file")
+# ------------------------------------------------------------
 # -------------------- Set Up Environment --------------------
 echo "Setting up Python environment with uv..."
 cd "$repo_dir" || { echo "Error: Failed to change directory to $repo_dir"; exit 1; }
 source ".venv/bin/activate"
 
+# -----------------------------------------------------------------------------------
 # -------------------- Set Up Input, Scratch, Output Directories --------------------
 bids_data_dir="${data_dir}/input/${openneuro_id}"
-scratch_data_dir="${scratch_out}/fitlins/task-${task_label}"
-output_data_dir="${data_dir}/analyses/${openneuro_id}/task-${task_label}"
+scratch_data_dir="${scratch_out}/fitlins/task-${task_output_label}"
+output_data_dir="${data_dir}/analyses/${openneuro_id}/task-${task_output_label}"
 
 if [ -d "${data_dir}/fmriprep/${openneuro_id}/derivatives_alt" ]; then
   fmriprep_data_dir="${data_dir}/fmriprep/${openneuro_id}/derivatives_alt"
@@ -146,16 +169,28 @@ fi
 mkdir -p "${scratch_data_dir}"
 mkdir -p "${output_data_dir}"
 
+# Verify model spec file exists
+if [ ! -f "$model_json" ]; then
+    echo "Error: Model specification file not found: $model_json"
+    exit 1
+fi
+
+# -----------------------------------------------------
 # -------------------- Run Fitlins --------------------
 echo "#### Running Fitlins models to generate statistical maps ####"
 echo "Study ID: ${openneuro_id}"
 echo "Task Label: ${task_label}"
+if [[ -n "$task_suffix" ]]; then
+    echo "Task Suffix: ${task_suffix}"
+fi
+echo "Task Output Label: ${task_output_label}"
 echo "Input Events: ${bids_data_dir}"
 echo "Scratch Output: ${scratch_data_dir}"
 echo "FMRIPrep Directory: ${fmriprep_data_dir}"
 echo "Model Spec: ${model_json}"
 echo "Smoothing type: ${smoothing_type}"
 echo "Estimator: ${estimator}"
+echo "Memory usage: ${FITLINS_MEMORY_GB} GB Memory & ${NUM_CPUS} CPUs"
 
 uv --project "$repo_dir" \
       run fitlins "${bids_data_dir}" "${output_data_dir}" \
@@ -166,10 +201,11 @@ uv --project "$repo_dir" \
       --drop-missing \
       --space MNI152NLin2009cAsym --desc-label preproc \
       --smoothing "${smoothing_type}" --estimator "${estimator}" \
-      --n-cpus 4 \
-      --mem-gb 100 \
+      --n-cpus ${NUM_CPUS} \
+      --mem-gb ${FITLINS_MEMORY_GB} \
       -w "${scratch_data_dir}" \
       -vvv
+
 
 # On sherlock: check exist code status to add to list to push on s3
 run_status=$?

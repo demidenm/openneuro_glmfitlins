@@ -37,8 +37,8 @@ dev = [
     "flake8"
 ]
 
-[project.scripts]
-openneuro-glmfitlins = "openneuro_glmfitlins:main"
+[tool.hatch.build.targets.wheel]
+include = ["scripts/**"]
 
 [build-system]
 requires = ["hatchling"]

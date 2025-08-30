@@ -12,6 +12,7 @@ parser.add_argument("--openneuro_study", type=str, required=True, help="OpenNeur
 parser.add_argument("--task", type=str, required=True, help="Task label")
 parser.add_argument("--script_dir", type=str, required=True, help="Base directory for scripts")
 parser.add_argument("--input_dir", type=str, required=True, help="Directory for BIDS/Events files")
+parser.add_argument('--suffix', default=None, help='Optional suffix for group report output')
 
 args = parser.parse_args()
 
@@ -20,10 +21,17 @@ study_id = args.openneuro_study
 task = args.task
 scripts = os.path.abspath(args.script_dir)
 bids_dir = os.path.abspath(args.input_dir)
+suffix = args.suffix
 
 # Load the model JSON
 sample_specs = os.path.join(scripts, "prep_report_py", "example_mod-specs.json")
-spec_out_file = os.path.join(scripts, "..", "statsmodel_specs", study_id, f"{study_id}-{task}_specs.json")
+print("Suffix", suffix)
+
+if suffix:
+    spec_out_file = os.path.join(scripts, "..", "statsmodel_specs", study_id, f"{study_id}-{task}-{suffix}_specs.json")
+else:
+    spec_out_file = os.path.join(scripts, "..", "statsmodel_specs", study_id, f"{study_id}-{task}_specs.json")
+
 if os.path.exists(spec_out_file):
     with open(spec_out_file, 'r') as specdf:
         model_data = json.load(specdf)
@@ -124,7 +132,7 @@ if not os.path.exists(spec_out_file):
 
 
     # Save the updated model JSON
-    with open(os.path.join(scripts, "..", "statsmodel_specs", study_id, f"{study_id}-{task}_specs.json"), "w") as file:
+    with open(spec_out_file, "w") as file:
         json.dump(model_data, file, indent=2)
 
     print("SUCCESS: Model specs created, updated study name, task, subjects and contrasts.")

@@ -1762,3 +1762,55 @@ def ds002294(eventspath: str, task: str, bids_layout: Optional[BIDSLayout] = Non
         event_file.rename(old_events_file)
     else:
         print(f"Task {task} not recognized for dataset, skipping modifications")
+
+
+def ds000212(eventspath: str, task: str):
+    """
+    Process event data for ds000212 by modifying trial types if applicable. 
+    cleaning for bids standards
+    
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset 
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
+
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+    if task.lower() == "dis":
+        if not {"trial_type"}.issubset(eventsdat.columns):
+            
+            
+            eventsdat["trial_type"] = eventsdat["condition"]
+            eventsdat["response_time"] = eventsdat["RT"].fillna(0)
+            eventsdat["trial_type"] = eventsdat["trial_type"].str.lower()
+
+            print(f"renamed condition to trial_type, replace RT n/a w/0 and made")
+            return eventsdat
+        else:
+            print("Columns already modified, skipping")
+            return None
+
+    elif task.lower() == "fb":
+        if not {"trial_type"}.issubset(eventsdat.columns):
+            
+            
+            eventsdat["trial_type"] = eventsdat["condition"]
+            eventsdat["response_time"] = eventsdat["RT"].fillna(0)
+            eventsdat["trial_type"] = eventsdat["trial_type"].str.lower()
+
+            # Until the design is clarified, keeping only first part of value name
+            eventsdat["trial_type"] = eventsdat["trial_type"].str.split('_').str[0]
+
+            print(f"renamed condition to trial_type, replace RT n/a w/0 and made")
+            return eventsdat
+        else:
+            print("Columns already modified, skipping")
+            return None
+
+    else:
+        print(f"Task {task} not recognized, skipping modifications")
+        return None

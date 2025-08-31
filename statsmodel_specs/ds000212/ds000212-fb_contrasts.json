@@ -1,0 +1,46 @@
+{
+    "Contrasts": [
+        {
+            "Name": "beliefvphoto",
+            "ConditionList": [
+                "trial_type.belief",
+                "trial_type.photo"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "photo",
+            "ConditionList": [
+                "trial_type.photo"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "belief",
+            "ConditionList": [
+                "trial_type.belief"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

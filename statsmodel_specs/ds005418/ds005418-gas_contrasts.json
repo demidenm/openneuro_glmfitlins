@@ -1,0 +1,179 @@
+{
+    "Contrasts": [
+        {
+            "Name": "allconds",
+            "ConditionList": [
+                "trial_type.CND_1_RD",
+                "trial_type.CND_1_DR", 
+                "trial_type.CND_3_RD",
+                "trial_type.CND_3_DR",
+                "trial_type.CND_2_T",
+                "trial_type.CND_2_DT",
+                "trial_type.CND_3_T",
+                "trial_type.CND_3_DT"
+            ],
+            "Weights": [
+                0.125, 
+                0.125, 
+                0.125, 
+                0.125, 
+                0.125, 
+                0.125, 
+                0.125, 
+                0.125],
+            "Test": "t"
+        },
+        {
+            "Name": "CND1RDvCND1DR",
+            "ConditionList": [
+                "trial_type.CND_1_RD",
+                "trial_type.CND_1_DR"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND3RDvCND3DR", 
+            "ConditionList": [
+                "trial_type.CND_3_RD",
+                "trial_type.CND_3_DR"
+            ],
+            "Weights": [
+                1, 
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "RDvDR",
+            "ConditionList": [
+                "trial_type.CND_1_RD",
+                "trial_type.CND_1_DR",
+                "trial_type.CND_3_RD", 
+                "trial_type.CND_3_DR"
+            ],
+            "Weights": [
+                0.5, 0.5, 
+                -0.5, -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND2TvCND2DT",
+            "ConditionList": [
+                "trial_type.CND_2_T",
+                "trial_type.CND_2_DT"
+            ],
+            "Weights": [
+                1, 
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND3TvCND3DT",
+            "ConditionList": [
+                "trial_type.CND_3_T",
+                "trial_type.CND_3_DT"
+            ],
+            "Weights": [
+                1, 
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "TvDT",
+            "ConditionList": [
+                "trial_type.CND_2_T",
+                "trial_type.CND_2_DT",
+                "trial_type.CND_3_T",
+                "trial_type.CND_3_DT"
+            ],
+            "Weights": [
+                0.5, 0.5,
+                -0.5, -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND2TvCND1RD",
+            "ConditionList": [
+                "trial_type.CND_1_RD",
+                "trial_type.CND_2_T"
+            ],
+            "Weights": [
+                1, 
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND3TvCND3RD",
+            "ConditionList": [
+                "trial_type.CND_3_RD",
+                "trial_type.CND_3_T"
+            ],
+            "Weights": [
+                1, 
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "TvRD",
+            "ConditionList": [
+                "trial_type.CND_1_RD",
+                "trial_type.CND_3_RD",
+                "trial_type.CND_2_T",
+                "trial_type.CND_3_T"
+            ],
+            "Weights": [
+                0.5, 0.5,
+                -0.5, -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND2DTvCND1DR",
+            "ConditionList": [
+                "trial_type.CND_1_DR",
+                "trial_type.CND_2_DT"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "CND3DTvCND3DR",
+            "ConditionList": [
+                "trial_type.CND_3_DR",
+                "trial_type.CND_3_DT"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "DTvDR",
+            "ConditionList": [
+                "trial_type.CND_1_DR",
+                "trial_type.CND_3_DR",
+                "trial_type.CND_2_DT",
+                "trial_type.CND_3_DT"
+            ],
+            "Weights": [
+                0.5, 0.5,
+                -0.5, -0.5
+            ],
+            "Test": "t"
+        }
+    ]
+}

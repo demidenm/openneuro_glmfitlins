@@ -1,0 +1,185 @@
+{
+  "Name": "ds000212",
+  "BIDSModelVersion": "1.0.0",
+  "Input": {
+    "subject": [
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "22",
+      "23",
+      "24",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35"
+    ],
+    "task": [
+      "fb"
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Copy",
+            "Input": ["trial_type"],
+            "Output": ["rt_reg"]
+          },
+          {
+            "Name": "Replace",
+            "Input": ["rt_reg"],
+            "Replace": {
+                "belief": "rt",
+                "photo": "rt"
+                },
+            "Attribute": "value"
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "trial_type", "rt_reg"
+            ]
+          },
+          {
+            "Name": "Assign",
+            "Input": ["response_time"],
+            "Target": ["rt_reg.rt"],
+            "TargetAttr": "duration"
+          },
+          {
+            "Name": "Convolve",
+            "Model": "spm",
+            "Derivative": false,
+            "Dispersion": false,
+            "Input": [
+              "trial_type.*",
+              "rt_reg.rt"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "trial_type.*",
+          "rt_reg.rt",
+          "trans_*",
+          "rot_*",
+          "cosine*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "beliefvphoto",
+          "ConditionList": [
+            "trial_type.belief",
+            "trial_type.photo"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "photo",
+          "ConditionList": [
+            "trial_type.photo"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "belief",
+          "ConditionList": [
+            "trial_type.belief"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "rt",
+          "ConditionList": [
+            "rt_reg.rt"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "subject",
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    {
+      "Level": "Dataset",
+      "Name": "data_level",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

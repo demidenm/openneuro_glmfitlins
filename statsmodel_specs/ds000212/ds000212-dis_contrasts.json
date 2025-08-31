@@ -1,0 +1,186 @@
+{
+    "Contrasts": [
+        {
+            "Name": "harmvpurity",
+            "ConditionList": [
+                "trial_type.a_pha",
+                "trial_type.b_psa", 
+                "trial_type.f_phi",
+                "trial_type.g_psi",
+                "trial_type.c_ia",
+                "trial_type.d_pa",
+                "trial_type.h_ii",
+                "trial_type.i_pi"
+            ],
+            "Weights": [
+                0.25,
+                0.25,
+                0.25,
+                0.25,
+                -0.25,
+                -0.25,
+                -0.25,
+                -0.25
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "intentvaccident",
+            "ConditionList": [
+                "trial_type.f_phi",
+                "trial_type.g_psi",
+                "trial_type.h_ii",
+                "trial_type.i_pi",
+                "trial_type.a_pha",
+                "trial_type.b_psa",
+                "trial_type.c_ia",
+                "trial_type.d_pa"
+            ],
+            "Weights": [
+                0.25,
+                0.25,
+                0.25,
+                0.25,
+                -0.25,
+                -0.25,
+                -0.25,
+                -0.25
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "harmphysicalvpsychological",
+            "ConditionList": [
+                "trial_type.a_pha",
+                "trial_type.f_phi",
+                "trial_type.b_psa",
+                "trial_type.g_psi"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "purityincestvpathogen",
+            "ConditionList": [
+                "trial_type.c_ia",
+                "trial_type.h_ii",
+                "trial_type.d_pa",
+                "trial_type.i_pi"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "moralvneutral",
+            "ConditionList": [
+                "trial_type.a_pha",
+                "trial_type.b_psa",
+                "trial_type.c_ia",
+                "trial_type.d_pa",
+                "trial_type.f_phi",
+                "trial_type.g_psi",
+                "trial_type.h_ii",
+                "trial_type.i_pi",
+                "trial_type.e_na",
+                "trial_type.j_ni"
+            ],
+            "Weights": [
+                0.125,
+                0.125,
+                0.125,
+                0.125,
+                0.125,
+                0.125,
+                0.125,
+                0.125,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "harmintentvneutral",
+            "ConditionList": [
+                "trial_type.f_phi",
+                "trial_type.g_psi",
+                "trial_type.e_na",
+                "trial_type.j_ni"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "purityintentionalvneutral",
+            "ConditionList": [
+                "trial_type.h_ii",
+                "trial_type.i_pi",
+                "trial_type.e_na",
+                "trial_type.j_ni"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "harmaccidevneutral",
+            "ConditionList": [
+                "trial_type.a_pha",
+                "trial_type.b_psa",
+                "trial_type.e_na",
+                "trial_type.j_ni"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "purityaccidentvneutral",
+            "ConditionList": [
+                "trial_type.c_ia",
+                "trial_type.d_pa",
+                "trial_type.e_na",
+                "trial_type.j_ni"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "rt",
+            "ConditionList": [
+                "rt_reg.rt"
+            ],
+            "Weights": [
+                1
+            ],
+            "Test": "t"
+        }
+    ]
+}

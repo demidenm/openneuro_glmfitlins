@@ -1,0 +1,70 @@
+{
+    "Subjects": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "eye": {
+            "cite_links": ["https://doi.org/10.1162/imag_a_00229"],
+            "plot_coords": [
+                -40,
+                -80,
+                -10
+            ],
+            "bold_volumes": 438,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "task_sessions": [
+                "1"
+            ],
+            "column_names": [
+                "onset",
+                "duration",
+                "trial_type"
+            ],
+            "column_data_types": {
+                "onset": "float64",
+                "duration": "int64",
+                "trial_type": "object"
+            },
+            "trial_type_values": [
+                "CND_1_RD",
+                "CND_1_DR",
+                "CND_3_T",
+                "CND_3_RD",
+                "CND_3_DR",
+                "CND_3_DT",
+                "CND_2_DT",
+                "CND_2_T"
+            ]
+        }
+    }
+}

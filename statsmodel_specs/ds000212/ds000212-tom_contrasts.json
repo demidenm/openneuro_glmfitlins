@@ -1,0 +1,28 @@
+{
+    "Contrasts": [
+        {
+            "Name": "AvB",
+            "ConditionList": [
+                "trial_type.a",
+                "trial_type.b"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "FacesvPlaces",
+            "ConditionList": [
+                "trial_type.faces",
+                "trial_type.places"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        }
+    ]
+}

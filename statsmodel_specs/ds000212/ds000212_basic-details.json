@@ -1,0 +1,189 @@
+{
+    "Subjects": [
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "22",
+        "23",
+        "24",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44",
+        "45",
+        "46",
+        "47"
+    ],
+    "Sessions": [],
+    "Tasks": {
+        "dis": {
+            "cite_links": [
+                "https://doi.org/10.1016/j.neuroimage.2017.07.043",
+                "https://academic.oup.com/scan/article/11/3/476/2375141"
+        ],
+            "plot_coords": [
+                2,
+                -56,
+                24
+            ],
+            "bold_volumes": 166,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "condition",
+                "item",
+                "key",
+                "RT"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "condition": "object",
+                "item": "int64",
+                "key": "int64",
+                "RT": "float64"
+            },
+            "trial_type_values": []
+        },
+        "fb": {
+            "cite_links": [
+                "https://doi.org/10.1016/j.neuroimage.2017.07.043",
+                "https://academic.oup.com/scan/article/11/3/476/2375141"],
+            "plot_coords": [
+                2,
+                -56,
+                24
+            ],
+            "bold_volumes": 136,
+            "dummy_volumes": 0,
+            "preproc_events": true,
+            "task_runs": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "condition",
+                "item",
+                "key",
+                "RT"
+            ],
+            "column_data_types": {
+                "onset": "int64",
+                "duration": "int64",
+                "condition": "object",
+                "item": "int64",
+                "key": "int64",
+                "RT": "float64"
+            },
+            "trial_type_values": []
+        },
+        "tom": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 136,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "condition",
+                "item",
+                "key",
+                "RT"
+            ],
+            "column_data_types": {
+                "onset": "object",
+                "duration": "int64",
+                "condition": "object",
+                "item": "int64",
+                "key": "int64",
+                "RT": "float64"
+            },
+            "trial_type_values": []
+        },
+        "tomloc": {
+            "cite_links": [],
+            "plot_coords": [
+                0,
+                0,
+                0
+            ],
+            "bold_volumes": 136,
+            "dummy_volumes": 0,
+            "preproc_events": false,
+            "task_runs": [
+                1,
+                2
+            ],
+            "task_sessions": [],
+            "column_names": [
+                "onset",
+                "duration",
+                "condition",
+                "item",
+                "key",
+                "RT"
+            ],
+            "column_data_types": {
+                "onset": "object",
+                "duration": "int64",
+                "condition": "object",
+                "item": "int64",
+                "key": "int64",
+                "RT": "float64"
+            },
+            "trial_type_values": []
+        }
+    }
+}

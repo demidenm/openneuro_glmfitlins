@@ -1,0 +1,104 @@
+{
+    "Contrasts": [
+        {
+            "Name": "oppscrnhumanvcpu",
+            "ConditionList": [
+                "trial_type.human_opponent_screen",
+                "trial_type.cpu_opponent_screen"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "playhumanvcpu",
+            "ConditionList": [
+                "trial_type.human_game_play",
+                "trial_type.cpu_game_play"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "winvloss",
+            "ConditionList": [
+                "trial_type.cpu_outcome_win",
+                "trial_type.human_outcome_win",
+                "trial_type.cpu_outcome_loss",
+                "trial_type.human_outcome_loss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "humanwinvloss",
+            "ConditionList": [
+                "trial_type.human_outcome_win",
+                "trial_type.human_outcome_loss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "cpuvinvloss",
+            "ConditionList": [
+                "trial_type.cpu_outcome_win",
+                "trial_type.cpu_outcome_loss"
+            ],
+            "Weights": [
+                1,
+                -1
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "allplayvoutcome",
+            "ConditionList": [
+                "trial_type.human_game_play",
+                "trial_type.cpu_game_play",
+                "trial_type.cpu_outcome_win",
+                "trial_type.human_outcome_win",
+                "trial_type.cpu_outcome_loss",
+                "trial_type.human_outcome_loss"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.25,
+                -0.25,
+                -0.25,
+                -0.25
+            ],
+            "Test": "t"
+        },
+        {
+            "Name": "socialoppsensitiv",
+            "ConditionList": [
+                "trial_type.human_opponent_screen",
+                "trial_type.human_game_play",
+                "trial_type.cpu_opponent_screen",
+                "trial_type.cpu_game_play"
+            ],
+            "Weights": [
+                0.5,
+                0.5,
+                -0.5,
+                -0.5
+            ],
+            "Test": "t"
+        }
+    ]
+}

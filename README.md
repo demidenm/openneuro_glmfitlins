@@ -14,9 +14,9 @@
 
 N OpenNeuro Studies: 58
 
-N OpenNeuro Task fMRI Group Summaries: 104
+N OpenNeuro Task fMRI Group Summaries: 101
 
-Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, abstractconcretejudgment, antisaccadetaskwithfixedorder, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, ColorDots, compL1, compLn, conditionalstopsignal, covertverbgeneration, deterministicclassification, dis, discounting, doors, dts, ec, em, emotionalfaces, emotionalregulation, Emotionregulation, encoding, epr, eye, faceexplocalizer, faceidentityoddball, facerecognition, familiarity, fb, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodChoice, FoodStimHiLo, gas, gas, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, Memory, MGT, mid, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, passiveimageviewing, pc, prelearning, probabilisticclassification, prodL1, prodLn, regulate, retrieval, reversalweatherprediction, roletrait, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewing, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, abstractconcretejudgment, antisaccadetaskwithfixedorder, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, ColorDots, conditionalstopsignal, covertverbgeneration, deterministicclassification, dis, discounting, doors, dts, ec, em, emotionalfaces, emotionalregulation, Emotionregulation, encoding, epr, eye, faceexplocalizer, faceidentityoddball, facerecognition, familiarity, fb, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodChoice, FoodStimHiLo, gas, gas, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, Memory, MGT, mid, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, passiveimageviewing, pc, PenaltyKik, prelearning, probabilisticclassification, regulate, retrieval, reversalweatherprediction, roletrait, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewing, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 
@@ -188,7 +188,7 @@ desc-aparcaseg_dseg.tsv
 desc-aseg_dseg.tsv      
 ```
 
-**Note:** The `fmriprep/datasetname/derivatives/` directory is the hard symbolic links of the `fmriprep/dataset_id/` root directory contents for proper workflow integration
+**Note:** For proper workflow integration, the `fmriprep/datasetname/derivatives/` directory is the hard symbolic links of the `fmriprep/dataset_id/` root directory contents in case of full fMRIPrep'd derivatives. In cases of minimal fMRIPrep'd derivatives, this directory will be created with the resulting fMRIPrep'd outputs.
 
 **Both dataset types generate:**
 - A README summarizing the dataset
@@ -200,11 +200,27 @@ desc-aseg_dseg.tsv
 
 ***ONLY if fMRIPrep derivatives == minimal***
 
-Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID: Update your SBATCH specific information (e.g. `-p`, `--mail-user` and `--time` for larger datasets and `--array` that matches your subject array (particularly if subject IDs are not numeric))
+Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID: Update your SBATCH specific information (e.g. `-p`, `--mail-user` and `--time` for larger datasets and subejct-specific `--array`. The subject-specific (e.g. 1-30), dynamically-grabs the positions value for each subject from the `./statsmodels_specs/ds000000/ds000000_basic-details.json` to subject each job individual. Ensure the lengths match.
+```json
+{
+    "Subjects": [
+        "01", <- SLURM job 1, if --array=1-5
+        "02",
+        "03",
+        "04",
+        "05", 
+        ...
+    ]
+...
+}
+```
+
+To submit the jobs, simply run:
 
 ```bash
 sbatch recreate_fmriprep.sh ds003425
 ```
+
 
 > To run fmriprep, you will need a singularity container which you can build using: `singularity build /path/fmriprep-<version>.sif  docker://nipreps/fmriprep:<version>`
 
@@ -312,8 +328,20 @@ def ds003425(eventspath: str, task: str):
 
 ### 4. Create Model Specification File
 
+The creation of the model specification file has two options:
+
+Option 1: task-to-output matching ()
 ```bash
 bash 3_create_spec_file.sh ds003425 learning
+
+# returns ds003425-learning_specs.json
+```
+
+Option 2: multi-verse option with optional suffix
+```bash
+bash 3_create_spec_file.sh ds003425 learning mod2
+
+# returns ds003425-learning-mod2_specs.json
 ```
 
 This step:
@@ -331,10 +359,16 @@ Conditions used in contrasts specification exist in all design matrices.
 
 ### 5. Run FitLins Model
 
+Similar to step-4, which creates the specification file, running the Fitlins model has an optional `suffix`option to differentiate the specification file (e.g. `learning` or `learning-mod2`) and the resulting output folder name (e.g. `<output>/analysis/ds003425/task-learning` or `<output>/analysis/ds003425/task-learning-mod2`)
+
 #### 5a. On Local Machine
 
 ```bash
+# without suffix
 bash 4_run_fitlins.sh ds003425 learning
+
+# with suffix
+bash 4_run_fitlins.sh ds003425 learning mod2
 ```
 
 #### 5b. On HPC cluster
@@ -342,8 +376,13 @@ bash 4_run_fitlins.sh ds003425 learning
 Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID and the task name. Note: Update your SBATCH specific information (e.g. partition `-p`, account `-a`, mail options `--mail-user` and run time `--time` for larger datasets)
 
 **Basic usage:**
+
 ```bash
+# without suffix
 sbatch run_fitlins.sh ds003425 learning
+
+# with suffix
+sbatch run_fitlins.sh ds003425 learning mod2
 ```
 
 **Smoothing /Estimator options:**
@@ -381,7 +420,12 @@ This executes the FitLins analysis based on the specification file. Results will
 ### 6. Generate Aggregate Report for Study Task (optional)
 
 ```bash
+# without suffix
 bash run_grouprepo.sh ds003425 learning
+
+# with suffix
+bash run_grouprepo.sh ds003425 learning mod2
+
 ```
 
 This executes a command that will return images and README file based on your study details and task-specific specification and Fitlins output. Similar to [ds003425 regulate task](./statsmodel_specs/ds003425/group_regulate/), you'll obtain model, regressor and contrast maps.

@@ -7,12 +7,12 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-08-30`*
+*This repository is in active development. `Last updated: 2025-09-01`*
 
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
-N OpenNeuro Studies: 57
+N OpenNeuro Studies: 58
 
 N OpenNeuro Task fMRI Group Summaries: 104
 

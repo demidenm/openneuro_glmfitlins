@@ -2,6 +2,8 @@
 
 # Dataset Details: ds004604
 
+NOTE: The events in this dataset are modeled using a traditional GLM approach purely for illustration purposes. While GLM can capture basic activation patterns, the authors' intent was to model these data using the [CVRMAP](https://github.com/ln2t/cvrmap) tool, which incorporates multiple physiological and timing features from the data and is specifically designed for cerebrovascular reactivity analysis. Furthermore, fMRIPrep's default high-pass filter of 128 seconds may not affect the 60-second CO2 inhalation periods but could potentially filter important signal components when considering the full CO2 and non-CO2 inhalation cycle (120 seconds total) as a single event. While this may not impact the current analysis, it represents an important methodological consideration for future work.
+
 ## Number of Subjects
 - BIDS Input: 50
 

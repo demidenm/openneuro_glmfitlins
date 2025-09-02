@@ -1,6 +1,6 @@
 # ds003545: prodL1 Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003545 prodL1 is 11G with 6434 files.
+The size of the Fitlins Derivatives for ds003545 prodL1 is 8.9G with 6434 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1523/JNEUROSCI.0851-20.2020).
 
@@ -100,7 +100,7 @@ The quality assessment pipeline evaluates volumetric data across multiple dimens
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for prodL1 are:
-sub-14_ses-02_run-2
+sub-13_ses-02_run-2, sub-15_ses-01_run-1, sub-15_ses-02_run-1, sub-15_ses-02_run-2, sub-16_ses-01_run-1, sub-16_ses-01_run-2, sub-16_ses-02_run-1, sub-16_ses-02_run-2, sub-17_ses-01_run-2, sub-17_ses-02_run-2, sub-19_ses-01_run-1, sub-20_ses-01_run-2, sub-20_ses-02_run-1, sub-20_ses-02_run-2, sub-21_ses-01_run-1, sub-21_ses-01_run-2, sub-21_ses-02_run-1, sub-21_ses-02_run-2, sub-22_ses-01_run-1, sub-22_ses-01_run-2, sub-22_ses-02_run-1, sub-22_ses-02_run-2
 
 The distribution for subjects and runs in prodL1 are below. 
 

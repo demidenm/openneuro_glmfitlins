@@ -1270,11 +1270,15 @@ def ds004656(eventspath: str, task: str):
             return None
 
 
+import pandas as pd
+
 def ds003545(eventspath: str, task: str):
     """
     Process event data for ds003545 by modifying trial types if applicable.
     
-    Remapping values in trial_type for clarity in contrast estimations/design matrices
+    Remapping values in trial_type for clarity in contrast estimations/design matrices.
+    For compL1 and compLn tasks, trial_type values also receive "_cor" or "_incorr" 
+    suffixes based on the 'correct' column (1 = correct, 0 = incorrect).
     
     Parameters:
     eventspath (str): path to the events .tsv file
@@ -1285,7 +1289,6 @@ def ds003545(eventspath: str, task: str):
         Modified events DataFrame, or None if no updates were necessary.
     """
     
-    # Define the remapping dictionaries for each task
     remapping = {
         "compL1": {
             "1": "printed_word",
@@ -1314,29 +1317,47 @@ def ds003545(eventspath: str, task: str):
     }
 
     eventsdat = pd.read_csv(eventspath, sep='\t')
-    
-    # if task value
+    eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+
     if task == "compL1":
-        # Check if remapping needed, apply if so
-        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
         if any(key in eventsdat['trial_type'].values for key in remapping["compL1"].keys()):
             eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["compL1"])
-            print("Applied remapping for compL1 task", eventsdat['trial_type'].unique())
-            return eventsdat
+            print("Applied remapping for compL1", eventsdat['trial_type'].unique())
         else:
             print("No remapping needed for compL1 - values already present")
-            return None
-        
-    elif task == "compLn":        
-        # Check if remapping needed, apply if so
-        eventsdat['trial_type'] = eventsdat['trial_type'].astype(str)
+
+        #  _cor/_incorr suffix
+        eventsdat['trial_type'] = eventsdat.apply(
+            lambda row: (
+                f"{row.trial_type}_{'cor' if row.correct == 1 else 'incorr'}"
+                if row.trial_type in ["printed_word", "spoken_word"]
+                else row.trial_type
+            ),
+            axis=1
+        )
+        print("Added correct/incorrect suffix for compL1", eventsdat['trial_type'].unique())
+
+        return eventsdat
+
+    elif task == "compLn":
         if any(key in eventsdat['trial_type'].values for key in remapping["compLn"].keys()):
             eventsdat['trial_type'] = eventsdat['trial_type'].replace(remapping["compLn"])
-            print("Applied remapping for compLn task", eventsdat['trial_type'].unique())
-            return eventsdat
+            print("Applied remapping for compLn", eventsdat['trial_type'].unique())
         else:
-            print("No remapping needed for compLn, values already present")
-            return None
+            print("No remapping needed for compLn - values already present")
+
+        #  _cor/_incorr suffix
+        eventsdat['trial_type'] = eventsdat.apply(
+            lambda row: (
+                f"{row.trial_type}_{'cor' if row.correct == 1 else 'incorr'}"
+                if row.trial_type in ["printed_word", "spoken_word"]
+                else row.trial_type
+            ),
+            axis=1
+        )
+        print("Added correct/incorrect suffix for compLn", eventsdat['trial_type'].unique())
+
+        return eventsdat
     
     elif task == "prodL1":
         # Check if remapping needed, apply if so
@@ -1813,4 +1834,41 @@ def ds000212(eventspath: str, task: str):
 
     else:
         print(f"Task {task} not recognized, skipping modifications")
+        return None
+
+
+def ds003345(eventspath: str, task: str):
+    """
+    Process event data for ds003345 by modifying trial types if applicable. 
+    Create a distinct trial type (trial_type + stim_info)
+
+    Parameters:
+    eventspath (str): Path to the events .tsv file
+    task (str): Task name for dataset 
+    
+    Returns:
+    pd.DataFrame or None
+        Modified events DataFrame, or None if no updates were applied.
+    """
+
+    eventsdat = pd.read_csv(eventspath, sep='\t')
+
+    if task.lower() == "penaltykik":
+        # Only apply modifications if not already present
+        if not {"trialtype_old"}.issubset(eventsdat.columns):
+            eventsdat["trialtype_old"] = eventsdat["trial_type"]
+            
+            # combined trial_type
+            eventsdat["trial_type"] = (
+                eventsdat["trial_type"].str.strip().str.lower()
+                + "_" +
+                eventsdat["stim_info"].str.strip().str.lower()
+            )
+            print(f"Modified trial_type {task}. Trial types:", eventsdat["trial_type"].unique())
+            return eventsdat
+        else:
+            print("Columns already modified, skipping")
+            return None
+    else:
+        print(f"Task {task} not recognized for dataset, skipping modifications")
         return None

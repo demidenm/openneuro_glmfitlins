@@ -1,6 +1,6 @@
 # ds003545: compLn Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003545 compLn is 4.2G with 2678 files.
+The size of the Fitlins Derivatives for ds003545 compLn is 3.7G with 2678 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1523/JNEUROSCI.0851-20.2020).
 
@@ -9,7 +9,7 @@ Dataset- and task-relevant citations may be found in the papers: [Paper 1](https
 The below is an automatically generated report for the statistical analyses performed on this task and dataset. Some reporting standards from the 'Statistical Modeling & Inference' section of the COBIDAS checklist ([Nichols et al., 2017](https://www.nature.com/articles/nn.4500)) are adopted here.
 
 ### 1.1. First-level Analysis
-For the 20 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 3 regressors of interest (out of 5 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). Of the convolved regressors, 1 were parametrically modulated regressors in the model (see Section 2.4 for list). The design matrix (see example in Section 4.1) included both the convolved and parametrically modulated regressors of interest and 28 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
+For the 20 subjects, whole-brain, mass univariate analyses were performed using a general linear model (GLM). The 5 regressors of interest (out of 7 total regressors) were convolved with a spm hemodynamic response function (see Section 2.3 for list). Of the convolved regressors, 1 were parametrically modulated regressors in the model (see Section 2.4 for list). The design matrix (see example in Section 4.1) included both the convolved and parametrically modulated regressors of interest and 28 nuisance regressors to account for physiological noise and motion-related artifacts (see Section 2.4 for full list).
 
 **Motion Regressors**: Motion parameters included the six rigid-body parameters estimated during motion correction (three translations, three rotations), their temporal derivatives, and the squares of both the parameters and their derivatives, resulting in 24 motion-related regressors.
 **Drift Regressors**: Cosine basis functions implemented a high-pass temporal filter with a cutoff of 128 seconds to remove low-frequency drift in the BOLD signal.
@@ -36,10 +36,10 @@ For each run and subject, outputs include but are not limited to:
 - Dataset-level models: Yes 
 
 ### 2.2 Regressors of Interest
-trial_type.fixation, trial_type.printed_word, trial_type.spoken_word, correct, intercept
+trial_type.fixation, trial_type.printed_word_cor, trial_type.printed_word_incorr, trial_type.spoken_word_cor, trial_type.spoken_word_incorr, correct, intercept
 
 ### 2.3 Convolved Regressors
-trial_type.fixation, trial_type.printed_word, trial_type.spoken_word
+trial_type.fixation, trial_type.printed_word_cor, trial_type.printed_word_incorr, trial_type.spoken_word_cor, trial_type.spoken_word_incorr
 
 ### 2.4 Parametrically Modulated Regressors*
 correct
@@ -50,11 +50,11 @@ correct
 trans_x, trans_x_derivative1, trans_x_derivative1_power2, trans_x_power2, trans_y, trans_y_derivative1, trans_y_derivative1_power2, trans_y_power2, trans_z, trans_z_derivative1, trans_z_derivative1_power2, trans_z_power2, rot_x, rot_x_derivative1, rot_x_derivative1_power2, rot_x_power2, rot_y, rot_y_derivative1, rot_y_derivative1_power2, rot_y_power2, rot_z, rot_z_derivative1, rot_z_derivative1_power2, rot_z_power2, cosine00, cosine01, cosine02, cosine03
 
 ## 3 Contrasts of Interest
-- **printwordvfix**: 1*`trial_type.printed_word` - 1*`trial_type.fixation`
+- **printwordvfix**: 1*`trial_type.printed_word_cor` - 1*`trial_type.fixation`
 
-- **spokenwordvfix**: 1*`trial_type.spoken_word` - 1*`trial_type.fixation`
+- **spokenwordvfix**: 1*`trial_type.spoken_word_cor` - 1*`trial_type.fixation`
 
-- **printvspoken**: 1*`trial_type.printed_word` - 1*`trial_type.spoken_word`
+- **printvspoken**: 1*`trial_type.printed_word_cor` - 1*`trial_type.spoken_word_cor`
 
 
 # 4 Figures
@@ -91,7 +91,7 @@ The quality assessment pipeline evaluates volumetric data across multiple dimens
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for compLn are:
-sub-08_ses-01_run-2, sub-22_ses-02_run-2
+sub-08_ses-01_run-1, sub-08_ses-01_run-2, sub-08_ses-02_run-1, sub-08_ses-02_run-2, sub-14_ses-01_run-2, sub-14_ses-02_run-1, sub-16_ses-01_run-1, sub-16_ses-02_run-1, sub-16_ses-02_run-2, sub-20_ses-01_run-1, sub-20_ses-01_run-2, sub-22_ses-02_run-2
 
 The distribution for subjects and runs in compLn are below. 
 

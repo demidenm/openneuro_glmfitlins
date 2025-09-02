@@ -15,8 +15,6 @@
       "10",
       "11",
       "12",
-      "13",
-      "14",
       "15",
       "16",
       "17",
@@ -82,7 +80,7 @@
         {
           "Name": "printwordvfix",
           "ConditionList": [
-            "trial_type.printed_word",
+            "trial_type.printed_word_cor",
             "trial_type.fixation"
           ],
           "Weights": [
@@ -94,7 +92,7 @@
         {
           "Name": "spokenwordvfix",
           "ConditionList": [
-            "trial_type.spoken_word",
+            "trial_type.spoken_word_cor",
             "trial_type.fixation"
           ],
           "Weights": [
@@ -106,8 +104,8 @@
         {
           "Name": "printvspoken",
           "ConditionList": [
-            "trial_type.printed_word",
-            "trial_type.spoken_word"
+            "trial_type.printed_word_cor",
+            "trial_type.spoken_word_cor"
           ],
           "Weights": [
             1,

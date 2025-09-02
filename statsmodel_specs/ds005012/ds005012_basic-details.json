@@ -67,7 +67,10 @@
     ],
     "Tasks": {
         "mid": {
-            "cite_links": [],
+            "cite_links": [
+                "https://doi.org/10.1016/j.dcn.2023.101337",
+                "https://doi.org/10.1162/imag_a_00262"
+            ],
             "plot_coords": [
                 10,
                 10,

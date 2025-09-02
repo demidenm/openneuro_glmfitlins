@@ -161,7 +161,6 @@ try:
 except Exception as e:
     print(f"UNEXPECTED ERROR: {e}")
 
-unique_conditions = pull_contrast_conditions_spec(model_data)
 
 # grab all unique dataframe columns across outputs using specs
 unique_conditions = pull_contrast_conditions_spec(model_data)

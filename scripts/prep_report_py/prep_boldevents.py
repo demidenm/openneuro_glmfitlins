@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 import inspect
 import shutil
 import json
@@ -38,7 +39,14 @@ preproc_events = taskspecs.get('preproc_events')
 
 if dummyvolumes > 0:
     print(f"\tGenerating Layout of Derivatives {fmriprep_path}/../")
-    preproc_layout = BIDSLayout(f"{fmriprep_path}/..", derivatives=True)
+    try:
+        preproc_layout = BIDSLayout(f"{fmriprep_path}/..", derivatives=True)
+    except FileNotFoundError:
+        sys.exit(f" Path '{fmriprep_path}/..' not found or missing dataset_description.json. "
+                "Please check that the directory exists and is a valid BIDS derivatives folder.")
+    except Exception as e:
+        sys.exit(f" Failed to initialize BIDSLayout for '{fmriprep_path}/..'. Error: {e}")    
+    
     task_bold_files = preproc_layout.get(task=taskname, suffix="bold", extension=".nii.gz")
     task_conf_files = preproc_layout.get(task=taskname, suffix="timeseries", extension=".tsv")
 
@@ -101,7 +109,14 @@ else:
 
 if preproc_events:
     print(f"\tGenerating Layout of BIDS Directory: {eventspath}/")
-    bids_layout = BIDSLayout(eventspath, derivatives=False)
+    try:
+        bids_layout = BIDSLayout(eventspath, derivatives=False)
+    except FileNotFoundError:
+        sys.exit(f" Path '{eventspath}/..' not found or missing dataset_description.json. "
+                "Please check that the directory exists and is a valid BIDS derivatives folder.")
+    except Exception as e:
+        sys.exit(f" Failed to initialize BIDSLayout for '{eventspath}/..'. Error: {e}")    
+
 
     task_event_files = bids_layout.get(task=taskname, suffix="events", extension=".tsv")
 

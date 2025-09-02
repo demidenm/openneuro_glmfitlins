@@ -507,49 +507,11 @@ def get_runnode(bids_path: str, spec_cont: dict, scan_length: int = 125, ignored
             available_nodes = [node.name for node in graph.nodes]
             print(f"Available nodes: {available_nodes}")
             
-            # Run batch testing as fallback
-            print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
-            try:
-                problematic_subjects = spectest_subject_batches(
-                    bids_path, 
-                    spec_cont,
-                    get_bidstats_events, 
-                    TR=2,
-                    volumes=scan_length,
-                    max_batch_size=10
-                )
-                
-                if problematic_subjects:
-                    print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
-                else:
-                    print("Batch testing completed. No problematic subjects found.")
-                    
-            except Exception as batch_e:
-                print(f"ERROR: Batch testing also failed: {batch_e}")
+            
             return None
 
     except Exception as e:
         print(f"ERROR: Failed to get run_level node: {e}")
-        
-        # Run batch testing as fallback
-        print("\n=== RUNNING BATCH TESTING AS FALLBACK ===")
-        try:
-            problematic_subjects = spectest_subject_batches(
-                bids_path, 
-                spec_cont,
-                get_bidstats_events, 
-                TR=2,
-                volumes=scan_length,
-                max_batch_size=10
-            )
-            
-            if problematic_subjects:
-                print(f"Batch testing completed. Problematic subjects: {problematic_subjects}")
-            else:
-                print("Batch testing completed. No problematic subjects found.")
-                
-        except Exception as batch_e:
-            print(f"ERROR: Batch testing also failed: {batch_e}")
         return None
 
     # Run the model
@@ -829,20 +791,23 @@ def trim_calibration_volumes(bold_path: str, num_voltotrim:int):
     if not bold_path.exists():
         raise FileNotFoundError(f"File not found: {bold_path}")
     
-    # load nifti & trim
+    # load nifti & trim. 
     try:
-        img = load_img(bold_path)
-        total_vols = img.shape[3] if len(img.shape) == 4 else None
+        print(f"Trimming {num_voltotrim} initial volumes...")
+        trimmed_img = index_img(str(bold_path), slice(num_voltotrim, None))
+        
+        total_vols = trimmed_img.shape[3] if len(trimmed_img.shape) == 4 else None
+        original_vols = total_vols + num_voltotrim if total_vols else None
+        
         if total_vols is None:
             raise ValueError(f"Invalid NIfTI file: {bold_path}")
         
-        print("Trimming {} volumes from {} volumes".format(num_voltotrim, total_vols))
-        trimmed_img = index_img(img, slice(num_voltotrim, None))
+        print(f"    Output shape: {trimmed_img.shape}")
+        
+        return trimmed_img
 
     except Exception as e:
         raise ValueError(f"Error loading NIfTI file: {e}")    
-    
-    return trimmed_img
 
 
 def trim_confounds(confounds_path:str, num_rowstotrim:int):

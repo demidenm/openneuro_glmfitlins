@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=fitlins
 #SBATCH --time=20:00:00
-#SBATCH --cpus-per-task=5
-#SBATCH --mem=120GB
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=80GB
 #SBATCH -p russpold,normal,owners
 
 # Output and notifications
@@ -13,8 +13,8 @@
 
 # ------------------------------------------------------
 # -------------- Set CPUS & TOTAL MEMORY in GB --------------
-FITLINS_MEMORY_GB=120
-NUM_CPUS=5
+FITLINS_MEMORY_GB=80
+NUM_CPUS=4
 
 # Prevent SLURM jobs runaway errors, i.e instances where more threads are ran than requested
 # Per Chris Markewicz, 

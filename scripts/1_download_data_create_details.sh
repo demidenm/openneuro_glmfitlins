@@ -39,7 +39,7 @@ if [[ "$config_type" == "openneuro" ]]; then
     echo -e "\nProcessing OpenNeuro dataset..."
     
     # Check for AWS CLI installation
-    if ! command -v aws &> /dev/null; then
+    if ! uv run aws --version &> /dev/null; then
         echo -e "\n❌ Error: AWS CLI is not installed. Confirm your environment is activated and AWS is installed."
         exit 1
     fi

@@ -41,19 +41,19 @@ bids_input_dir = bids_data / openneuro_study
 fmriprep_out_dir = fmriprep_dir / openneuro_study
 
 download_openneuro = [
-    "aws", "s3", "sync", "--no-sign-request", 
+    "uv", "run", "aws", "s3", "sync", "--no-sign-request", 
     f"s3://openneuro.org/{openneuro_study}",
     str(bids_input_dir)
 ]
 
 download_fmriprep = [
-    "aws", "s3", "sync", "--no-sign-request",
+    "uv", "run", "aws", "s3", "sync", "--no-sign-request",
     f"s3://openneuro-derivatives/fmriprep/{openneuro_study}-fmriprep",
     str(fmriprep_out_dir)
 ]
 
 getfiles_mriqcgroup = [
-    "aws", "s3", "ls", "--no-sign-request", 
+    "uv", "run", "aws", "s3", "ls", "--no-sign-request", 
     f"s3://openneuro-derivatives/mriqc/{openneuro_study}-mriqc", "--recursive"
 ] 
 
@@ -120,13 +120,13 @@ else:
 # fMRIprep data, download data (not checking if it exists, so it can restart on existing)
 print("Downloading fMRIprep derivatives...")
 try:
-    subprocess.run(download_fmriprep, check=True)
+    subprocess.run(download_fmriprep, check=True, stdout=sys.stdout, stderr=sys.stderr)
     print("     S3 sync completed successfully.")
 except subprocess.CalledProcessError as e:
     print(f"Download failed, retrying... {e}")
     try:
         time.sleep(5)  # wait before retrying
-        subprocess.run(download_fmriprep, check=True)
+        subprocess.run(download_fmriprep, check=True, stdout=sys.stdout, stderr=sys.stderr)
         print("     S3 re-sync completed successfully.")
     except subprocess.CalledProcessError as retry_e:
         print(f"Error: Failed to download fMRIprep data after retry: {retry_e}")
@@ -154,7 +154,7 @@ else:
                 try:
                     file_path = mriqc_summ / Path(s3_file_path).name
                     download_mriqc_grpfile = [
-                        "aws", "s3", "cp", "--no-sign-request",
+                        "uv", "run", "aws", "cp", "--no-sign-request",
                         f"s3://openneuro-derivatives/{s3_file_path}", str(file_path)
                     ]
                     

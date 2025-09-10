@@ -7,7 +7,7 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-09-03`*
+*This repository is in active development. `Last updated: 2025-09-10`*
 
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
@@ -85,7 +85,6 @@ For items related to specific issues, please use the `Issues` tab. There are sep
 ## Prerequisites
 
 - **System Dependencies**:
-  - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html))
   - [DataLad](https://www.datalad.org/)
   - Git (≥ 2.2)
 
@@ -330,7 +329,7 @@ def ds003425(eventspath: str, task: str):
 
 The creation of the model specification file has two options:
 
-Option 1: task-to-output matching ()
+Option 1: task-to-output matching
 ```bash
 bash 3_create_spec_file.sh ds003425 learning
 
@@ -446,7 +445,7 @@ Before running fitlins, based on you grouping structure of nodes, ensure files a
       ]
 ```
 
-1. Imbalance in files across subjects for BOLD and/or events files (e.g., ds003425 ses-02 regulate task runs). Incorrect model spec files. Fitslins utilizes a groupby() across subjects / task / runs. 
+1. Imbalance in files across subjects for BOLD and/or events files (e.g., ds003425 ses-02 regulate task runs). Incorrect model spec files. Fitslins utilizes a groupby across subjects / task / runs. 
 2. Differences in runs across subjects for BOLD and/or events files (e.g., ds003425 ses-02 regulate task runs). 
 
 However, by using `--drop-missing` flag in the Fitlins call (default in this repo), if a subject is missing a run or contrast the models will still be estimated. However, if a subject is missing all values in a contrast matrices or all runs, the computation will fail with an error.  

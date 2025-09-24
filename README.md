@@ -7,16 +7,16 @@
 
 **Contact**: [demidenko.michael@gmail.com](mailto:demidenko.michael@gmail.com)
 
-*This repository is in active development. `Last updated: 2025-09-10`*
+*This repository is in active development. `Last updated: 2025-09-24`*
 
 
 ![OpenNeuro Fitlins Summary](docs/openneurofitlins_summary_dashboard.png)
 
 N OpenNeuro Studies: 57
 
-N OpenNeuro Task fMRI Group Summaries: 105
+N OpenNeuro Task fMRI Group Summaries: 106
 
-Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, abstractconcretejudgment, antisaccadetaskwithfixedorder, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, ColorDots, compL1, compLn, conditionalstopsignal, covertverbgeneration, deterministicclassification, dis, discounting, doors, dts, ec, em, emotionalfaces, emotionalregulation, Emotionregulation, encoding, epr, eye, faceexplocalizer, faceidentityoddball, facerecognition, familiarity, fb, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodChoice, FoodStimHiLo, gas, gas, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, Memory, MGT, mid, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, passiveimageviewing, pc, PenaltyKik, prelearning, probabilisticclassification, prodL1, prodLn, regulate, retrieval, reversalweatherprediction, roletrait, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewing, viewRandom, visualfeedback, weatherprediction, wm
+Completed fMRI Task Names: 1dNF, 1Norm, 2dNF, 2Swallow, 3HandA, 4HandB, 5Eyes, 6DeepBreathing, abstractconcretejudgment, antisaccadetaskwithfixedorder, arithm, auditoryfeedback, balloonanalogrisktask, balloonanalogrisktask, ChangeDetection, cmp, ColorDots, compL1, compLn, conditionalstopsignal, covertverbgeneration, deterministicclassification, dis, discounting, doors, dts, ec, em, emotionalfaces, emotionalregulation, Emotionregulation, encoding, epr, eye, faceexplocalizer, faceidentityoddball, facerecognition, familiarity, fb, feedback, figure2backwith1backlures, fingerfootlips, flanker, flavor, FoodChoice, FoodStimHiLo, gas, gas, GDMotor, identify1, identify2, illusion, learning, letter0backtask, letter1backtask, letter2backtask, linebisection, Memory, MGT, mid, mid, MIDmb4, MIDmb8, MIDsingle, mixedeventrelatedprobe, mixedgamblestask, modulate1, modulate2, music, nofeedback, nonmusic, objectviewing, overtverbgeneration, overtwordrepetition, ParallelAdaptation, passiveimageviewing, pc, PenaltyKik, prelearning, probabilisticclassification, prodL1, prodLn, regulate, retrieval, reversalweatherprediction, roletrait, sae, sar, socialcomparison, socialdoors, stopsignal, stopsignal, task, theoryofmindwithmanualresponse, TrainedHandTrainedSequence, TrainedHandUntrainedSequence, training, UntrainedHandTrainedSequence, UntrainedHandUntrainedSequence, verbs, viewFigure, viewing, viewRandom, visualfeedback, weatherprediction, wm
 
 ## Overview
 
@@ -134,7 +134,7 @@ For items related to specific issues, please use the `Issues` tab. There are sep
    - `openneuro_glmrepo`: Path to the cloned repository
    - `tmp_folder`: Temporary/scratch space for FitLins processing
    - `fmriprep_simg`: Singularity image for fMRIPrep
-   - `freesurfer_license`: Path to Freesurfer license file
+   - `freesurfer_license`: Path to Freesurfer license file  (can be obtained from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/registration.html))
    - `data_type`: Whether 'openneuro' or 'house' (default: openneuro)
 
 
@@ -199,7 +199,7 @@ desc-aseg_dseg.tsv
 
 ***ONLY if fMRIPrep derivatives == minimal***
 
-Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID: Update your SBATCH specific information (e.g. `-p`, `--mail-user` and `--time` for larger datasets and subejct-specific `--array`. The subject-specific (e.g. 1-30), dynamically-grabs the positions value for each subject from the `./statsmodels_specs/ds000000/ds000000_basic-details.json` to subject each job individual. Ensure the lengths match.
+Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID: Update your SBATCH specific information (e.g. `--mail-user`, `-p`, and `--time` for larger datasets and subejct-specific `--array`. The subject-specific (e.g. 1-30), dynamically-grabs the positions value for each subject from the `./statsmodels_specs/ds000000/ds000000_basic-details.json` to subject each job individual. Ensure the lengths match.
 ```json
 {
     "Subjects": [
@@ -372,7 +372,7 @@ bash 4_run_fitlins.sh ds003425 learning mod2
 
 #### 5b. On HPC cluster
 
-Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID and the task name. Note: Update your SBATCH specific information (e.g. partition `-p`, account `-a`, mail options `--mail-user` and run time `--time` for larger datasets)
+Within the `cluster_jobs` subfolder, submit the job with the OpenNeuro ID and the task name. Note: Update your SBATCH specific information (e.g.  mail options `--mail-user`, partition `-p`, account `-a`, and run time `--time` for larger datasets)
 
 **Basic usage:**
 

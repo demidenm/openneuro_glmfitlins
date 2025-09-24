@@ -289,7 +289,7 @@ try:
         ratio_results = list(executor.map(partial_func, tmp_r2_paths))
 
     ratio_df = pd.DataFrame(ratio_results)
-    low_quality = get_low_quality_subs(ratio_df=ratio_df, dice_thresh=0.80, voxout_thresh=0.10)
+    low_quality = get_low_quality_subs(ratio_df=ratio_df, dice_thresh=0.85, voxout_thresh=0.10)
     r2_success = True
 
 except Exception as e:

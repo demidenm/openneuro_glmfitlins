@@ -182,7 +182,7 @@ def generate_groupmodsummary(study_id, task, num_subjects, hrf_model_type, signa
         readme_content += (
             f"\n#### 4.4.3 Flagged Subjects\n"
             f"The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: \n\n"
-            f"  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) \n"
+            f"  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) \n"
             f"  - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) \n\n"
             f"The subjects flagged for {task} are:\n"
 

@@ -21,13 +21,13 @@ dependencies = [
     "awscli",
     "scipy",
     "argparse",
-    "pyrelimri",
+    "pyrelimri==2.2.3",
     "templateflow",
     # Pinned installs from GitHub
-    "fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
+    #"fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
+    "fitlins @ git+https://github.com/poldracklab/fitlins.git@dev",
     "setuptools",
-    "pybids @ git+https://github.com/bids-standard/pybids.git@26b3f7e"
-
+    "pybids @ git+https://github.com/bids-standard/pybids.git@26b3f7e",
 ]
 
 [project.optional-dependencies]

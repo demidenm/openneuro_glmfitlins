@@ -86,11 +86,11 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for sae are:
-sub-025_run-02, sub-025_run-03, sub-027_run-03, sub-028_run-02, sub-028_run-03, sub-030_run-01, sub-030_run-02, sub-030_run-03, sub-033_run-02, sub-036_run-03, sub-038_run-01, sub-038_run-02, sub-038_run-03, sub-039_run-01, sub-039_run-02, sub-039_run-03, sub-040_run-03, sub-043_run-01, sub-045_run-03, sub-046_run-01, sub-046_run-02, sub-046_run-03
+sub-046_run-03
 
 The distribution for subjects and runs in sae are below. 
 

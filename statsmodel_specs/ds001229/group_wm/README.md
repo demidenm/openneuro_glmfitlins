@@ -87,7 +87,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds001229_task-wm_rsquare-mean.png)
+![R Square](files/ds001229_task-wm_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -95,36 +95,36 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for wm are:
-sub-05_run-03, sub-11_run-03, sub-15_run-03, sub-17_run-02, sub-17_run-03
+sub-17_run-03
 
 The distribution for subjects and runs in wm are below. 
 
-![Dice](./files/ds001229_task-wm_hist-dicesimilarity.png)
-![Voxels Out](./files/ds001229_task-wm_hist-voxoutmask.png)
+![Dice](files/ds001229_task-wm_hist-dicesimilarity.png)
+![Voxels Out](files/ds001229_task-wm_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### facescenevlexdec
-![facescenevlexdec Map](./files/ds001229_task-wm_contrast-facescenevlexdec_map.png)
+![facescenevlexdec Map](files/ds001229_task-wm_contrast-facescenevlexdec_map.png)
 
 ### oglexreal
-![oglexreal Map](./files/ds001229_task-wm_contrast-oglexreal_map.png)
+![oglexreal Map](files/ds001229_task-wm_contrast-oglexreal_map.png)
 
 ### pmfacesreal
-![pmfacesreal Map](./files/ds001229_task-wm_contrast-pmfacesreal_map.png)
+![pmfacesreal Map](files/ds001229_task-wm_contrast-pmfacesreal_map.png)
 
 ### pmscenereal
-![pmscenereal Map](./files/ds001229_task-wm_contrast-pmscenereal_map.png)
+![pmscenereal Map](files/ds001229_task-wm_contrast-pmscenereal_map.png)
 
 ### scenerealvcatch
-![scenerealvcatch Map](./files/ds001229_task-wm_contrast-scenerealvcatch_map.png)
+![scenerealvcatch Map](files/ds001229_task-wm_contrast-scenerealvcatch_map.png)
 
 ### facerealvcatch
-![facerealvcatch Map](./files/ds001229_task-wm_contrast-facerealvcatch_map.png)
+![facerealvcatch Map](files/ds001229_task-wm_contrast-facerealvcatch_map.png)
 
 ### lexrealvcatch
-![lexrealvcatch Map](./files/ds001229_task-wm_contrast-lexrealvcatch_map.png)
+![lexrealvcatch Map](files/ds001229_task-wm_contrast-lexrealvcatch_map.png)

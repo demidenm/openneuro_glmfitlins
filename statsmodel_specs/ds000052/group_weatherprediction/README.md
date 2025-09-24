@@ -1,6 +1,6 @@
 # ds000052: weatherprediction Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000052 weatherprediction is 3.9M with 878 files.
+The size of the Fitlins Derivatives for ds000052 weatherprediction is 4.0M with 878 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.nature.com/articles/35107080).
 
@@ -80,7 +80,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000052_task-weatherprediction_rsquare-mean.png)
+![R Square](files/ds000052_task-weatherprediction_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -88,7 +88,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for weatherprediction are:
@@ -96,16 +96,16 @@ None Subjects Flagged
 
 The distribution for subjects and runs in weatherprediction are below. 
 
-![Dice](./files/ds000052_task-weatherprediction_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000052_task-weatherprediction_hist-voxoutmask.png)
+![Dice](files/ds000052_task-weatherprediction_hist-dicesimilarity.png)
+![Voxels Out](files/ds000052_task-weatherprediction_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### neg
-![neg Map](./files/ds000052_task-weatherprediction_contrast-neg_map.png)
+![neg Map](files/ds000052_task-weatherprediction_contrast-neg_map.png)
 
 ### pos
-![pos Map](./files/ds000052_task-weatherprediction_contrast-pos_map.png)
+![pos Map](files/ds000052_task-weatherprediction_contrast-pos_map.png)
 
 ### negvpos
-![negvpos Map](./files/ds000052_task-weatherprediction_contrast-negvpos_map.png)
+![negvpos Map](files/ds000052_task-weatherprediction_contrast-negvpos_map.png)

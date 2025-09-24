@@ -1,8 +1,8 @@
 # ds000001: balloonanalogrisktask Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000001 balloonanalogrisktask is 8.0G with 5510 files.
+The size of the Fitlins Derivatives for ds000001 balloonanalogrisktask is 58M with 5512 files.
 
-Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.3389/fnins.2012.00080).
+Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.doi.org/10.3389/fnins.2012.00080).
 
 ## 1. Statistical Analysis [Boilerplate]
 
@@ -99,7 +99,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000001_task-balloonanalogrisktask_rsquare-mean.png)
+![R Square](files/ds000001_task-balloonanalogrisktask_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -107,7 +107,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for balloonanalogrisktask are:
@@ -115,46 +115,46 @@ None Subjects Flagged
 
 The distribution for subjects and runs in balloonanalogrisktask are below. 
 
-![Dice](./files/ds000001_task-balloonanalogrisktask_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000001_task-balloonanalogrisktask_hist-voxoutmask.png)
+![Dice](files/ds000001_task-balloonanalogrisktask_hist-dicesimilarity.png)
+![Voxels Out](files/ds000001_task-balloonanalogrisktask_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### pumpsvcontrol
-![pumpsvcontrol Map](./files/ds000001_task-balloonanalogrisktask_contrast-pumpsvcontrol_map.png)
+![pumpsvcontrol Map](files/ds000001_task-balloonanalogrisktask_contrast-pumpsvcontrol_map.png)
 
 ### explodevcash
-![explodevcash Map](./files/ds000001_task-balloonanalogrisktask_contrast-explodevcash_map.png)
+![explodevcash Map](files/ds000001_task-balloonanalogrisktask_contrast-explodevcash_map.png)
 
 ### explodevcontrol
-![explodevcontrol Map](./files/ds000001_task-balloonanalogrisktask_contrast-explodevcontrol_map.png)
+![explodevcontrol Map](files/ds000001_task-balloonanalogrisktask_contrast-explodevcontrol_map.png)
 
 ### pumpscashvcontrol
-![pumpscashvcontrol Map](./files/ds000001_task-balloonanalogrisktask_contrast-pumpscashvcontrol_map.png)
+![pumpscashvcontrol Map](files/ds000001_task-balloonanalogrisktask_contrast-pumpscashvcontrol_map.png)
 
 ### pumpsexplodevcontrol
-![pumpsexplodevcontrol Map](./files/ds000001_task-balloonanalogrisktask_contrast-pumpsexplodevcontrol_map.png)
+![pumpsexplodevcontrol Map](files/ds000001_task-balloonanalogrisktask_contrast-pumpsexplodevcontrol_map.png)
 
 ### allpumps
-![allpumps Map](./files/ds000001_task-balloonanalogrisktask_contrast-allpumps_map.png)
+![allpumps Map](files/ds000001_task-balloonanalogrisktask_contrast-allpumps_map.png)
 
 ### pumps
-![pumps Map](./files/ds000001_task-balloonanalogrisktask_contrast-pumps_map.png)
+![pumps Map](files/ds000001_task-balloonanalogrisktask_contrast-pumps_map.png)
 
 ### pumpspara
-![pumpspara Map](./files/ds000001_task-balloonanalogrisktask_contrast-pumpspara_map.png)
+![pumpspara Map](files/ds000001_task-balloonanalogrisktask_contrast-pumpspara_map.png)
 
 ### cashpara
-![cashpara Map](./files/ds000001_task-balloonanalogrisktask_contrast-cashpara_map.png)
+![cashpara Map](files/ds000001_task-balloonanalogrisktask_contrast-cashpara_map.png)
 
 ### explodepara
-![explodepara Map](./files/ds000001_task-balloonanalogrisktask_contrast-explodepara_map.png)
+![explodepara Map](files/ds000001_task-balloonanalogrisktask_contrast-explodepara_map.png)
 
 ### controlpara
-![controlpara Map](./files/ds000001_task-balloonanalogrisktask_contrast-controlpara_map.png)
+![controlpara Map](files/ds000001_task-balloonanalogrisktask_contrast-controlpara_map.png)
 
 ### parapumpsvcontrol
-![parapumpsvcontrol Map](./files/ds000001_task-balloonanalogrisktask_contrast-parapumpsvcontrol_map.png)
+![parapumpsvcontrol Map](files/ds000001_task-balloonanalogrisktask_contrast-parapumpsvcontrol_map.png)
 
 ### rt
-![rt Map](./files/ds000001_task-balloonanalogrisktask_contrast-rt_map.png)
+![rt Map](files/ds000001_task-balloonanalogrisktask_contrast-rt_map.png)

@@ -1,6 +1,6 @@
 # ds001848: ParallelAdaptation Task Analysis Report
 
-The size of the Fitlins Derivatives for ds001848 ParallelAdaptation is 23G with 13478 files.
+The size of the Fitlins Derivatives for ds001848 ParallelAdaptation is 57M with 13478 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1093/texcom/tgab048).
 
@@ -94,7 +94,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds001848_task-ParallelAdaptation_rsquare-mean.png)
+![R Square](files/ds001848_task-ParallelAdaptation_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -102,45 +102,45 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for ParallelAdaptation are:
-sub-17_run-01, sub-17_run-02, sub-17_run-03, sub-20_run-02, sub-29_run-01, sub-29_run-03, sub-31_run-03, sub-38_run-01, sub-40_run-01, sub-40_run-02, sub-40_run-03
+sub-31_run-03
 
 The distribution for subjects and runs in ParallelAdaptation are below. 
 
-![Dice](./files/ds001848_task-ParallelAdaptation_hist-dicesimilarity.png)
-![Voxels Out](./files/ds001848_task-ParallelAdaptation_hist-voxoutmask.png)
+![Dice](files/ds001848_task-ParallelAdaptation_hist-dicesimilarity.png)
+![Voxels Out](files/ds001848_task-ParallelAdaptation_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### devnonsym
-![devnonsym Map](./files/ds001848_task-ParallelAdaptation_contrast-devnonsym_map.png)
+![devnonsym Map](files/ds001848_task-ParallelAdaptation_contrast-devnonsym_map.png)
 
 ### devsym
-![devsym Map](./files/ds001848_task-ParallelAdaptation_contrast-devsym_map.png)
+![devsym Map](files/ds001848_task-ParallelAdaptation_contrast-devsym_map.png)
 
 ### devphys
-![devphys Map](./files/ds001848_task-ParallelAdaptation_contrast-devphys_map.png)
+![devphys Map](files/ds001848_task-ParallelAdaptation_contrast-devphys_map.png)
 
 ### devsym4vdevsym1
-![devsym4vdevsym1 Map](./files/ds001848_task-ParallelAdaptation_contrast-devsym4vdevsym1_map.png)
+![devsym4vdevsym1 Map](files/ds001848_task-ParallelAdaptation_contrast-devsym4vdevsym1_map.png)
 
 ### devnonsym4vnondevsym1
-![devnonsym4vnondevsym1 Map](./files/ds001848_task-ParallelAdaptation_contrast-devnonsym4vnondevsym1_map.png)
+![devnonsym4vnondevsym1 Map](files/ds001848_task-ParallelAdaptation_contrast-devnonsym4vnondevsym1_map.png)
 
 ### devphys4vdevphys1
-![devphys4vdevphys1 Map](./files/ds001848_task-ParallelAdaptation_contrast-devphys4vdevphys1_map.png)
+![devphys4vdevphys1 Map](files/ds001848_task-ParallelAdaptation_contrast-devphys4vdevphys1_map.png)
 
 ### catchsym4vcatchsym1
-![catchsym4vcatchsym1 Map](./files/ds001848_task-ParallelAdaptation_contrast-catchsym4vcatchsym1_map.png)
+![catchsym4vcatchsym1 Map](files/ds001848_task-ParallelAdaptation_contrast-catchsym4vcatchsym1_map.png)
 
 ### symnonsym4vphys4
-![symnonsym4vphys4 Map](./files/ds001848_task-ParallelAdaptation_contrast-symnonsym4vphys4_map.png)
+![symnonsym4vphys4 Map](files/ds001848_task-ParallelAdaptation_contrast-symnonsym4vphys4_map.png)
 
 ### symnonsym4vcatch4
-![symnonsym4vcatch4 Map](./files/ds001848_task-ParallelAdaptation_contrast-symnonsym4vcatch4_map.png)
+![symnonsym4vcatch4 Map](files/ds001848_task-ParallelAdaptation_contrast-symnonsym4vcatch4_map.png)
 
 ### dist4v1
-![dist4v1 Map](./files/ds001848_task-ParallelAdaptation_contrast-dist4v1_map.png)
+![dist4v1 Map](files/ds001848_task-ParallelAdaptation_contrast-dist4v1_map.png)

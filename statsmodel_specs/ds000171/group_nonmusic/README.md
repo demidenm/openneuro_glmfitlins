@@ -90,7 +90,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000171_task-nonmusic_rsquare-mean.png)
+![R Square](files/ds000171_task-nonmusic_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -98,7 +98,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for nonmusic are:
@@ -106,31 +106,31 @@ None Subjects Flagged
 
 The distribution for subjects and runs in nonmusic are below. 
 
-![Dice](./files/ds000171_task-nonmusic_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000171_task-nonmusic_hist-voxoutmask.png)
+![Dice](files/ds000171_task-nonmusic_hist-dicesimilarity.png)
+![Voxels Out](files/ds000171_task-nonmusic_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### nonmusicvsounds
-![nonmusicvsounds Map](./files/ds000171_task-nonmusic_contrast-nonmusicvsounds_map.png)
+![nonmusicvsounds Map](files/ds000171_task-nonmusic_contrast-nonmusicvsounds_map.png)
 
 ### posnonmusicvnegnonmusic
-![posnonmusicvnegnonmusic Map](./files/ds000171_task-nonmusic_contrast-posnonmusicvnegnonmusic_map.png)
+![posnonmusicvnegnonmusic Map](files/ds000171_task-nonmusic_contrast-posnonmusicvnegnonmusic_map.png)
 
 ### negnonmusicvsounds
-![negnonmusicvsounds Map](./files/ds000171_task-nonmusic_contrast-negnonmusicvsounds_map.png)
+![negnonmusicvsounds Map](files/ds000171_task-nonmusic_contrast-negnonmusicvsounds_map.png)
 
 ### posnonmusicvsounds
-![posnonmusicvsounds Map](./files/ds000171_task-nonmusic_contrast-posnonmusicvsounds_map.png)
+![posnonmusicvsounds Map](files/ds000171_task-nonmusic_contrast-posnonmusicvsounds_map.png)
 
 ### posnonmusic
-![posnonmusic Map](./files/ds000171_task-nonmusic_contrast-posnonmusic_map.png)
+![posnonmusic Map](files/ds000171_task-nonmusic_contrast-posnonmusic_map.png)
 
 ### negnonmusic
-![negnonmusic Map](./files/ds000171_task-nonmusic_contrast-negnonmusic_map.png)
+![negnonmusic Map](files/ds000171_task-nonmusic_contrast-negnonmusic_map.png)
 
 ### tones
-![tones Map](./files/ds000171_task-nonmusic_contrast-tones_map.png)
+![tones Map](files/ds000171_task-nonmusic_contrast-tones_map.png)
 
 ### response
-![response Map](./files/ds000171_task-nonmusic_contrast-response_map.png)
+![response Map](files/ds000171_task-nonmusic_contrast-response_map.png)

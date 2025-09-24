@@ -1,6 +1,6 @@
 # ds003425: learning Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003425 learning is 2.4G with 1964 files.
+The size of the Fitlins Derivatives for ds003425 learning is 8.8M with 1964 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.nature.com/articles/s41598-022-05019-y).
 
@@ -80,7 +80,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds003425_task-learning_rsquare-mean.png)
+![R Square](files/ds003425_task-learning_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -88,30 +88,30 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for learning are:
-sub-02_ses-01_run-06, sub-04_ses-01_run-03, sub-04_ses-01_run-04
+None Subjects Flagged
 
 The distribution for subjects and runs in learning are below. 
 
-![Dice](./files/ds003425_task-learning_hist-dicesimilarity.png)
-![Voxels Out](./files/ds003425_task-learning_hist-voxoutmask.png)
+![Dice](files/ds003425_task-learning_hist-dicesimilarity.png)
+![Voxels Out](files/ds003425_task-learning_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### VCSPvVCSN
 
 #### ses-01
-![VCSPvVCSN ses-01 Map](./files/ds003425_task-learning_ses-01_contrast-VCSPvVCSN_map.png)
+![VCSPvVCSN ses-01 Map](files/ds003425_task-learning_ses-01_contrast-VCSPvVCSN_map.png)
 
 ### ICSPvICSN
 
 #### ses-01
-![ICSPvICSN ses-01 Map](./files/ds003425_task-learning_ses-01_contrast-ICSPvICSN_map.png)
+![ICSPvICSN ses-01 Map](files/ds003425_task-learning_ses-01_contrast-ICSPvICSN_map.png)
 
 ### VCSPshck
 
 #### ses-01
-![VCSPshck ses-01 Map](./files/ds003425_task-learning_ses-01_contrast-VCSPshck_map.png)
+![VCSPshck ses-01 Map](files/ds003425_task-learning_ses-01_contrast-VCSPshck_map.png)

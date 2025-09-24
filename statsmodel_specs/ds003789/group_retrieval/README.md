@@ -1,6 +1,6 @@
 # ds003789: retrieval Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003789 retrieval is 15G with 8972 files.
+The size of the Fitlins Derivatives for ds003789 retrieval is 38M with 8972 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1016/j.neuroimage.2022.119442).
 
@@ -96,7 +96,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds003789_task-retrieval_rsquare-mean.png)
+![R Square](files/ds003789_task-retrieval_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -104,7 +104,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for retrieval are:
@@ -112,40 +112,40 @@ None Subjects Flagged
 
 The distribution for subjects and runs in retrieval are below. 
 
-![Dice](./files/ds003789_task-retrieval_hist-dicesimilarity.png)
-![Voxels Out](./files/ds003789_task-retrieval_hist-voxoutmask.png)
+![Dice](files/ds003789_task-retrieval_hist-dicesimilarity.png)
+![Voxels Out](files/ds003789_task-retrieval_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### targetoldvfoilnew
-![targetoldvfoilnew Map](./files/ds003789_task-retrieval_contrast-targetoldvfoilnew_map.png)
+![targetoldvfoilnew Map](files/ds003789_task-retrieval_contrast-targetoldvfoilnew_map.png)
 
 ### targetoldvlureold
-![targetoldvlureold Map](./files/ds003789_task-retrieval_contrast-targetoldvlureold_map.png)
+![targetoldvlureold Map](files/ds003789_task-retrieval_contrast-targetoldvlureold_map.png)
 
 ### foilnewvlurenew
-![foilnewvlurenew Map](./files/ds003789_task-retrieval_contrast-foilnewvlurenew_map.png)
+![foilnewvlurenew Map](files/ds003789_task-retrieval_contrast-foilnewvlurenew_map.png)
 
 ### lureoldvslurenew
-![lureoldvslurenew Map](./files/ds003789_task-retrieval_contrast-lureoldvslurenew_map.png)
+![lureoldvslurenew Map](files/ds003789_task-retrieval_contrast-lureoldvslurenew_map.png)
 
 ### oldvsnew
-![oldvsnew Map](./files/ds003789_task-retrieval_contrast-oldvsnew_map.png)
+![oldvsnew Map](files/ds003789_task-retrieval_contrast-oldvsnew_map.png)
 
 ### targetold
-![targetold Map](./files/ds003789_task-retrieval_contrast-targetold_map.png)
+![targetold Map](files/ds003789_task-retrieval_contrast-targetold_map.png)
 
 ### lureold
-![lureold Map](./files/ds003789_task-retrieval_contrast-lureold_map.png)
+![lureold Map](files/ds003789_task-retrieval_contrast-lureold_map.png)
 
 ### foilnew
-![foilnew Map](./files/ds003789_task-retrieval_contrast-foilnew_map.png)
+![foilnew Map](files/ds003789_task-retrieval_contrast-foilnew_map.png)
 
 ### lurenew
-![lurenew Map](./files/ds003789_task-retrieval_contrast-lurenew_map.png)
+![lurenew Map](files/ds003789_task-retrieval_contrast-lurenew_map.png)
 
 ### alllure
-![alllure Map](./files/ds003789_task-retrieval_contrast-alllure_map.png)
+![alllure Map](files/ds003789_task-retrieval_contrast-alllure_map.png)
 
 ### rt
-![rt Map](./files/ds003789_task-retrieval_contrast-rt_map.png)
+![rt Map](files/ds003789_task-retrieval_contrast-rt_map.png)

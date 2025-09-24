@@ -1,6 +1,6 @@
 # ds001715: dts Task Analysis Report
 
-The size of the Fitlins Derivatives for ds001715 dts is 87M with 21056 files.
+The size of the Fitlins Derivatives for ds001715 dts is 88M with 21056 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.nature.com/articles/s41467-018-04841-1).
 
@@ -87,7 +87,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds001715_task-dts_rsquare-mean.png)
+![R Square](files/ds001715_task-dts_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -95,7 +95,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for dts are:
@@ -103,28 +103,28 @@ None Subjects Flagged
 
 The distribution for subjects and runs in dts are below. 
 
-![Dice](./files/ds001715_task-dts_hist-dicesimilarity.png)
-![Voxels Out](./files/ds001715_task-dts_hist-voxoutmask.png)
+![Dice](files/ds001715_task-dts_hist-dicesimilarity.png)
+![Voxels Out](files/ds001715_task-dts_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### motionaligneffect
-![motionaligneffect Map](./files/ds001715_task-dts_contrast-motionaligneffect_map.png)
+![motionaligneffect Map](files/ds001715_task-dts_contrast-motionaligneffect_map.png)
 
 ### coloraligneffect
-![coloraligneffect Map](./files/ds001715_task-dts_contrast-coloraligneffect_map.png)
+![coloraligneffect Map](files/ds001715_task-dts_contrast-coloraligneffect_map.png)
 
 ### alignmotionvcolor
-![alignmotionvcolor Map](./files/ds001715_task-dts_contrast-alignmotionvcolor_map.png)
+![alignmotionvcolor Map](files/ds001715_task-dts_contrast-alignmotionvcolor_map.png)
 
 ### absmotioneffect
-![absmotioneffect Map](./files/ds001715_task-dts_contrast-absmotioneffect_map.png)
+![absmotioneffect Map](files/ds001715_task-dts_contrast-absmotioneffect_map.png)
 
 ### abscolorneffect
-![abscolorneffect Map](./files/ds001715_task-dts_contrast-abscolorneffect_map.png)
+![abscolorneffect Map](files/ds001715_task-dts_contrast-abscolorneffect_map.png)
 
 ### absmotionvcolor
-![absmotionvcolor Map](./files/ds001715_task-dts_contrast-absmotionvcolor_map.png)
+![absmotionvcolor Map](files/ds001715_task-dts_contrast-absmotionvcolor_map.png)
 
 ### rt
-![rt Map](./files/ds001715_task-dts_contrast-rt_map.png)
+![rt Map](files/ds001715_task-dts_contrast-rt_map.png)

@@ -59,7 +59,7 @@ trans_x, trans_x_derivative1, trans_x_derivative1_power2, trans_x_power2, trans_
 
 - **motorvpseudo**: 1*`trial_type.motor` - 1*`trial_type.pseudo`
 
-- **lexicalvprelexical**: 0.33*`trial_type.mental` + 0.33*`trial_type.mental ` + 0.33*`trial_type.motor` - 1*`trial_type.symbol`
+- **lexicalvprelexical**: 0.5*`trial_type.mental` + 0.5*`trial_type.motor` + 0.33*`trial_type.symbol`
 
 - **pseudovsymbol**: 1*`trial_type.pseudo` - 1*`trial_type.symbol`
 
@@ -94,11 +94,11 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for verbs are:
-sub-123_run-01, sub-123_run-02, sub-123_run-03, sub-123_run-04, sub-123_run-07, sub-123_run-08, sub-128_run-01, sub-128_run-02, sub-128_run-03, sub-128_run-06, sub-128_run-07, sub-129_run-01, sub-129_run-02, sub-129_run-03, sub-129_run-04, sub-129_run-05, sub-129_run-06, sub-129_run-07, sub-129_run-08, sub-130_run-02, sub-130_run-03, sub-130_run-04, sub-130_run-05, sub-132_run-01, sub-132_run-05, sub-132_run-07, sub-133_run-02, sub-133_run-08, sub-135_run-01, sub-135_run-06, sub-135_run-08, sub-137_run-01, sub-137_run-06, sub-140_run-02, sub-140_run-04, sub-141_run-02, sub-141_run-03, sub-141_run-07, sub-142_run-01, sub-142_run-02, sub-142_run-03, sub-142_run-04, sub-142_run-05, sub-142_run-06, sub-142_run-07, sub-143_run-01, sub-143_run-02, sub-143_run-03, sub-143_run-04, sub-143_run-05, sub-143_run-06, sub-143_run-07, sub-143_run-08, sub-144_run-01, sub-144_run-03, sub-144_run-05, sub-144_run-06, sub-144_run-07, sub-144_run-08, sub-145_run-01, sub-145_run-04, sub-145_run-05, sub-145_run-07
+sub-123_run-07, sub-128_run-07, sub-129_run-02, sub-129_run-03, sub-129_run-04, sub-129_run-05, sub-129_run-06, sub-130_run-02, sub-133_run-02, sub-133_run-08, sub-135_run-01, sub-135_run-06, sub-135_run-08, sub-143_run-07, sub-144_run-03, sub-144_run-05
 
 The distribution for subjects and runs in verbs are below. 
 

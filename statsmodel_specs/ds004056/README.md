@@ -15,6 +15,10 @@
 - **BOLD Volumes**: 367
 - **Unique 'trial_type' Values**: Inst_VM, DOOR-VM-no-go, Inst_CON, DOOR-CON, Inst_VG, DOOR-VG-go, DOOR-VM-go, DOOR-VG-no-go
 
+**Count Summaries**:
+
+![GDMotor GDMotor_session_summary.png](basics_out/GDMotor_session_summary.png)
+
 ## MRIQC Summary Reports
 - [group_T1w.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds004056/mriqc_summary/group_T1w.html)
 - [group_T2w.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds004056/mriqc_summary/group_T2w.html)

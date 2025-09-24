@@ -1,6 +1,6 @@
 # ds003425: regulate Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003425 regulate is 1.5G with 1238 files.
+The size of the Fitlins Derivatives for ds003425 regulate is 5.8M with 1238 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.nature.com/articles/s41598-022-05019-y).
 
@@ -78,7 +78,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds003425_task-regulate_rsquare-mean.png)
+![R Square](files/ds003425_task-regulate_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -86,7 +86,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for regulate are:
@@ -94,17 +94,17 @@ None Subjects Flagged
 
 The distribution for subjects and runs in regulate are below. 
 
-![Dice](./files/ds003425_task-regulate_hist-dicesimilarity.png)
-![Voxels Out](./files/ds003425_task-regulate_hist-voxoutmask.png)
+![Dice](files/ds003425_task-regulate_hist-dicesimilarity.png)
+![Voxels Out](files/ds003425_task-regulate_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### dwnreg
 
 #### ses-02
-![dwnreg ses-02 Map](./files/ds003425_task-regulate_ses-02_contrast-dwnreg_map.png)
+![dwnreg ses-02 Map](files/ds003425_task-regulate_ses-02_contrast-dwnreg_map.png)
 
 ### upreg
 
 #### ses-02
-![upreg ses-02 Map](./files/ds003425_task-regulate_ses-02_contrast-upreg_map.png)
+![upreg ses-02 Map](files/ds003425_task-regulate_ses-02_contrast-upreg_map.png)

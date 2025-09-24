@@ -1,6 +1,6 @@
 # ds000255: viewRandom Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000255 viewRandom is 2.4M with 518 files.
+The size of the Fitlins Derivatives for ds000255 viewRandom is 2.5M with 518 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.cell.com/fulltext/S0896-6273%2808%2900958-6).
 
@@ -76,7 +76,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000255_task-viewRandom_rsquare-mean.png)
+![R Square](files/ds000255_task-viewRandom_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -84,23 +84,23 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for viewRandom are:
-sub-01_ses-01_run-01, sub-01_ses-01_run-02, sub-01_ses-01_run-04, sub-01_ses-01_run-05, sub-01_ses-01_run-07, sub-01_ses-01_run-08, sub-01_ses-01_run-11, sub-01_ses-02_run-01, sub-01_ses-02_run-10, sub-01_ses-02_run-11, sub-01_ses-02_run-13, sub-01_ses-02_run-14, sub-02_ses-01_run-01, sub-02_ses-01_run-02, sub-02_ses-01_run-04, sub-02_ses-01_run-05, sub-02_ses-01_run-07, sub-02_ses-01_run-08, sub-02_ses-01_run-10, sub-02_ses-01_run-11, sub-02_ses-01_run-13, sub-02_ses-01_run-14, sub-02_ses-02_run-01, sub-02_ses-02_run-02, sub-02_ses-02_run-04, sub-02_ses-02_run-05, sub-02_ses-02_run-07, sub-02_ses-02_run-08, sub-02_ses-02_run-10, sub-02_ses-02_run-11, sub-02_ses-02_run-13, sub-02_ses-02_run-14
+sub-02_ses-01_run-14
 
 The distribution for subjects and runs in viewRandom are below. 
 
-![Dice](./files/ds000255_task-viewRandom_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000255_task-viewRandom_hist-voxoutmask.png)
+![Dice](files/ds000255_task-viewRandom_hist-dicesimilarity.png)
+![Voxels Out](files/ds000255_task-viewRandom_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### random
 
 #### ses-02
-![random ses-02 Map](./files/ds000255_task-viewRandom_ses-02_contrast-random_map.png)
+![random ses-02 Map](files/ds000255_task-viewRandom_ses-02_contrast-random_map.png)
 
 #### ses-01
-![random ses-01 Map](./files/ds000255_task-viewRandom_ses-01_contrast-random_map.png)
+![random ses-01 Map](files/ds000255_task-viewRandom_ses-01_contrast-random_map.png)

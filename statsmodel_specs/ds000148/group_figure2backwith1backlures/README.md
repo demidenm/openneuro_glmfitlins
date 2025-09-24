@@ -80,7 +80,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000148_task-figure2backwith1backlures_rsquare-mean.png)
+![R Square](files/ds000148_task-figure2backwith1backlures_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -88,27 +88,27 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for figure2backwith1backlures are:
-sub-01_run-01, sub-01_run-02, sub-04_run-02, sub-05_run-01, sub-05_run-02, sub-06_run-02, sub-10_run-01, sub-13_run-01, sub-14_run-02, sub-14_run-03, sub-15_run-02, sub-16_run-01, sub-16_run-03, sub-18_run-01, sub-19_run-01, sub-21_run-01, sub-21_run-02, sub-21_run-03, sub-22_run-01, sub-22_run-02, sub-23_run-01, sub-24_run-02, sub-25_run-01, sub-25_run-02, sub-25_run-03, sub-29_run-03, sub-32_run-01, sub-32_run-03, sub-33_run-01, sub-33_run-02, sub-33_run-03, sub-35_run-03, sub-36_run-02, sub-38_run-02, sub-39_run-01, sub-39_run-02, sub-39_run-03, sub-42_run-03, sub-43_run-01, sub-43_run-02, sub-44_run-02, sub-45_run-01, sub-45_run-02, sub-46_run-02, sub-46_run-03, sub-48_run-01
+sub-04_run-02, sub-05_run-02, sub-15_run-02, sub-22_run-01, sub-22_run-02, sub-25_run-03, sub-29_run-03, sub-32_run-03, sub-33_run-01, sub-33_run-02, sub-33_run-03, sub-35_run-03, sub-42_run-03, sub-43_run-02, sub-45_run-01, sub-46_run-02, sub-46_run-03, sub-48_run-01
 
 The distribution for subjects and runs in figure2backwith1backlures are below. 
 
-![Dice](./files/ds000148_task-figure2backwith1backlures_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000148_task-figure2backwith1backlures_hist-voxoutmask.png)
+![Dice](files/ds000148_task-figure2backwith1backlures_hist-dicesimilarity.png)
+![Voxels Out](files/ds000148_task-figure2backwith1backlures_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### distractcorr
-![distractcorr Map](./files/ds000148_task-figure2backwith1backlures_contrast-distractcorr_map.png)
+![distractcorr Map](files/ds000148_task-figure2backwith1backlures_contrast-distractcorr_map.png)
 
 ### lurecorr
-![lurecorr Map](./files/ds000148_task-figure2backwith1backlures_contrast-lurecorr_map.png)
+![lurecorr Map](files/ds000148_task-figure2backwith1backlures_contrast-lurecorr_map.png)
 
 ### targethit
-![targethit Map](./files/ds000148_task-figure2backwith1backlures_contrast-targethit_map.png)
+![targethit Map](files/ds000148_task-figure2backwith1backlures_contrast-targethit_map.png)
 
 ### hittargetvlure
-![hittargetvlure Map](./files/ds000148_task-figure2backwith1backlures_contrast-hittargetvlure_map.png)
+![hittargetvlure Map](files/ds000148_task-figure2backwith1backlures_contrast-hittargetvlure_map.png)

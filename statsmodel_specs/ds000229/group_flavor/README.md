@@ -104,7 +104,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000229_task-flavor_rsquare-mean.png)
+![R Square](files/ds000229_task-flavor_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -112,7 +112,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for flavor are:
@@ -120,52 +120,52 @@ sub-07_run-01, sub-07_run-02, sub-07_run-03
 
 The distribution for subjects and runs in flavor are below. 
 
-![Dice](./files/ds000229_task-flavor_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000229_task-flavor_hist-voxoutmask.png)
+![Dice](files/ds000229_task-flavor_hist-dicesimilarity.png)
+![Voxels Out](files/ds000229_task-flavor_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### rinse
-![rinse Map](./files/ds000229_task-flavor_contrast-rinse_map.png)
+![rinse Map](files/ds000229_task-flavor_contrast-rinse_map.png)
 
 ### tasteless
-![tasteless Map](./files/ds000229_task-flavor_contrast-tasteless_map.png)
+![tasteless Map](files/ds000229_task-flavor_contrast-tasteless_map.png)
 
 ### tastelessvrinse
-![tastelessvrinse Map](./files/ds000229_task-flavor_contrast-tastelessvrinse_map.png)
+![tastelessvrinse Map](files/ds000229_task-flavor_contrast-tastelessvrinse_map.png)
 
 ### cs150
-![cs150 Map](./files/ds000229_task-flavor_contrast-cs150_map.png)
+![cs150 Map](files/ds000229_task-flavor_contrast-cs150_map.png)
 
 ### cs112
-![cs112 Map](./files/ds000229_task-flavor_contrast-cs112_map.png)
+![cs112 Map](files/ds000229_task-flavor_contrast-cs112_map.png)
 
 ### cs75
-![cs75 Map](./files/ds000229_task-flavor_contrast-cs75_map.png)
+![cs75 Map](files/ds000229_task-flavor_contrast-cs75_map.png)
 
 ### csabovevbelow100
-![csabovevbelow100 Map](./files/ds000229_task-flavor_contrast-csabovevbelow100_map.png)
+![csabovevbelow100 Map](files/ds000229_task-flavor_contrast-csabovevbelow100_map.png)
 
 ### csthirtyseven
-![csthirtyseven Map](./files/ds000229_task-flavor_contrast-csthirtyseven_map.png)
+![csthirtyseven Map](files/ds000229_task-flavor_contrast-csthirtyseven_map.png)
 
 ### cszero
-![cszero Map](./files/ds000229_task-flavor_contrast-cszero_map.png)
+![cszero Map](files/ds000229_task-flavor_contrast-cszero_map.png)
 
 ### csbelow100v0
-![csbelow100v0 Map](./files/ds000229_task-flavor_contrast-csbelow100v0_map.png)
+![csbelow100v0 Map](files/ds000229_task-flavor_contrast-csbelow100v0_map.png)
 
 ### csabove100v0
-![csabove100v0 Map](./files/ds000229_task-flavor_contrast-csabove100v0_map.png)
+![csabove100v0 Map](files/ds000229_task-flavor_contrast-csabove100v0_map.png)
 
 ### allcsvrinse
-![allcsvrinse Map](./files/ds000229_task-flavor_contrast-allcsvrinse_map.png)
+![allcsvrinse Map](files/ds000229_task-flavor_contrast-allcsvrinse_map.png)
 
 ### allcsvtasteless
-![allcsvtasteless Map](./files/ds000229_task-flavor_contrast-allcsvtasteless_map.png)
+![allcsvtasteless Map](files/ds000229_task-flavor_contrast-allcsvtasteless_map.png)
 
 ### paperfig3a
-![paperfig3a Map](./files/ds000229_task-flavor_contrast-paperfig3a_map.png)
+![paperfig3a Map](files/ds000229_task-flavor_contrast-paperfig3a_map.png)
 
 ### paperfig3b
-![paperfig3b Map](./files/ds000229_task-flavor_contrast-paperfig3b_map.png)
+![paperfig3b Map](files/ds000229_task-flavor_contrast-paperfig3b_map.png)

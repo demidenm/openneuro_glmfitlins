@@ -1,6 +1,6 @@
 # ds000008: conditionalstopsignal Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000008 conditionalstopsignal is 8.9M with 2102 files.
+The size of the Fitlins Derivatives for ds000008 conditionalstopsignal is 9.0M with 2102 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1523/JNEUROSCI.0519-07.2007).
 
@@ -86,7 +86,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000008_task-conditionalstopsignal_rsquare-mean.png)
+![R Square](files/ds000008_task-conditionalstopsignal_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -94,33 +94,33 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for conditionalstopsignal are:
-sub-04_run-01, sub-04_run-02, sub-04_run-03
+None Subjects Flagged
 
 The distribution for subjects and runs in conditionalstopsignal are below. 
 
-![Dice](./files/ds000008_task-conditionalstopsignal_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000008_task-conditionalstopsignal_hist-voxoutmask.png)
+![Dice](files/ds000008_task-conditionalstopsignal_hist-dicesimilarity.png)
+![Voxels Out](files/ds000008_task-conditionalstopsignal_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### failstopcritvnoncrit
-![failstopcritvnoncrit Map](./files/ds000008_task-conditionalstopsignal_contrast-failstopcritvnoncrit_map.png)
+![failstopcritvnoncrit Map](files/ds000008_task-conditionalstopsignal_contrast-failstopcritvnoncrit_map.png)
 
 ### successstopcritvgocrit
-![successstopcritvgocrit Map](./files/ds000008_task-conditionalstopsignal_contrast-successstopcritvgocrit_map.png)
+![successstopcritvgocrit Map](files/ds000008_task-conditionalstopsignal_contrast-successstopcritvgocrit_map.png)
 
 ### failstopcritvgocrit
-![failstopcritvgocrit Map](./files/ds000008_task-conditionalstopsignal_contrast-failstopcritvgocrit_map.png)
+![failstopcritvgocrit Map](files/ds000008_task-conditionalstopsignal_contrast-failstopcritvgocrit_map.png)
 
 ### successstopcritvfailstopcrit
-![successstopcritvfailstopcrit Map](./files/ds000008_task-conditionalstopsignal_contrast-successstopcritvfailstopcrit_map.png)
+![successstopcritvfailstopcrit Map](files/ds000008_task-conditionalstopsignal_contrast-successstopcritvfailstopcrit_map.png)
 
 ### allstopcritvgocrit
-![allstopcritvgocrit Map](./files/ds000008_task-conditionalstopsignal_contrast-allstopcritvgocrit_map.png)
+![allstopcritvgocrit Map](files/ds000008_task-conditionalstopsignal_contrast-allstopcritvgocrit_map.png)
 
 ### rt
-![rt Map](./files/ds000008_task-conditionalstopsignal_contrast-rt_map.png)
+![rt Map](files/ds000008_task-conditionalstopsignal_contrast-rt_map.png)

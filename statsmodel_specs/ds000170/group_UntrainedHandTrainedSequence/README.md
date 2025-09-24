@@ -80,7 +80,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000170_task-UntrainedHandTrainedSequence_rsquare-mean.png)
+![R Square](files/ds000170_task-UntrainedHandTrainedSequence_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -88,24 +88,24 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for UntrainedHandTrainedSequence are:
-sub-1701_run-1, sub-1701_run-2, sub-1701_run-3, sub-1708_run-2, sub-1708_run-3, sub-1719_run-1, sub-1719_run-2, sub-1719_run-3
+None Subjects Flagged
 
 The distribution for subjects and runs in UntrainedHandTrainedSequence are below. 
 
-![Dice](./files/ds000170_task-UntrainedHandTrainedSequence_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000170_task-UntrainedHandTrainedSequence_hist-voxoutmask.png)
+![Dice](files/ds000170_task-UntrainedHandTrainedSequence_hist-dicesimilarity.png)
+![Voxels Out](files/ds000170_task-UntrainedHandTrainedSequence_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### perf1
-![perf1 Map](./files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf1_map.png)
+![perf1 Map](files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf1_map.png)
 
 ### perf2
-![perf2 Map](./files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf2_map.png)
+![perf2 Map](files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf2_map.png)
 
 ### perf2v1
-![perf2v1 Map](./files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf2v1_map.png)
+![perf2v1 Map](files/ds000170_task-UntrainedHandTrainedSequence_contrast-perf2v1_map.png)

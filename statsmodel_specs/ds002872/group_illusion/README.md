@@ -1,6 +1,6 @@
 # ds002872: illusion Task Analysis Report
 
-The size of the Fitlins Derivatives for ds002872 illusion is 13G with 8036 files.
+The size of the Fitlins Derivatives for ds002872 illusion is 34M with 8036 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.sciencedirect.com/science/article/pii/S1053811920305425).
 
@@ -86,7 +86,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds002872_task-illusion_rsquare-mean.png)
+![R Square](files/ds002872_task-illusion_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -94,33 +94,33 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for illusion are:
-sub-04_run-01, sub-04_run-02, sub-04_run-04, sub-15_run-01, sub-15_run-02, sub-15_run-03, sub-15_run-04, sub-32_run-01, sub-32_run-02, sub-32_run-03, sub-32_run-04
+None Subjects Flagged
 
 The distribution for subjects and runs in illusion are below. 
 
-![Dice](./files/ds002872_task-illusion_hist-dicesimilarity.png)
-![Voxels Out](./files/ds002872_task-illusion_hist-voxoutmask.png)
+![Dice](files/ds002872_task-illusion_hist-dicesimilarity.png)
+![Voxels Out](files/ds002872_task-illusion_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### vibration
-![vibration Map](./files/ds002872_task-illusion_contrast-vibration_map.png)
+![vibration Map](files/ds002872_task-illusion_contrast-vibration_map.png)
 
 ### texture
-![texture Map](./files/ds002872_task-illusion_contrast-texture_map.png)
+![texture Map](files/ds002872_task-illusion_contrast-texture_map.png)
 
 ### highvlow
-![highvlow Map](./files/ds002872_task-illusion_contrast-highvlow_map.png)
+![highvlow Map](files/ds002872_task-illusion_contrast-highvlow_map.png)
 
 ### texturevpnevib
-![texturevpnevib Map](./files/ds002872_task-illusion_contrast-texturevpnevib_map.png)
+![texturevpnevib Map](files/ds002872_task-illusion_contrast-texturevpnevib_map.png)
 
 ### vibrationhighvlow
-![vibrationhighvlow Map](./files/ds002872_task-illusion_contrast-vibrationhighvlow_map.png)
+![vibrationhighvlow Map](files/ds002872_task-illusion_contrast-vibrationhighvlow_map.png)
 
 ### texturehighvlow
-![texturehighvlow Map](./files/ds002872_task-illusion_contrast-texturehighvlow_map.png)
+![texturehighvlow Map](files/ds002872_task-illusion_contrast-texturehighvlow_map.png)

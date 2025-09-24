@@ -1,6 +1,6 @@
 # ds005012: mid Task Analysis Report
 
-The size of the Fitlins Derivatives for ds005012 mid is 56G with 33673 files.
+The size of the Fitlins Derivatives for ds005012 mid is 56G with 35594 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1016/j.dcn.2023.101337), [Paper 2](https://doi.org/10.1162/imag_a_00262).
 
@@ -114,11 +114,11 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for mid are:
-sub-65_ses-1_run-01, sub-65_ses-1_run-02, sub-77_ses-2_run-01
+sub-77_ses-2_run-01
 
 The distribution for subjects and runs in mid are below. 
 

@@ -1,6 +1,6 @@
 # ds002033: ChangeDetection Task Analysis Report
 
-The size of the Fitlins Derivatives for ds002033 ChangeDetection is 9.1G with 5786 files.
+The size of the Fitlins Derivatives for ds002033 ChangeDetection is 25M with 5786 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://royalsocietypublishing.org/doi/10.1098/rsos.182067).
 
@@ -82,7 +82,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds002033_task-ChangeDetection_rsquare-mean.png)
+![R Square](files/ds002033_task-ChangeDetection_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -90,27 +90,27 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for ChangeDetection are:
-sub-13_run-01, sub-13_run-02, sub-13_run-03, sub-13_run-04, sub-36_run-02, sub-36_run-03, sub-36_run-04, sub-42_run-01, sub-42_run-02, sub-42_run-03, sub-42_run-04
+None Subjects Flagged
 
 The distribution for subjects and runs in ChangeDetection are below. 
 
-![Dice](./files/ds002033_task-ChangeDetection_hist-dicesimilarity.png)
-![Voxels Out](./files/ds002033_task-ChangeDetection_hist-voxoutmask.png)
+![Dice](files/ds002033_task-ChangeDetection_hist-dicesimilarity.png)
+![Voxels Out](files/ds002033_task-ChangeDetection_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### digitsvletter
-![digitsvletter Map](./files/ds002033_task-ChangeDetection_contrast-digitsvletter_map.png)
+![digitsvletter Map](files/ds002033_task-ChangeDetection_contrast-digitsvletter_map.png)
 
 ### srmdigitsvsrmletters
-![srmdigitsvsrmletters Map](./files/ds002033_task-ChangeDetection_contrast-srmdigitsvsrmletters_map.png)
+![srmdigitsvsrmletters Map](files/ds002033_task-ChangeDetection_contrast-srmdigitsvsrmletters_map.png)
 
 ### digits
-![digits Map](./files/ds002033_task-ChangeDetection_contrast-digits_map.png)
+![digits Map](files/ds002033_task-ChangeDetection_contrast-digits_map.png)
 
 ### letters
-![letters Map](./files/ds002033_task-ChangeDetection_contrast-letters_map.png)
+![letters Map](files/ds002033_task-ChangeDetection_contrast-letters_map.png)

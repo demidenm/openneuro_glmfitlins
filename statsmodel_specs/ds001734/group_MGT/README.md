@@ -1,6 +1,6 @@
 # ds001734: MGT Task Analysis Report
 
-The size of the Fitlins Derivatives for ds001734 MGT is 28G with 18824 files.
+The size of the Fitlins Derivatives for ds001734 MGT is 81M with 18824 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.nature.com/articles/s41597-019-0113-7), [Paper 2](https://www.nature.com/articles/s41586-020-2314-9).
 
@@ -83,7 +83,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds001734_task-MGT_rsquare-mean.png)
+![R Square](files/ds001734_task-MGT_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -91,30 +91,30 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for MGT are:
-sub-006_run-1, sub-037_run-2, sub-095_run-2
+sub-006_run-1, sub-037_run-2
 
 The distribution for subjects and runs in MGT are below. 
 
-![Dice](./files/ds001734_task-MGT_hist-dicesimilarity.png)
-![Voxels Out](./files/ds001734_task-MGT_hist-voxoutmask.png)
+![Dice](files/ds001734_task-MGT_hist-dicesimilarity.png)
+![Voxels Out](files/ds001734_task-MGT_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### alltrials
-![alltrials Map](./files/ds001734_task-MGT_contrast-alltrials_map.png)
+![alltrials Map](files/ds001734_task-MGT_contrast-alltrials_map.png)
 
 ### gain
-![gain Map](./files/ds001734_task-MGT_contrast-gain_map.png)
+![gain Map](files/ds001734_task-MGT_contrast-gain_map.png)
 
 ### loss
-![loss Map](./files/ds001734_task-MGT_contrast-loss_map.png)
+![loss Map](files/ds001734_task-MGT_contrast-loss_map.png)
 
 ### gainvloss
-![gainvloss Map](./files/ds001734_task-MGT_contrast-gainvloss_map.png)
+![gainvloss Map](files/ds001734_task-MGT_contrast-gainvloss_map.png)
 
 ### rt
-![rt Map](./files/ds001734_task-MGT_contrast-rt_map.png)
+![rt Map](files/ds001734_task-MGT_contrast-rt_map.png)

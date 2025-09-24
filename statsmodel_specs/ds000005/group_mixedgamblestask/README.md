@@ -1,6 +1,6 @@
 # ds000005: mixedgamblestask Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000005 mixedgamblestask is 3.2G with 2240 files.
+The size of the Fitlins Derivatives for ds000005 mixedgamblestask is 9.6M with 2240 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://science.org/doi/10.1126/science.1134239).
 
@@ -83,7 +83,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000005_task-mixedgamblestask_rsquare-mean.png)
+![R Square](files/ds000005_task-mixedgamblestask_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -91,7 +91,7 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for mixedgamblestask are:
@@ -99,22 +99,22 @@ None Subjects Flagged
 
 The distribution for subjects and runs in mixedgamblestask are below. 
 
-![Dice](./files/ds000005_task-mixedgamblestask_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000005_task-mixedgamblestask_hist-voxoutmask.png)
+![Dice](files/ds000005_task-mixedgamblestask_hist-dicesimilarity.png)
+![Voxels Out](files/ds000005_task-mixedgamblestask_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### paragain
-![paragain Map](./files/ds000005_task-mixedgamblestask_contrast-paragain_map.png)
+![paragain Map](files/ds000005_task-mixedgamblestask_contrast-paragain_map.png)
 
 ### paragainvloss
-![paragainvloss Map](./files/ds000005_task-mixedgamblestask_contrast-paragainvloss_map.png)
+![paragainvloss Map](files/ds000005_task-mixedgamblestask_contrast-paragainvloss_map.png)
 
 ### paraloss
-![paraloss Map](./files/ds000005_task-mixedgamblestask_contrast-paraloss_map.png)
+![paraloss Map](files/ds000005_task-mixedgamblestask_contrast-paraloss_map.png)
 
 ### distindiff
-![distindiff Map](./files/ds000005_task-mixedgamblestask_contrast-distindiff_map.png)
+![distindiff Map](files/ds000005_task-mixedgamblestask_contrast-distindiff_map.png)
 
 ### rt
-![rt Map](./files/ds000005_task-mixedgamblestask_contrast-rt_map.png)
+![rt Map](files/ds000005_task-mixedgamblestask_contrast-rt_map.png)

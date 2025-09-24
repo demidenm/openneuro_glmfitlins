@@ -1,6 +1,6 @@
 # ds003831: identify2 Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003831 identify2 is 5.7G with 3938 files.
+The size of the Fitlins Derivatives for ds003831 identify2 is 17M with 3938 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376).
 
@@ -89,7 +89,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds003831_task-identify2_rsquare-mean.png)
+![R Square](files/ds003831_task-identify2_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -97,39 +97,39 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for identify2 are:
-sub-018, sub-060, sub-062, sub-083, sub-106
+None Subjects Flagged
 
 The distribution for subjects and runs in identify2 are below. 
 
-![Dice](./files/ds003831_task-identify2_hist-dicesimilarity.png)
-![Voxels Out](./files/ds003831_task-identify2_hist-voxoutmask.png)
+![Dice](files/ds003831_task-identify2_hist-dicesimilarity.png)
+![Voxels Out](files/ds003831_task-identify2_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### extrinsicvinstrinsic
-![extrinsicvinstrinsic Map](./files/ds003831_task-identify2_contrast-extrinsicvinstrinsic_map.png)
+![extrinsicvinstrinsic Map](files/ds003831_task-identify2_contrast-extrinsicvinstrinsic_map.png)
 
 ### prepvrecall
-![prepvrecall Map](./files/ds003831_task-identify2_contrast-prepvrecall_map.png)
+![prepvrecall Map](files/ds003831_task-identify2_contrast-prepvrecall_map.png)
 
 ### exstimarousal
-![exstimarousal Map](./files/ds003831_task-identify2_contrast-exstimarousal_map.png)
+![exstimarousal Map](files/ds003831_task-identify2_contrast-exstimarousal_map.png)
 
 ### exstimval
-![exstimval Map](./files/ds003831_task-identify2_contrast-exstimval_map.png)
+![exstimval Map](files/ds003831_task-identify2_contrast-exstimval_map.png)
 
 ### instimarousal
-![instimarousal Map](./files/ds003831_task-identify2_contrast-instimarousal_map.png)
+![instimarousal Map](files/ds003831_task-identify2_contrast-instimarousal_map.png)
 
 ### instimval
-![instimval Map](./files/ds003831_task-identify2_contrast-instimval_map.png)
+![instimval Map](files/ds003831_task-identify2_contrast-instimval_map.png)
 
 ### valinvexstim
-![valinvexstim Map](./files/ds003831_task-identify2_contrast-valinvexstim_map.png)
+![valinvexstim Map](files/ds003831_task-identify2_contrast-valinvexstim_map.png)
 
 ### arousalinvexstim
-![arousalinvexstim Map](./files/ds003831_task-identify2_contrast-arousalinvexstim_map.png)
+![arousalinvexstim Map](files/ds003831_task-identify2_contrast-arousalinvexstim_map.png)

@@ -76,7 +76,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000114_task-covertverbgeneration_rsquare-mean.png)
+![R Square](files/ds000114_task-covertverbgeneration_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -84,23 +84,23 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for covertverbgeneration are:
-sub-01_ses-retest, sub-01_ses-test, sub-02_ses-retest, sub-02_ses-test, sub-03_ses-retest, sub-03_ses-test, sub-04_ses-retest, sub-04_ses-test, sub-05_ses-retest, sub-05_ses-test, sub-06_ses-retest, sub-06_ses-test, sub-07_ses-retest, sub-07_ses-test, sub-08_ses-retest, sub-08_ses-test, sub-09_ses-retest, sub-09_ses-test, sub-10_ses-retest, sub-10_ses-test
+sub-05_ses-retest, sub-05_ses-test
 
 The distribution for subjects and runs in covertverbgeneration are below. 
 
-![Dice](./files/ds000114_task-covertverbgeneration_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000114_task-covertverbgeneration_hist-voxoutmask.png)
+![Dice](files/ds000114_task-covertverbgeneration_hist-dicesimilarity.png)
+![Voxels Out](files/ds000114_task-covertverbgeneration_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### task
 
 #### ses-test
-![task ses-test Map](./files/ds000114_task-covertverbgeneration_ses-test_contrast-task_map.png)
+![task ses-test Map](files/ds000114_task-covertverbgeneration_ses-test_contrast-task_map.png)
 
 #### ses-retest
-![task ses-retest Map](./files/ds000114_task-covertverbgeneration_ses-retest_contrast-task_map.png)
+![task ses-retest Map](files/ds000114_task-covertverbgeneration_ses-retest_contrast-task_map.png)

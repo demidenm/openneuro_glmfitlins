@@ -12,11 +12,18 @@
 - **BOLD Volumes**: 105
 - **Unique 'trial_type' Values**: tones, response, negative_music, positive_music
 
+**Count Summaries**:
+
+![music music_summary.png](basics_out/music_summary.png)
 ### Task: nonmusic
 - **Column Names**: onset, duration, trial_type
 - **Data Types**: onset (float64), duration (float64), trial_type (object)
 - **BOLD Volumes**: 105
 - **Unique 'trial_type' Values**: tones, response, positive_nonmusic, negative_nonmusic
+
+**Count Summaries**:
+
+![nonmusic nonmusic_summary.png](basics_out/nonmusic_summary.png)
 
 ## MRIQC Summary Reports
 - [group_T1w.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds000171/mriqc_summary/group_T1w.html)

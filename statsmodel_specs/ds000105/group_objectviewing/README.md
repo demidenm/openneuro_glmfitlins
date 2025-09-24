@@ -1,6 +1,6 @@
 # ds000105: objectviewing Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000105 objectviewing is 70M with 17276 files.
+The size of the Fitlins Derivatives for ds000105 objectviewing is 71M with 17276 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://doi.org/10.1126/science.1063736), [Paper 2](https://doi.org/10.1162/0898929053467550).
 
@@ -146,7 +146,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds000105_task-objectviewing_rsquare-mean.png)
+![R Square](files/ds000105_task-objectviewing_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -154,123 +154,123 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for objectviewing are:
-sub-4_run-1, sub-4_run-2, sub-4_run-3, sub-4_run-4, sub-4_run-5, sub-4_run-6, sub-4_run-7, sub-4_run-8, sub-4_run-9, sub-6_run-1, sub-6_run-10, sub-6_run-11, sub-6_run-12, sub-6_run-2, sub-6_run-3, sub-6_run-4, sub-6_run-5, sub-6_run-6, sub-6_run-7, sub-6_run-8, sub-6_run-9
+sub-6_run-10, sub-6_run-11, sub-6_run-12, sub-6_run-4, sub-6_run-6, sub-6_run-7, sub-6_run-8, sub-6_run-9
 
 The distribution for subjects and runs in objectviewing are below. 
 
-![Dice](./files/ds000105_task-objectviewing_hist-dicesimilarity.png)
-![Voxels Out](./files/ds000105_task-objectviewing_hist-voxoutmask.png)
+![Dice](files/ds000105_task-objectviewing_hist-dicesimilarity.png)
+![Voxels Out](files/ds000105_task-objectviewing_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### shoe
-![shoe Map](./files/ds000105_task-objectviewing_contrast-shoe_map.png)
+![shoe Map](files/ds000105_task-objectviewing_contrast-shoe_map.png)
 
 ### house
-![house Map](./files/ds000105_task-objectviewing_contrast-house_map.png)
+![house Map](files/ds000105_task-objectviewing_contrast-house_map.png)
 
 ### chair
-![chair Map](./files/ds000105_task-objectviewing_contrast-chair_map.png)
+![chair Map](files/ds000105_task-objectviewing_contrast-chair_map.png)
 
 ### cat
-![cat Map](./files/ds000105_task-objectviewing_contrast-cat_map.png)
+![cat Map](files/ds000105_task-objectviewing_contrast-cat_map.png)
 
 ### face
-![face Map](./files/ds000105_task-objectviewing_contrast-face_map.png)
+![face Map](files/ds000105_task-objectviewing_contrast-face_map.png)
 
 ### scrambledpix
-![scrambledpix Map](./files/ds000105_task-objectviewing_contrast-scrambledpix_map.png)
+![scrambledpix Map](files/ds000105_task-objectviewing_contrast-scrambledpix_map.png)
 
 ### bottle
-![bottle Map](./files/ds000105_task-objectviewing_contrast-bottle_map.png)
+![bottle Map](files/ds000105_task-objectviewing_contrast-bottle_map.png)
 
 ### scissors
-![scissors Map](./files/ds000105_task-objectviewing_contrast-scissors_map.png)
+![scissors Map](files/ds000105_task-objectviewing_contrast-scissors_map.png)
 
 ### shoevscrambpix
-![shoevscrambpix Map](./files/ds000105_task-objectviewing_contrast-shoevscrambpix_map.png)
+![shoevscrambpix Map](files/ds000105_task-objectviewing_contrast-shoevscrambpix_map.png)
 
 ### housevscrambpix
-![housevscrambpix Map](./files/ds000105_task-objectviewing_contrast-housevscrambpix_map.png)
+![housevscrambpix Map](files/ds000105_task-objectviewing_contrast-housevscrambpix_map.png)
 
 ### chairvscrambdpix
-![chairvscrambdpix Map](./files/ds000105_task-objectviewing_contrast-chairvscrambdpix_map.png)
+![chairvscrambdpix Map](files/ds000105_task-objectviewing_contrast-chairvscrambdpix_map.png)
 
 ### catvscrambpix
-![catvscrambpix Map](./files/ds000105_task-objectviewing_contrast-catvscrambpix_map.png)
+![catvscrambpix Map](files/ds000105_task-objectviewing_contrast-catvscrambpix_map.png)
 
 ### facevscrambpix
-![facevscrambpix Map](./files/ds000105_task-objectviewing_contrast-facevscrambpix_map.png)
+![facevscrambpix Map](files/ds000105_task-objectviewing_contrast-facevscrambpix_map.png)
 
 ### bottlevscrambpix
-![bottlevscrambpix Map](./files/ds000105_task-objectviewing_contrast-bottlevscrambpix_map.png)
+![bottlevscrambpix Map](files/ds000105_task-objectviewing_contrast-bottlevscrambpix_map.png)
 
 ### scissorsvscrambpix
-![scissorsvscrambpix Map](./files/ds000105_task-objectviewing_contrast-scissorsvscrambpix_map.png)
+![scissorsvscrambpix Map](files/ds000105_task-objectviewing_contrast-scissorsvscrambpix_map.png)
 
 ### shoevhouse
-![shoevhouse Map](./files/ds000105_task-objectviewing_contrast-shoevhouse_map.png)
+![shoevhouse Map](files/ds000105_task-objectviewing_contrast-shoevhouse_map.png)
 
 ### shoevchair
-![shoevchair Map](./files/ds000105_task-objectviewing_contrast-shoevchair_map.png)
+![shoevchair Map](files/ds000105_task-objectviewing_contrast-shoevchair_map.png)
 
 ### shoevcat
-![shoevcat Map](./files/ds000105_task-objectviewing_contrast-shoevcat_map.png)
+![shoevcat Map](files/ds000105_task-objectviewing_contrast-shoevcat_map.png)
 
 ### shoevface
-![shoevface Map](./files/ds000105_task-objectviewing_contrast-shoevface_map.png)
+![shoevface Map](files/ds000105_task-objectviewing_contrast-shoevface_map.png)
 
 ### shoevbottle
-![shoevbottle Map](./files/ds000105_task-objectviewing_contrast-shoevbottle_map.png)
+![shoevbottle Map](files/ds000105_task-objectviewing_contrast-shoevbottle_map.png)
 
 ### shoevsscissors
-![shoevsscissors Map](./files/ds000105_task-objectviewing_contrast-shoevsscissors_map.png)
+![shoevsscissors Map](files/ds000105_task-objectviewing_contrast-shoevsscissors_map.png)
 
 ### housevchair
-![housevchair Map](./files/ds000105_task-objectviewing_contrast-housevchair_map.png)
+![housevchair Map](files/ds000105_task-objectviewing_contrast-housevchair_map.png)
 
 ### housevcat
-![housevcat Map](./files/ds000105_task-objectviewing_contrast-housevcat_map.png)
+![housevcat Map](files/ds000105_task-objectviewing_contrast-housevcat_map.png)
 
 ### housevface
-![housevface Map](./files/ds000105_task-objectviewing_contrast-housevface_map.png)
+![housevface Map](files/ds000105_task-objectviewing_contrast-housevface_map.png)
 
 ### housevbottle
-![housevbottle Map](./files/ds000105_task-objectviewing_contrast-housevbottle_map.png)
+![housevbottle Map](files/ds000105_task-objectviewing_contrast-housevbottle_map.png)
 
 ### housevsscissors
-![housevsscissors Map](./files/ds000105_task-objectviewing_contrast-housevsscissors_map.png)
+![housevsscissors Map](files/ds000105_task-objectviewing_contrast-housevsscissors_map.png)
 
 ### chairvcat
-![chairvcat Map](./files/ds000105_task-objectviewing_contrast-chairvcat_map.png)
+![chairvcat Map](files/ds000105_task-objectviewing_contrast-chairvcat_map.png)
 
 ### chairvface
-![chairvface Map](./files/ds000105_task-objectviewing_contrast-chairvface_map.png)
+![chairvface Map](files/ds000105_task-objectviewing_contrast-chairvface_map.png)
 
 ### chairvbottle
-![chairvbottle Map](./files/ds000105_task-objectviewing_contrast-chairvbottle_map.png)
+![chairvbottle Map](files/ds000105_task-objectviewing_contrast-chairvbottle_map.png)
 
 ### chairvsscissors
-![chairvsscissors Map](./files/ds000105_task-objectviewing_contrast-chairvsscissors_map.png)
+![chairvsscissors Map](files/ds000105_task-objectviewing_contrast-chairvsscissors_map.png)
 
 ### catvface
-![catvface Map](./files/ds000105_task-objectviewing_contrast-catvface_map.png)
+![catvface Map](files/ds000105_task-objectviewing_contrast-catvface_map.png)
 
 ### catvbottle
-![catvbottle Map](./files/ds000105_task-objectviewing_contrast-catvbottle_map.png)
+![catvbottle Map](files/ds000105_task-objectviewing_contrast-catvbottle_map.png)
 
 ### catvsscissors
-![catvsscissors Map](./files/ds000105_task-objectviewing_contrast-catvsscissors_map.png)
+![catvsscissors Map](files/ds000105_task-objectviewing_contrast-catvsscissors_map.png)
 
 ### facevbottle
-![facevbottle Map](./files/ds000105_task-objectviewing_contrast-facevbottle_map.png)
+![facevbottle Map](files/ds000105_task-objectviewing_contrast-facevbottle_map.png)
 
 ### facevsscissors
-![facevsscissors Map](./files/ds000105_task-objectviewing_contrast-facevsscissors_map.png)
+![facevsscissors Map](files/ds000105_task-objectviewing_contrast-facevsscissors_map.png)
 
 ### bottlevsscissors
-![bottlevsscissors Map](./files/ds000105_task-objectviewing_contrast-bottlevsscissors_map.png)
+![bottlevsscissors Map](files/ds000105_task-objectviewing_contrast-bottlevsscissors_map.png)

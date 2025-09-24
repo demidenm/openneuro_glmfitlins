@@ -1,6 +1,6 @@
 # ds003831: modulate1 Task Analysis Report
 
-The size of the Fitlins Derivatives for ds003831 modulate1 is 7.1G with 4814 files.
+The size of the Fitlins Derivatives for ds003831 modulate1 is 21M with 4814 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0273376).
 
@@ -93,7 +93,7 @@ Voxelwise R-squared values represent the proportion of variance explained by the
 
 ### 4.4.1 Voxelwise Average (Mean)
 The **mean** R-squared image reflect the average of the R-squared values across all subjects and runs.In other words, the fluctuation in how much variability in the BOLD signal the model explains at a given voxel.
-![R Square](./files/ds003831_task-modulate1_rsquare-mean.png)
+![R Square](files/ds003831_task-modulate1_rsquare-mean.png)
 
 ### 4.4.2 Voxelwise Variance (Standard Deviation)
 The **standard deviation** (or variance) image provides insights into the variability of model performance.In otherwords, across subjects, runs and/or sessions, how much variability there is in the models ability to explain the BOLD at a given voxel.
@@ -101,45 +101,45 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for modulate1 are:
-sub-018, sub-060, sub-062, sub-068, sub-083, sub-106, sub-107
+None Subjects Flagged
 
 The distribution for subjects and runs in modulate1 are below. 
 
-![Dice](./files/ds003831_task-modulate1_hist-dicesimilarity.png)
-![Voxels Out](./files/ds003831_task-modulate1_hist-voxoutmask.png)
+![Dice](files/ds003831_task-modulate1_hist-dicesimilarity.png)
+![Voxels Out](files/ds003831_task-modulate1_hist-voxoutmask.png)
 
 ## 5 Statistical Maps
 
 ### regvrest
-![regvrest Map](./files/ds003831_task-modulate1_contrast-regvrest_map.png)
+![regvrest Map](files/ds003831_task-modulate1_contrast-regvrest_map.png)
 
 ### allfbvrest
-![allfbvrest Map](./files/ds003831_task-modulate1_contrast-allfbvrest_map.png)
+![allfbvrest Map](files/ds003831_task-modulate1_contrast-allfbvrest_map.png)
 
 ### valregvrest
-![valregvrest Map](./files/ds003831_task-modulate1_contrast-valregvrest_map.png)
+![valregvrest Map](files/ds003831_task-modulate1_contrast-valregvrest_map.png)
 
 ### arousregvrest
-![arousregvrest Map](./files/ds003831_task-modulate1_contrast-arousregvrest_map.png)
+![arousregvrest Map](files/ds003831_task-modulate1_contrast-arousregvrest_map.png)
 
 ### valposvneg
-![valposvneg Map](./files/ds003831_task-modulate1_contrast-valposvneg_map.png)
+![valposvneg Map](files/ds003831_task-modulate1_contrast-valposvneg_map.png)
 
 ### arousalposvneg
-![arousalposvneg Map](./files/ds003831_task-modulate1_contrast-arousalposvneg_map.png)
+![arousalposvneg Map](files/ds003831_task-modulate1_contrast-arousalposvneg_map.png)
 
 ### postregvrest
-![postregvrest Map](./files/ds003831_task-modulate1_contrast-postregvrest_map.png)
+![postregvrest Map](files/ds003831_task-modulate1_contrast-postregvrest_map.png)
 
 ### negregvrest
-![negregvrest Map](./files/ds003831_task-modulate1_contrast-negregvrest_map.png)
+![negregvrest Map](files/ds003831_task-modulate1_contrast-negregvrest_map.png)
 
 ### regpostvneg
-![regpostvneg Map](./files/ds003831_task-modulate1_contrast-regpostvneg_map.png)
+![regpostvneg Map](files/ds003831_task-modulate1_contrast-regpostvneg_map.png)
 
 ### regulationerror
-![regulationerror Map](./files/ds003831_task-modulate1_contrast-regulationerror_map.png)
+![regulationerror Map](files/ds003831_task-modulate1_contrast-regulationerror_map.png)

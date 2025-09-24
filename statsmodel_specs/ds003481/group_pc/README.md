@@ -92,11 +92,11 @@ The **standard deviation** (or variance) image provides insights into the variab
 #### 4.4.3 Flagged Subjects
 The quality assessment pipeline evaluates volumetric data across multiple dimensions to identify problematic datasets. Subjects are flagged using: 
 
-  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .80 (captures dropout and excess non-brain voxels) 
+  - Dice Estimate: Similarity coefficient between subject r-squared maps and Target Space MNI152 mask falls below .85 (captures dropout and excess non-brain voxels) 
   - Voxels Outside of Mask: Percentage of voxels outside of the target brain mask is greater than the .10% (liberal threshold due to liberal brain masks in fMRIPrep BOLD, captures mostly non-brain voxels) 
 
 The subjects flagged for pc are:
-sub-047_run-01, sub-047_run-02, sub-047_run-03, sub-047_run-04, sub-048_run-01, sub-048_run-02, sub-048_run-03, sub-048_run-04, sub-050_run-04, sub-053_run-01, sub-053_run-02, sub-053_run-03, sub-053_run-04, sub-054_run-01, sub-054_run-02, sub-054_run-04, sub-055_run-02, sub-055_run-03, sub-056_run-01, sub-056_run-02, sub-056_run-03, sub-056_run-04, sub-057_run-02, sub-057_run-03, sub-057_run-04, sub-058_run-01, sub-058_run-02, sub-058_run-03, sub-058_run-04, sub-059_run-01, sub-059_run-02, sub-059_run-03, sub-059_run-04, sub-060_run-02, sub-061_run-01, sub-061_run-02, sub-061_run-03, sub-063_run-04
+sub-050_run-04, sub-054_run-02, sub-061_run-02
 
 The distribution for subjects and runs in pc are below. 
 

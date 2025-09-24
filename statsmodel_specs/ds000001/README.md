@@ -14,7 +14,7 @@
 
 **Count Summaries**:
 
-![balloonanalogrisktask balloonanalogrisktask_summary.png](./basics_out/balloonanalogrisktask_summary.png)
+![balloonanalogrisktask balloonanalogrisktask_summary.png](basics_out/balloonanalogrisktask_summary.png)
 
 ## MRIQC Summary Reports
 - [group_T1w.html](https://htmlpreview.github.io/?https://github.com/demidenm/openneuro_glmfitlins/blob/main/statsmodel_specs/ds000001/mriqc_summary/group_T1w.html)

@@ -30,10 +30,10 @@ def _clean_contrast(name: str):
 
 def create_counts_dataframe(parsed_files):
     """
-    Create a DataFrame with counts across sessions, subjects, contrasts, and runs.
+    Create a DataFrame with counts across sessions, subjects, contrasts and runs.
     
     Parameters:
-        parsed_files: List of dictionaries from parse_bids_filename_robust
+        parsed_files: lst of dictionaries from parse_bids_filename_robust
     
     Returns:
         Dictionary with multiple DataFrames for different count summaries
@@ -92,7 +92,7 @@ def create_counts_dataframe(parsed_files):
         .sort_values('run')
     )
     
-    # Session counts (if sessions exist)
+    # sess counts (if sessions exist)
     if df_clean['ses'].notna().any():
         results['by_session'] = (
             df_clean['ses']
@@ -102,7 +102,7 @@ def create_counts_dataframe(parsed_files):
             .sort_values('ses')
         )
     
-    # Cross-tabulations
+    # cross-tabs
     results['subject_x_contrast'] = pd.crosstab(
         df_clean['sub'], df_clean['contrast'], margins=True
     )
@@ -115,7 +115,6 @@ def create_counts_dataframe(parsed_files):
         df_clean['run'], df_clean['contrast'], margins=True
     )
     
-    # Detailed breakdowns
     results['detailed_breakdown'] = (
         df_clean.groupby(['sub', 'run', 'contrast'])
         .size()
@@ -132,10 +131,10 @@ def create_counts_dataframe(parsed_files):
 
 def create_counts_dataframe_datalevel(parsed_files):
     """
-    Create a DataFrame with counts for group-level (no subject info) analyses.
+    Create a DataFrame with counts for group-level analyses.
 
     Parameters:
-        parsed_files: List of dictionaries from parse_bids_filename_robust
+        parsed_files: list of dictionaries from parse_bids_filename_robust
 
     Returns:
         Dictionary with multiple DataFrames for group-level count summaries
@@ -186,7 +185,7 @@ def analyze_grouplvl(list_files):
     Complete analysis pipeline for group-level BIDS files.
     
     Parameters:
-        list_files: Generator or list of file paths
+        list_files: list of file paths
     
     Returns:
         Tuple of (parsed_files, counts_dict)
@@ -205,7 +204,7 @@ def analyze_subjectlvl(list_files):
     Complete analysis pipeline for subject-level BIDS files.
     
     Parameters:
-        list_files: Generator or list of file paths
+        list_files: list of file paths
     
     Returns:
         Tuple of (parsed_files, counts_dict)
@@ -220,7 +219,7 @@ def analyze_subjectlvl(list_files):
 
 if __name__ == "__main__":
     # basic config
-    file_suffix = "effect_statmap.nii.gz" # using effect stat map as it is produced for each successful ran at all three levels
+    file_suffix = "effect_statmap.nii.gz" # using effect stat map as it is produced for each successful run at all three levels
     model_levels = ['runLevel', 'subjectLevel', 'dataLevel'] # in current example workflow, these are node output, with subdir for subs/sessions
 
     output_folder=Path("/oak/stanford/groups/russpold/data/openneuro_fitlins/analyses")
@@ -229,7 +228,6 @@ if __name__ == "__main__":
 
 
     # here, loop over each model level, chec if it exists before running (e.g. subjectLevel not present for single runt asks)
-        # Loop over model levels
     for mod in model_levels:
         node_folder = output_folder / dataset / task / f"node-{mod}"
         if not node_folder.exists():
@@ -244,7 +242,7 @@ if __name__ == "__main__":
 
         print(f"Processing {len(file_list)} files for {mod}...")
 
-        # Process based on level
+        # counts based on level
         if mod in ['runLevel', 'subjectLevel']:
             _, counts_analysis = analyze_subjectlvl(file_list)
             df_uniques = pd.DataFrame(counts_analysis.get('subject_uniques', []))

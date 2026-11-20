@@ -1,6 +1,6 @@
 ---
 name: Events Modification Issue
-about: Describe issue in modify_events.py
+about: Describe issue in an event fix (src/openneuro_glmfitlins/events/datasets/)
 title: ''
 labels: ''
 assignees: ''

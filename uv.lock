@@ -1,5 +1,4 @@
 version = 1
-revision = 1
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -646,9 +645,10 @@ wheels = [
 
 [[package]]
 name = "fitlins"
-version = "0.11.0.post0.dev42"
-source = { git = "https://github.com/jmumford/fitlins.git?rev=paddedint#1bed1a2ba54e948d28b47562dc05b1809b3b1eb9" }
+version = "0.11.0.post0.dev110"
+source = { git = "https://github.com/poldracklab/fitlins.git?rev=dev#9856280683d170af6d345faaa2d15a134e98d515" }
 dependencies = [
+    { name = "acres" },
     { name = "jinja2" },
     { name = "nibabel" },
     { name = "nilearn" },
@@ -656,8 +656,8 @@ dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "pybids" },
+    { name = "pymare" },
     { name = "seaborn" },
-    { name = "setuptools" },
     { name = "tables" },
 ]
 
@@ -1534,6 +1534,15 @@ wheels = [
 ]
 
 [[package]]
+name = "mpmath"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/47/dd32fa426cc72114383ac549964eecb20ecfd886d1e5ccf5340b55b02f57/mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f", size = 508106 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c", size = 536198 },
+]
+
+[[package]]
 name = "msgpack"
 version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1887,7 +1896,7 @@ requires-dist = [
     { name = "awscli" },
     { name = "black", marker = "extra == 'dev'" },
     { name = "datalad", specifier = ">=0.16.0" },
-    { name = "fitlins", git = "https://github.com/jmumford/fitlins.git?rev=paddedint" },
+    { name = "fitlins", git = "https://github.com/poldracklab/fitlins.git?rev=dev" },
     { name = "flake8", marker = "extra == 'dev'" },
     { name = "ipython", specifier = ">=8.0.0" },
     { name = "jupyter", specifier = ">=1.0.0" },
@@ -1898,14 +1907,13 @@ requires-dist = [
     { name = "numpy", specifier = ">=1.26.0" },
     { name = "pandas", specifier = ">=2.0.0" },
     { name = "pybids", git = "https://github.com/bids-standard/pybids.git?rev=26b3f7e" },
-    { name = "pyrelimri" },
+    { name = "pyrelimri", specifier = "==2.2.3" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "scipy" },
     { name = "seaborn", specifier = ">=0.12.0" },
     { name = "setuptools" },
     { name = "templateflow" },
 ]
-provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "ipykernel", specifier = ">=6.29.5" }]
@@ -2240,6 +2248,21 @@ wheels = [
 ]
 
 [[package]]
+name = "pymare"
+version = "0.0.13"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "scipy" },
+    { name = "sympy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9c/40/0916bae8ce6fea6b54ca3cab104ed21a269aae24e7ad83c40042cc22dc1b/pymare-0.0.13.tar.gz", hash = "sha256:062c817e46de0e8efb7d7007e730009265ddbebc68b52eb68cd55c64f8f225a8", size = 235878 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/78/6d/e94ca1331a7e094eddcf2f8d021f8a0365050595e3f8359e981ac5185777/pymare-0.0.13-py3-none-any.whl", hash = "sha256:a367addce96b42bbb96bed8508379c16908f1978c9113b81dd8c8d88d13c9fc0", size = 234584 },
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2250,7 +2273,7 @@ wheels = [
 
 [[package]]
 name = "pyrelimri"
-version = "2.1.0"
+version = "2.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "hypothesis" },
@@ -2260,13 +2283,15 @@ dependencies = [
     { name = "nilearn" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pytest" },
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "seaborn" },
     { name = "statsmodels" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fe/f3/79f1276e3f61ebfea419d0438653f65a8eab5bcf85db20ad5971e02536e5/PyReliMRI-2.1.0.tar.gz", hash = "sha256:deac1c11919c4d3d5d0428e926760ac31269c5c74965b0580a4e973f39431ee6", size = 19507 }
+sdist = { url = "https://files.pythonhosted.org/packages/bf/34/2d853db393387fb87d7c3d5bd9d4a89ffee43b11df391b67c16756368380/pyrelimri-2.2.3.tar.gz", hash = "sha256:e2e3fc22d17a264433445366c32d1f436292148c62e5b20306cbf2fdf662d9ee", size = 27750 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e0/e1/cbf70dec71ee05a8dd6f4d9bb3ca326e21188988a24622b95ec18398a399/pyrelimri-2.2.3-py3-none-any.whl", hash = "sha256:9c5216ae4ef3d883ded63393900598e22699fe04ca26be975c873bd4f67e9abd", size = 24419 },
+]
 
 [[package]]
 name = "pytest"
@@ -2821,6 +2846,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/fe/2a/55c5b5c5e5124a202ea3fe0bcdbdeceaf91b4ec6164b8434acb9dd97409c/statsmodels-0.14.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1322286a7bfdde2790bf72d29698a1b76c20b8423a55bdcd0d457969d0041f72", size = 10723228 },
     { url = "https://files.pythonhosted.org/packages/4f/76/67747e49dc758daae06f33aad8247b718cd7d224f091d2cd552681215bb2/statsmodels-0.14.4-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:e31b95ac603415887c9f0d344cb523889cf779bc52d68e27e2d23c358958fec7", size = 10859503 },
     { url = "https://files.pythonhosted.org/packages/1d/eb/cb8b01f5edf8f135eb3d0553d159db113a35b2948d0e51eeb735e7ae09ea/statsmodels-0.14.4-cp313-cp313-win_amd64.whl", hash = "sha256:81030108d27aecc7995cac05aa280cf8c6025f6a6119894eef648997936c2dd0", size = 9817574 },
+]
+
+[[package]]
+name = "sympy"
+version = "1.14.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mpmath" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/83/d3/803453b36afefb7c2bb238361cd4ae6125a569b4db67cd9e79846ba2d68c/sympy-1.14.0.tar.gz", hash = "sha256:d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517", size = 7793921 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl", hash = "sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5", size = 6299353 },
 ]
 
 [[package]]

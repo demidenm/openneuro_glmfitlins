@@ -37,8 +37,15 @@ dev = [
     "flake8"
 ]
 
+[project.scripts]
+glmfitlins = "openneuro_glmfitlins.cli:main"
+
 [tool.hatch.build.targets.wheel]
-include = ["scripts/**"]
+packages = ["src/openneuro_glmfitlins"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["hatchling"]

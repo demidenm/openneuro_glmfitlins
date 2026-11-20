@@ -6,6 +6,8 @@
     "data_type": "openneuro",
     "fit": {
         "smoothing": "5:run:iso",
-        "estimator": "nilearn"
+        "estimator": "nilearn",
+        "space": "MNI152NLin2009cAsym",
+        "desc_label": "preproc"
     }
 }

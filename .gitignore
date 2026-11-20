@@ -22,3 +22,4 @@ path_config.json
 
 # event backups written by `glmfitlins events`
 *_events.tsv.orig
+*.local.*

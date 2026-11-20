@@ -58,6 +58,31 @@ else
 fi
 
 
+# Path configuration (path_config.json is local and not tracked by git)
+cd "$(dirname "${BASH_SOURCE[0]}")"
+if [ ! -f path_config.json ]; then
+    echo "Creating path_config.json from path_config.example.json"
+    cp path_config.example.json path_config.json
+    if [ -t 0 ]; then
+        echo "Enter paths (press Enter to keep the placeholder and edit path_config.json later):"
+        for key in datasets_folder tmp_folder fmriprep_simg freesurfer_license data_type; do
+            current=$(jq -r ".${key}" path_config.json)
+            read -r -p "  ${key} [${current}]: " value
+            if [ -n "$value" ]; then
+                jq --arg v "$value" ".${key} = \$v" path_config.json > path_config.json.tmp && mv path_config.json.tmp path_config.json
+            fi
+        done
+    else
+        echo "  Non-interactive shell: edit path_config.json before running the pipeline."
+    fi
+else
+    echo "path_config.json already exists:"
+    cat path_config.json
+fi
+echo "Note: any key can be overridden with environment variables, e.g. GLMFITLINS_DATASETS_FOLDER,"
+echo "      GLMFITLINS_TMP_FOLDER, GLMFITLINS_DATA_TYPE, or point GLMFITLINS_CONFIG at another file."
+echo
+
 # Proceed with setting up the environment
 #  Step 1. Install based on pyproject.toml
 uv sync
@@ -65,3 +90,6 @@ uv sync
 # run to have kernel for jupyternotebook kernel
 uv add --dev ipykernel
 uv run ipython kernel install --user --env VIRTUAL_ENV $(pwd)/.venv --name="openneuro_glm"
+
+# show the resolved configuration
+uv run glmfitlins config || echo "Update path_config.json, then check with: uv run glmfitlins config"

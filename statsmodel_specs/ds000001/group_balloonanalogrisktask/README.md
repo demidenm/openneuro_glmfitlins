@@ -1,6 +1,6 @@
 # ds000001: balloonanalogrisktask Task Analysis Report
 
-The size of the Fitlins Derivatives for ds000001 balloonanalogrisktask is 58M with 5512 files.
+The size of the Fitlins Derivatives for ds000001 balloonanalogrisktask is 8.0G with 5360 files.
 
 Dataset- and task-relevant citations may be found in the papers: [Paper 1](https://www.doi.org/10.3389/fnins.2012.00080).
 

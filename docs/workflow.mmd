@@ -22,7 +22,8 @@ flowchart LR
     subgraph Analysis ["Model & Analysis"]
         direction TB
         K[Create Model<br>Specification] --> L[Review & Customize]
-        L --> M{Run Location}
+        L --> V[Validate Spec /<br>--update]
+        V --> M{Run Location}
         M -->|Local| N[Run FitLins<br>Locally]
         M -->|HPC| O[Submit FitLins<br>Job]
     end
@@ -53,6 +54,6 @@ flowchart LR
     classDef outputNode fill:#bfb,stroke:#333,stroke-width:1px
     
     class B,C configNode
-    class D,F,I,J,K,N,O,P scriptNode
+    class D,F,I,J,K,N,O,P,V scriptNode
     class E,M decisionNode
     class H,L,Q,R,S outputNode

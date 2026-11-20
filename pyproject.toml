@@ -3,51 +3,81 @@ name = "openneuro-glmfitlins"
 version = "0.1.0"
 description = "A tool for downloading and analyzing OpenNeuro datasets with BIDS Stats Models: FitLins"
 readme = "README.md"
+license = "MIT"                      
+license-files = ["LICENSE"]
 authors = [
     { name = "Michael Demidenko", email = "demidenko.michael@gmail.com" }
 ]
-requires-python = ">=3.12"
+keywords = ["neuroimaging", "fMRI", "OpenNeuro", "BIDS", "FitLins", "GLM"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+requires-python = ">=3.11"
+
 dependencies = [
-    "numpy>=1.26.0",
+    "numpy>=1.26",
     "pandas>=2.0.0",
-    "datalad>=0.16.0",
+    "scipy",
     "nilearn>=0.9.2",
     "matplotlib>=3.7.0",
     "seaborn>=0.12.0",
-    "nbformat>=5.8.0",
-    "IPython>=8.0.0",
-    "jupyter>=1.0.0",
-    "notebook>=7.0.0",
+    "datalad>=0.16.0",
     "awscli",
-    "scipy",
-    "argparse",
-    "pyrelimri==2.2.3",
+    "pyrelimri>=2.2.3,<3",
     "templateflow",
-    # Pinned installs from GitHub
-    #"fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
-    "fitlins @ git+https://github.com/poldracklab/fitlins.git@dev",
     "setuptools",
+    # Pinned from GitHub
+    "fitlins @ git+https://github.com/poldracklab/fitlins.git@9856280683d170af6d345faaa2d15a134e98d515",
     "pybids @ git+https://github.com/bids-standard/pybids.git@26b3f7e",
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest",
-    "black",
-    "flake8"
+notebooks = [
+    "ipython>=8.0.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+    "nbformat>=5.8.0",
 ]
 
-[tool.hatch.build.targets.wheel]
-include = ["scripts/**"]
+[project.urls]
+Homepage = "https://github.com/demidenm/openneuro-glmfitlins"
+Issues = "https://github.com/demidenm/openneuro-glmfitlins/issues"
+Documentation = "https://github.com/demidenm/openneuro-glmfitlins#readme"
+
+[project.scripts]
+glmfitlins = "openneuro_glmfitlins.cli:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[dependency-groups]
-dev = [
-    "ipykernel>=6.29.5",
-]
+[tool.hatch.build.targets.wheel]
+packages = ["src/openneuro_glmfitlins"]
+
+# hatchling refuses direct (git) references unless allowed
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+    "pytest",
+    "ruff",
+]
+
+
+# uv-only settings: relevant to stanford cluster, not needed for others
+[tool.uv]
+# Cluster workaround (glibc 2.17): newer NumPy wheels need manylinux_2_28
+constraint-dependencies = ["numpy<2.3"]
+
+[tool.uv.extra-build-dependencies]
+numexpr = ["numpy<2.3"]

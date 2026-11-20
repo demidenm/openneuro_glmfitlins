@@ -16,3 +16,15 @@ scripts/.ipynb_checkpoints
 scripts/troubleshoot_bids-stats-model copy.ipynb
 scripts/troubleshoot_bids-stats-model.ipynb
 scripts/troubleshoot_bids-stats-model.ipynb
+
+# Local paths (copy path_config.example.json -> path_config.json)
+path_config.json
+logs/
+# event backups written by `glmfitlins events`
+*_events.tsv.orig
+*.local.*
+<<<<<<< HEAD
+# tutorial notebook download cache
+notebooks/.cache/
+=======
+>>>>>>> 5fba37ac62be54d332b61ad541859ed072a1c139

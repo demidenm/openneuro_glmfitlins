@@ -64,6 +64,13 @@ def describe_hrf(node: dict) -> str:
     return f"{node['convolve_model']} w/ {' & '.join(components)}" if components else node["convolve_model"]
 
 
+N_STEPS = 6
+
+
+def step(n: int, msg: str) -> None:
+    print(f"\n[{n}/{N_STEPS}] {msg}", flush=True)
+
+
 def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_file: Path, analysis_dir: Path,
                      scratch_dir: Path, group_dir: Path, opts: Optional[ReportOptions] = None) -> int:
     """Write figures/TSVs to ``group_dir/files`` and ``group_dir/README.md``. Returns an exit code."""
@@ -111,6 +118,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
     target_vars = first["target_var"]
 
     # ---- example contrast / design figures from FitLins output
+    step(1, "Copying example contrast/design figures from FitLins output")
     contrast_images = list(analysis_dir.rglob(f"*_task-{task}_*contrasts.svg"))
     con_matrix_copy = None
     if contrast_images:
@@ -131,6 +139,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
         shutil.copy(design_matrices[0], spec_imgs_dir / f"{study_id}_task-{task}_design-matrix.tsv")
 
     # ---- VIF
+    step(2, f"Computing VIF for {len(design_matrices)} design matrices")
     contrast_dict = build_contrast_dict(spec_results)
     all_vif_dfs, signal_regressors, noise_regressors = [], [], []
     for design_mat_path in design_matrices:
@@ -171,6 +180,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
 
     # ---- R-squared mean / std maps
     rsquare_statmaps = list(analysis_dir.rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
+    step(3, f"Building R-squared mean/std maps from {len(rsquare_statmaps)} images")
     try:
         r2mean, r2std = calc_niftis_meanstd(path_imgs=rsquare_statmaps)
     except AssertionError as e:
@@ -186,6 +196,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
             )
 
     # ---- R-squared similarity with MNI mask
+    step(4, "Checking R-squared similarity with the MNI brain mask")
     tmp_r2_dir = scratch_dir / f"{study_id}_task-{task}" / "r2tmp"
     tmp_r2_dir.mkdir(parents=True, exist_ok=True)
     try:
@@ -212,6 +223,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
     try:
         tmp_r2_paths = list(tmp_r2_dir.rglob(f"*_task-{task}*_stat-rSquare_statmap.nii.gz"))
         workers = opts.n_workers or max(1, (os.cpu_count() or 1) - 2)
+        print(f"Computing similarity for {len(tmp_r2_paths)} images with {workers} workers...", flush=True)
         func = partial(similarity_boldstand_metrics, brainmask_path=str(mni_tmp_img))
         with ProcessPoolExecutor(max_workers=workers) as executor:
             ratio_results = list(executor.map(func, tmp_r2_paths))
@@ -244,8 +256,10 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
     if grp_map_path:
         print(f"Setting group map path to: {grp_map_path}")
     sessionlabs = None
+    step(5, f"Plotting group z-maps for {len(contrast_dict)} contrasts")
     if grp_map_path:
-        for con_name in contrast_dict:
+        for i, con_name in enumerate(contrast_dict, 1):
+            print(f"  contrast {i}/{len(contrast_dict)}: {con_name}", flush=True)
             direct = list(grp_map_path.glob(f"*contrast-{con_name}_stat-z_statmap.nii.gz"))
             if direct:
                 print(f"No session folders, grabbing {con_name} group map from {grp_map_path.name} directly.\n")
@@ -277,6 +291,7 @@ def run_group_report(study_id: str, task: str, spec_file: Path, basic_details_fi
     else:
         print("Group map path not found.")
 
+    step(6, "Writing group README")
     fold_info = (f"The size of the Fitlins Derivatives for {study_id} {task} is {folder_size(analysis_dir)} "
                  f"with {count_files(analysis_dir)} files.")
 

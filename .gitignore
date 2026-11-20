@@ -23,3 +23,5 @@ path_config.json
 # event backups written by `glmfitlins events`
 *_events.tsv.orig
 *.local.*
+# tutorial notebook download cache
+notebooks/.cache/

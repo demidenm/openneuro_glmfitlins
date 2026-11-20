@@ -19,7 +19,7 @@ scripts/troubleshoot_bids-stats-model.ipynb
 
 # Local paths (copy path_config.example.json -> path_config.json)
 path_config.json
-
+logs/
 # event backups written by `glmfitlins events`
 *_events.tsv.orig
 *.local.*

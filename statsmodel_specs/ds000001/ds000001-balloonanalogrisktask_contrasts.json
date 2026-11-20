@@ -1,153 +1,28 @@
 {
     "Contrasts": [
         {
-              "Name": "pumpsvcontrol",
-              "ConditionList": [
-                  "trial_type.pumps",
-                  "trial_type.control"
-              ],
-              "Weights": [
-                  1,
-                  -1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "explodevcash",
-              "ConditionList": [
-                  "trial_type.explode",
-                  "trial_type.cash"
-              ],
-              "Weights": [
-                  1,
-                  -1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "explodevcontrol",
-              "ConditionList": [
-                  "trial_type.explode",
-                  "trial_type.control"
-              ],
-              "Weights": [
-                  1,
-                  -1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "pumpscashvcontrol",
-              "ConditionList": [
-                  "trial_type.pumps",
-                  "trial_type.cash",
-                  "trial_type.control"
-              ],
-              "Weights": [
-                  0.5,
-                  0.5,
-                  -1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "pumpsexplodevcontrol",
-              "ConditionList": [
-                  "trial_type.pumps",
-                  "trial_type.explode",
-                  "trial_type.control"
-              ],
-              "Weights": [
-                  0.5,
-                  0.5,
-                  -1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "allpumps",
-              "ConditionList": [
-                  "trial_type.pumps",
-                  "trial_type.cash",
-                  "trial_type.explode"
-              ],
-              "Weights": [
-                  0.33,
-                  0.33,
-                  0.33
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "pumps",
-              "ConditionList": [
-                  "trial_type.pumps"
-              ],
-              "Weights": [
-                  1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "pumpspara",
-              "ConditionList": [
-                  "pumps_demean"
-              ],
-              "Weights": [
-                  1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "cashpara",
-              "ConditionList": [
-                  "cash_demean"
-              ],
-              "Weights": [
-                  1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "explodepara",
-              "ConditionList": [
-                  "explode_demean"
-              ],
-              "Weights": [
-                  1
-              ],
-              "Test": "t"
-          },
-          {
-              "Name": "controlpara",
-              "ConditionList": [
-                  "control_pumps_demean"
-              ],
-              "Weights": [
-                  1
-              ],
-              "Test": "t"
-          },
-          {
-            "Name": "parapumpsvcontrol",
+            "Name": "AvB",
             "ConditionList": [
-                "pumps_demean",
-                "control_pumps_demean"
+                "trial_type.a",
+                "trial_type.b"
             ],
             "Weights": [
-                1, -1
+                1,
+                -1
             ],
             "Test": "t"
         },
         {
-            "Name": "rt",
+            "Name": "FacesvPlaces",
             "ConditionList": [
-                "rt_reg.rt"
+                "trial_type.faces",
+                "trial_type.places"
             ],
             "Weights": [
-                1
+                1,
+                -1
             ],
             "Test": "t"
         }
-      ]
+    ]
 }

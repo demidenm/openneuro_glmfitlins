@@ -15,6 +15,7 @@ Other commands:
   fit-summary   count FitLins outputs per node level
   dashboard     cross-dataset summary figure
 
+Dataset/task/suffix can be positional (ds003425 learning mod2) or flags (-d ds003425 -t learning --suffix mod2).
 A [suffix] names a model variant: files and folders use '<task>-<suffix>'.
 Run `glmfitlins <command> -h` for the options of each command.
 """
@@ -37,10 +38,11 @@ INTERACTIVE_SLURM_RE = re.compile(r"^(sys/|interactive|code-server|bash)")
 EXAMPLES = {
     "details": """examples:
   glmfitlins details ds003425            # asks before downloading
-  glmfitlins details ds003425 --yes      # no question (batch jobs)
+  glmfitlins details -d ds003425 --yes   # flag form; no question (batch jobs)
   glmfitlins details mystudy --skip-download   # regenerate details from local data""",
     "events": """examples:
-  glmfitlins events ds003425 learning""",
+  glmfitlins events ds003425 learning
+  glmfitlins events -d ds003425 -t learning""",
     "spec": """examples:
   glmfitlins spec ds003425 learning               # -> ds003425-learning_specs.json
   glmfitlins spec ds003425 learning mod2          # -> ds003425-learning-mod2_specs.json
@@ -48,13 +50,18 @@ EXAMPLES = {
   glmfitlins spec ds003425 learning --no-check    # skip the design-matrix check""",
     "validate": """examples:
   glmfitlins validate ds003425 learning
-  glmfitlins validate ds003425 learning mod2 --check-design""",
+  glmfitlins validate ds003425 learning mod2 --check-design
+  glmfitlins validate -d ds003425 -t learning --suffix mod2""",
     "fit": """examples:
   glmfitlins fit ds003425 learning
   glmfitlins fit ds003425 learning mod2
   glmfitlins fit -s 8:subject:iso -e afni ds003425 learning
   glmfitlins fit --n-cpus 8 --mem-gb 64 ds003425 learning
-  glmfitlins fit --dry-run ds003425 learning      # print the FitLins command only""",
+  glmfitlins fit --dry-run ds003425 learning      # print the FitLins command only
+  glmfitlins fit -d ds003425 -t learning --suffix mod2 -s 5:run:iso
+  glmfitlins fit ds003425 learning --space MNI152NLin6Asym --desc-label preproc --verbosity 1
+
+defaults: flag > "fit" block in path_config.json > built-in (see docs/installation.md)""",
     "report": """examples:
   glmfitlins report ds003425 learning
   glmfitlins report ds003425 learning mod2 --zstat-thresh 3.1
@@ -71,12 +78,41 @@ def _sub(sub, name: str, help: str) -> argparse.ArgumentParser:
                           formatter_class=argparse.RawDescriptionHelpFormatter)
 
 
+def _add_dataset_flag(p: argparse.ArgumentParser) -> None:
+    p.add_argument("study_id", nargs="?", default=None, metavar="dataset",
+                   help="OpenNeuro dataset id, e.g. ds003425 (or use -d/--dataset)")
+    p.add_argument("-d", "--dataset", dest="dataset_flag", default=None, metavar="DATASET",
+                   help="dataset id, same as the positional argument")
+
+
 def _add_study_task(p: argparse.ArgumentParser, suffix: bool = True) -> None:
-    p.add_argument("study_id", help="OpenNeuro dataset id, e.g. ds003425")
-    p.add_argument("task", help="Task label, e.g. learning")
+    """Dataset/task/suffix as positionals (``ds task [suffix]``) or flags (``-d ds -t task --suffix s``)."""
+    _add_dataset_flag(p)
+    p.add_argument("task", nargs="?", default=None, help="task label, e.g. learning (or use -t/--task)")
+    p.add_argument("-t", "--task", dest="task_flag", default=None, metavar="TASK",
+                   help="task label, same as the positional argument")
     if suffix:
         p.add_argument("suffix", nargs="?", default=None,
-                       help="Optional model variant; files and folders use '<task>-<suffix>'")
+                       help="optional model variant; files and folders use '<task>-<suffix>' "
+                            "(or use --suffix)")
+        p.add_argument("--suffix", dest="suffix_flag", default=None, metavar="SUFFIX",
+                       help="model variant, same as the positional argument")
+
+
+def _resolve_ids(args, parser: argparse.ArgumentParser) -> None:
+    """Merge positional and flag forms of dataset/task/suffix into ``study_id``/``task``/``suffix``."""
+    for attr, flag, required in (("study_id", "dataset_flag", True), ("task", "task_flag", True),
+                                 ("suffix", "suffix_flag", False)):
+        if not hasattr(args, flag):
+            continue
+        pos, opt = getattr(args, attr, None), getattr(args, flag)
+        if pos and opt and pos != opt:
+            parser.error(f"{attr}: got '{pos}' as a positional and '{opt}' as a flag; use one form")
+        value = opt or pos
+        if required and not value:
+            name = {"study_id": "dataset (-d)", "task": "task (-t)"}[attr]
+            parser.error(f"missing {name}")
+        setattr(args, attr, value)
 
 
 # --------------------------------------------------------------------------- commands
@@ -224,11 +260,16 @@ def cmd_validate(args) -> int:
 
 
 def cmd_fit(args) -> int:
-    from .fit.fitlins import FitOptions, run_fit
+    from .fit.fitlins import FIT_KEYS, resolve_options, run_fit
 
-    paths = load_config().study(args.study_id)
-    opts = FitOptions(smoothing=args.smoothing, estimator=args.estimator, n_cpus=args.n_cpus,
-                      mem_gb=args.mem_gb, space=args.space, desc_label=args.desc_label)
+    cfg = load_config()
+    paths = cfg.study(args.study_id)
+    cli = {k: getattr(args, k) for k in FIT_KEYS}
+    try:
+        opts = resolve_options(cli, cfg.extra.get("fit"))
+    except ValueError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 2
     return run_fit(paths, args.task, args.suffix, opts, dry_run=args.dry_run)
 
 
@@ -294,7 +335,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_config)
 
     p = _sub(sub, "details", help="stage 1: download data and write study details")
-    p.add_argument("study_id")
+    _add_dataset_flag(p)
     p.add_argument("-y", "--yes", action="store_true", help="download without asking for confirmation")
     p.add_argument("--skip-download", action="store_true", help="only (re)generate details from local data")
     p.add_argument("--minimal", type=lambda s: s.lower() in ("yes", "true", "1"), default=None,
@@ -326,13 +367,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     d = FitOptions()
     p = _sub(sub, "fit", help="stage 4: run FitLins")
-    p.add_argument("-s", "--smoothing", default=d.smoothing,
+    p.add_argument("-s", "--smoothing", default=None,
                    help=f"FWHM:LEVEL:TYPE, e.g. 5:run:iso or 8:dataset:isoblurto (default {d.smoothing})")
-    p.add_argument("-e", "--estimator", choices=ESTIMATORS, default=d.estimator)
-    p.add_argument("--n-cpus", type=int, default=d.n_cpus)
-    p.add_argument("--mem-gb", type=int, default=d.mem_gb)
-    p.add_argument("--space", default=d.space)
-    p.add_argument("--desc-label", default=d.desc_label)
+    p.add_argument("-e", "--estimator", choices=ESTIMATORS, default=None, help=f"default {d.estimator}")
+    p.add_argument("--n-cpus", type=int, default=None,
+                   help="default: SLURM_CPUS_PER_TASK, else all CPUs on the machine")
+    p.add_argument("--mem-gb", type=int, default=None,
+                   help="default: SLURM memory request, else ~90%% of physical memory")
+    p.add_argument("--space", default=None, help=f"default {d.space}")
+    p.add_argument("--desc-label", default=None, help=f"fMRIPrep desc label, default {d.desc_label}")
+    p.add_argument("--ignore", default=None, help=f"regex of files FitLins ignores, default {d.ignore}")
+    p.add_argument("--verbosity", type=int, choices=range(0, 4), default=None,
+                   help=f"number of -v flags given to FitLins (0-3), default {d.verbosity}")
     p.add_argument("--dry-run", action="store_true", help="print the FitLins command and exit")
     _add_study_task(p)
     p.set_defaults(func=cmd_fit)
@@ -366,7 +412,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    _resolve_ids(args, parser)
     try:
         return int(args.func(args) or 0)
     except ConfigError as e:

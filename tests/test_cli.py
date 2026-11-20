@@ -17,7 +17,7 @@ def test_import_is_cheap():
 def test_fit_args_like_old_getopts():
     a = build_parser().parse_args(["fit", "-s", "6:run:iso", "-e", "afni", "ds003425", "learning", "mod2"])
     assert (a.study_id, a.task, a.suffix, a.smoothing, a.estimator) == ("ds003425", "learning", "mod2", "6:run:iso", "afni")
-    assert (a.n_cpus, a.mem_gb) == (6, 32)
+    assert (a.n_cpus, a.mem_gb) == (None, None)  # resolved later: flag > config > machine/SLURM
 
 
 def test_fit_rejects_unknown_estimator():
@@ -31,7 +31,7 @@ def test_report_defaults():
 
 
 def test_fitlins_command_matches_previous_shell_script():
-    cmd = build_fitlins_command("BIDS", "OUT", "MODEL", "FMRIPREP", "WORK", FitOptions())
+    cmd = build_fitlins_command("BIDS", "OUT", "MODEL", "FMRIPREP", "WORK", FitOptions(n_cpus=6, mem_gb=32))
     assert cmd[1:] == [
         "BIDS", "OUT", "participant", "-m", "MODEL", "-d", "FMRIPREP",
         "--ignore", r"sub-.*_physio\.(json|tsv\.gz)", "--drop-missing",

@@ -6,6 +6,23 @@ Detailed description of each step. For a quick overview run `uv run glmfitlins -
 
 ![Workflow Diagram](workflow.svg)
 
+## Argument forms: positional or flags
+
+Every command that takes a dataset and task accepts either form. They are equivalent and can be used in scripts and job files interchangeably:
+
+```bash
+uv run glmfitlins fit ds003425 learning mod2
+uv run glmfitlins fit -d ds003425 -t learning --suffix mod2
+```
+
+| Flag | Meaning | Commands |
+|---|---|---|
+| `-d`, `--dataset` | dataset id (e.g. `ds003425`) | `details`, `events`, `spec`, `validate`, `fit`, `report`, `fit-summary` |
+| `-t`, `--task` | task label | all of the above except `details` |
+| `--suffix` | optional model variant (`<task>-<suffix>`) | `spec`, `validate`, `fit`, `report`, `fit-summary` |
+
+Giving the same value in both forms is fine; giving different values is an error. The cluster script takes the same arguments: `sbatch scripts/cluster_jobs/run_fitlins.sh -d ds003425 -t learning`.
+
 ## 1. Download Data / Generate Summary
 
 ### For OpenNeuro Datasets (`"data_type": "openneuro"`) [default]
@@ -213,10 +230,30 @@ uv run glmfitlins spec ds003425 learning mod2
 
 A variant without its own `ds003425-learning-mod2_contrasts.json` / `_subjects.json` uses the task's files (`ds003425-learning_contrasts.json`, `ds003425-learning_subjects.json`).
 
-An existing spec is never overwritten. After editing the subjects or contrasts files, refresh only the derived fields (`Input.subject`, `Input.run`, `Input.session`, Run-node `Contrasts`) while keeping your hand edits (transformations, model, nodes):
+### When to use `--update`
+
+The spec is a **copy** of values from other files, made when it is first created. Plain `spec` never overwrites an existing spec file (so your hand edits are safe); it only re-runs the design check. If you change a source file afterwards, the spec does not follow, and FitLins (which reads only the spec) would use the old values.
+
+| You changed... | Spec field that is now stale | Action |
+|---|---|---|
+| `<ds>-<task>_subjects.json` (e.g. excluded a subject) | `Input.subject` | `spec --update` |
+| `<ds>-<task>_contrasts.json` (added/edited a contrast) | Run-node `Contrasts` | `spec --update` |
+| `<ds>_basic-details.json` (`task_runs`, `task_sessions`; e.g. after re-running `details`) | `Input.run`, `Input.session` | `spec --update` |
+| the spec itself (model, nodes, transformations, smoothing) | nothing, you edited the source of truth | nothing; do not use `--update` |
+| anything and you want a fresh copy of the template | everything | delete the spec file, then `spec` |
+
+What `--update` does:
+- Re-reads the subjects, contrasts and basic-details files and rewrites **only** `Input.subject`, `Input.run`, `Input.session` and the Run-node `Contrasts`.
+- Leaves everything else untouched (other nodes, transformations, model, your edits).
+- Prints each change (`UPDATED derived fields: ...`), or says the spec is already up to date and writes nothing.
+- Needs the subjects and contrasts files to exist.
+- Does **not** re-run FitLins; re-run `fit` afterwards for the changes to take effect.
+
 ```bash
 uv run glmfitlins spec ds003425 learning --update
 ```
+
+Not sure whether the spec is stale? `validate` (below) compares it with those files and warns on drift, without changing anything.
 
 To check a spec for drift from its subjects/contrasts/basic-details files and for inconsistent contrast weights (exits non-zero on errors):
 ```bash

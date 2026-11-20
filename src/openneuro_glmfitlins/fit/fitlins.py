@@ -16,16 +16,58 @@ ESTIMATORS = ("nilearn", "afni")
 THREAD_ENV = {"MKL_NUM_THREADS": "1", "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"}
 
 
+FIT_KEYS = ("smoothing", "estimator", "n_cpus", "mem_gb", "space", "desc_label", "ignore", "verbosity")
+
+
 @dataclass
 class FitOptions:
+    """FitLins options. Every field can be set by CLI flag or the ``fit`` block of path_config.json.
+
+    Defaults: FitLins-specific choices have fixed defaults; resources (``n_cpus``, ``mem_gb``)
+    are machine-specific, so they default to what the machine / SLURM job provides.
+    """
+
     smoothing: str = "5:run:iso"
     estimator: str = "nilearn"
-    n_cpus: int = 6
-    mem_gb: int = 32
     space: str = "MNI152NLin2009cAsym"
     desc_label: str = "preproc"
     ignore: str = r"sub-.*_physio\.(json|tsv\.gz)"
-    verbosity: str = "-vvv"
+    verbosity: int = 3  # number of -v flags passed to FitLins
+    n_cpus: Optional[int] = None  # default: SLURM_CPUS_PER_TASK or all CPUs
+    mem_gb: Optional[int] = None  # default: SLURM memory request or physical memory
+
+
+def default_cpus() -> int:
+    env = os.environ.get("SLURM_CPUS_PER_TASK")
+    return int(env) if env else (os.cpu_count() or 1)
+
+
+def default_mem_gb(n_cpus: int) -> int:
+    """SLURM memory request if present, else ~90% of physical memory, else 8 GB."""
+    if os.environ.get("SLURM_MEM_PER_NODE"):
+        return max(1, int(os.environ["SLURM_MEM_PER_NODE"]) // 1024)
+    if os.environ.get("SLURM_MEM_PER_CPU"):
+        return max(1, int(os.environ["SLURM_MEM_PER_CPU"]) * n_cpus // 1024)
+    try:
+        total = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+        return max(1, int(total * 0.9 / 1024**3))
+    except (ValueError, OSError, AttributeError):
+        return 8
+
+
+def resolve_options(cli: dict, config_fit: Optional[dict] = None) -> FitOptions:
+    """Precedence: CLI flag (not None) > ``fit`` block in path_config.json > built-in default."""
+    unknown = set(config_fit or {}) - set(FIT_KEYS)
+    if unknown:
+        raise ValueError(f"Unknown key(s) in config 'fit' block: {sorted(unknown)}. Valid: {list(FIT_KEYS)}")
+    values = {k: v for k, v in (config_fit or {}).items() if v is not None}
+    values.update({k: v for k, v in cli.items() if v is not None})
+    opts = FitOptions(**values)
+    if opts.n_cpus is None:
+        opts.n_cpus = default_cpus()
+    if opts.mem_gb is None:
+        opts.mem_gb = default_mem_gb(opts.n_cpus)
+    return opts
 
 
 def fitlins_executable() -> str:
@@ -50,7 +92,7 @@ def build_fitlins_command(bids_dir: Path, output_dir: Path, model_json: Path, fm
         "--n-cpus", str(opts.n_cpus),
         "--mem-gb", str(opts.mem_gb),
         "-w", str(work_dir),
-        opts.verbosity,
+        *(["-" + "v" * opts.verbosity] if opts.verbosity else []),
     ]
 
 
@@ -79,6 +121,7 @@ def run_fit(paths: StudyPaths, task: str, suffix: Optional[str], opts: FitOption
     print(f"Model Spec: {model_json}")
     print(f"Smoothing type: {opts.smoothing}")
     print(f"Estimator: {opts.estimator}")
+    print(f"Space / desc-label: {opts.space} / {opts.desc_label}")
     print(f"Resources: {opts.n_cpus} CPUs & {opts.mem_gb} GB memory")
 
     cmd = build_fitlins_command(bids_dir, output_dir, model_json, fmriprep_dir, work_dir, opts)

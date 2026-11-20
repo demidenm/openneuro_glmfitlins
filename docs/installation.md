@@ -24,6 +24,23 @@
    - The repository location is detected automatically (the old `openneuro_glmrepo` key is no longer needed).
    - Any key can be overridden with an environment variable: `GLMFITLINS_DATASETS_FOLDER`, `GLMFITLINS_TMP_FOLDER`, `GLMFITLINS_DATA_TYPE`, `GLMFITLINS_FMRIPREP_SIMG`, `GLMFITLINS_FREESURFER_LICENSE`; `GLMFITLINS_CONFIG` points to a different config file.
 
+   - `fit` (optional): default FitLins options for this machine, e.g. `"fit": {"smoothing": "8:run:iso", "estimator": "nilearn", "n_cpus": 8, "mem_gb": 64}`. Valid keys: `smoothing`, `estimator`, `space`, `desc_label`, `ignore`, `verbosity`, `n_cpus`, `mem_gb`.
+
+   **FitLins option precedence** (`glmfitlins fit`): command-line flag > `fit` block in `path_config.json` > built-in default.
+
+   | Option (flag) | Built-in default |
+   |---|---|
+   | `-s/--smoothing` | `5:run:iso` |
+   | `-e/--estimator` | `nilearn` |
+   | `--space` | `MNI152NLin2009cAsym` |
+   | `--desc-label` | `preproc` |
+   | `--ignore` | `sub-.*_physio\.(json\|tsv\.gz)` |
+   | `--verbosity` | `3` (passes `-vvv`) |
+   | `--n-cpus` | not fixed: `SLURM_CPUS_PER_TASK`, else all CPUs on the machine |
+   | `--mem-gb` | not fixed: the SLURM memory request, else ~90% of physical memory |
+
+   Use `glmfitlins fit ... --dry-run` to see the values that will be used.
+
 4. **Run the CLI.** All steps are subcommands of `glmfitlins`. From the repository folder, prefix commands with `uv run` (no activation needed); or activate the environment once (`source .venv/bin/activate`) and call `glmfitlins` directly. The documentation uses `uv run`.
    ```bash
    uv run glmfitlins --help            # workflow overview and all commands

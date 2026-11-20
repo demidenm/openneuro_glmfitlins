@@ -3,5 +3,9 @@
     "tmp_folder": "/path/to/scratch/openneuro_fitlins",
     "fmriprep_simg": "/path/to/fmriprep_25.1.1.sif",
     "freesurfer_license": "/path/to/freesurfer/license.txt",
-    "data_type": "openneuro"
+    "data_type": "openneuro",
+    "fit": {
+        "smoothing": "5:run:iso",
+        "estimator": "nilearn"
+    }
 }

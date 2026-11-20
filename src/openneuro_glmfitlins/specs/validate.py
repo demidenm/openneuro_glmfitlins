@@ -85,11 +85,18 @@ def validate_spec(spec: dict, task: str, subjects: Optional[list], basic_details
         runs, sessions = task_runs_sessions(basic_details, task)
         want_runs = runs if len(runs) > 1 else None
         want_sessions = sessions if len(sessions) > 0 else None
-        if not _same(inp.get("run"), want_runs):
-            issues.append(Issue("warning", _diff("Input.run vs basic-details task_runs", inp.get("run"), want_runs)))
-        if not _same(inp.get("session"), want_sessions):
-            issues.append(Issue("warning", _diff("Input.session vs basic-details task_sessions",
-                                                 inp.get("session"), want_sessions)))
+        for key, want in (("run", want_runs), ("session", want_sessions)):
+            have = inp.get(key)
+            if _same(have, want):
+                continue
+            label = f"Input.{key} vs basic-details task_{key}s"
+            if have is None:
+                msg = (f"Input.{key} is not set, so all {key}s found in the data are used by default; "
+                       f"basic-details lists {sorted(map(str, want))}. Harmless if that is intended; "
+                       f"run `glmfitlins spec --update` to pin them.")
+            else:
+                msg = _diff(label, have, want)
+            issues.append(Issue("warning", msg))
 
     if contrasts is not None:
         run_node = find_node(spec, "Run")
